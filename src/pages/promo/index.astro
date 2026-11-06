@@ -1,0 +1,647 @@
+---
+import "../../styles/global.css";
+import cubsLogo from "../../assets/cubs-logo.webp";
+import { PromoLeadForm } from "../../components/PromoLeadForm";
+import { PromoCountdown } from "../../components/PromoCountdown";
+import {
+  Sparkles,
+  ShieldCheck,
+  CheckCircle2,
+  Star,
+  ShoppingBag,
+  ArrowRight,
+  MessageCircle,
+  Truck,
+  RotateCcw,
+  Heart,
+  ChevronDown,
+} from "lucide-react";
+
+// Pre-filled WhatsApp URLs for each bundle package
+const waBaseUrl = "https://wa.me/6281234567890?text=";
+
+const waBundle1 = encodeURIComponent(
+  "Halo CUBS Kids, saya mau pesan 'Paket 3 Kaos Petualang' seharga Rp 149.000 (Promo Diskon 40% Meta Ads). Untuk anak usia 3-8 tahun, mohon info motif ready ya!"
+);
+const waBundle2 = encodeURIComponent(
+  "Halo CUBS Kids, saya mau pesan 'Paket Ceria Tidur & Main' seharga Rp 179.000 (Promo Diskon 40% Meta Ads). Mohon info size ready ya!"
+);
+const waBundle3 = encodeURIComponent(
+  "Halo CUBS Kids, saya mau pesan 'Paket Sultan Junior All-in-One' seharga Rp 249.000 (Promo Diskon 40% Meta Ads). Mohon info warna & size ready ya!"
+);
+const waGeneral = encodeURIComponent(
+  "Halo CUBS Kids, saya lihat promo bundling dari Meta Ads. Mau tanya-tanya promo dan konsultasi ukuran untuk anak saya."
+);
+---
+
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Promo Spesial Baju Anak 3 - 8 Tahun | Hemat 40% - CUBS Kids</title>
+    <meta
+      name="description"
+      content="Promo Bundling Baju Anak Usia 3-8 Tahun: Katun Combed 24s Adem, Tagless Bebas Gatal, dan Tahan Cuci Mesin Cuci. Diskon hingga 40% + Garansi Tukar Size 7 Hari!"
+    />
+    <meta property="og:title" content="Promo Spesial Baju Anak 3 - 8 Tahun | CUBS Kids" />
+    <meta
+      property="og:description"
+      content="100% Katun Combed 24s Adem & Tagless. Klaim Voucher Diskon Bundling 40% Sekarang!"
+    />
+    <meta property="og:image" content="/images/hero/hero-kaos.jpg" />
+
+    <!-- Meta Pixel Code Template (Ready for Meta Ads Tracking) -->
+    <!--
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', 'YOUR_PIXEL_ID');
+      fbq('track', 'PageView');
+    </script>
+    -->
+  </head>
+  <body class="bg-[#FCFAF7] text-stone-800 antialiased min-h-screen flex flex-col font-sans selection:bg-amber-200 selection:text-amber-900 pb-20 sm:pb-0">
+    
+    <!-- Top Urgency Notice Bar -->
+    <div class="bg-amber-400 text-stone-900 py-2 px-4 text-center text-xs font-bold border-b border-amber-500/20">
+      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3">
+        <span class="inline-flex items-center gap-1.5">
+          <span>🎉</span>
+          <span>PROMO SPESIAL META ADS: Beli Paket Bundling Hemat Hingga 40% + Subsidi Ongkir!</span>
+        </span>
+        <span class="hidden sm:inline text-amber-900">•</span>
+        <PromoCountdown client:load />
+      </div>
+    </div>
+
+    <!-- Minimalist Distraction-Free Header (No Leaking Nav Links) -->
+    <header class="bg-white border-b border-stone-200/80 sticky top-0 z-40 shadow-2xs">
+      <div class="max-w-6xl mx-auto px-4 py-3 sm:py-3.5 flex items-center justify-between">
+        <!-- Logo CUBS (from src/assets) -->
+        <a href="/promo" class="flex items-center gap-2.5">
+          <img
+            src={cubsLogo.src}
+            alt="CUBS Kids Logo"
+            class="h-8 sm:h-9 w-auto object-contain"
+          />
+          <div class="hidden sm:block text-left">
+            <span class="text-xs font-black text-stone-900 uppercase tracking-wider block leading-none">CUBS Kids</span>
+            <span class="text-[10px] text-emerald-700 font-bold block mt-0.5">Baju Anak Usia 3-8 Thn</span>
+          </div>
+        </a>
+
+        <!-- Fast Action Direct WhatsApp -->
+        <div class="flex items-center gap-3">
+          <div class="hidden md:flex items-center gap-1.5 text-xs text-stone-500 font-semibold">
+            <ShieldCheck className="size-4 text-emerald-600" />
+            <span>Garansi 7 Hari Tukar Size</span>
+          </div>
+
+          <a
+            href={`${waBaseUrl}${waGeneral}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm py-2 px-4 sm:px-5 shadow-xs transition-all active:scale-95"
+          >
+            <MessageCircle className="size-4" />
+            <span>Chat CS CUBS</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 space-y-12 sm:space-y-16">
+      
+      <!-- HERO SECTION: High-Converting Hook & Value Proposition -->
+      <section class="relative pt-8 sm:pt-12 pb-12 sm:pb-16 px-4 sm:px-6 bg-[#EBF7EE] border-b border-[#C7EBD0]">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            <!-- Left: Headline & Offer -->
+            <div class="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left">
+              <!-- Pill Badge -->
+              <div class="inline-flex items-center gap-2 rounded-full bg-white border border-stone-200 px-3.5 py-1 text-xs font-bold text-emerald-900 shadow-2xs">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                <span>Khusus Anak Usia 3 - 8 Tahun • Koleksi Ceria 2026</span>
+              </div>
+
+              <!-- Main Sales Headline -->
+              <h1 class="text-2xl sm:text-4xl md:text-5xl font-black text-stone-900 tracking-tight leading-[1.15]">
+                Baju Anak Super Adem, <span class="text-emerald-800">Bebas Label Gatal</span> & Tahan Cuci Mesin!
+              </h1>
+
+              <!-- Subheadline -->
+              <p class="text-sm sm:text-base text-stone-700 leading-relaxed font-normal max-w-xl mx-auto lg:mx-0">
+                100% Katun Combed 24s berpori adem dan katun bambu yang sejuk alami di kulit sensitif si kecil. Tanpa label leher yang menusuk, jahitan rantai ekstra kuat, siap menemani petualangan aktif buah hati Bunda!
+              </p>
+
+              <!-- Value Bullet Points -->
+              <div class="grid grid-cols-2 gap-2.5 sm:gap-3 text-left max-w-lg mx-auto lg:mx-0">
+                <div class="flex items-center gap-2 bg-white/90 p-2.5 rounded-2xl border border-stone-200/80 text-xs font-bold text-stone-800">
+                  <span class="text-base">🌬️</span>
+                  <span>100% Katun Adem</span>
+                </div>
+                <div class="flex items-center gap-2 bg-white/90 p-2.5 rounded-2xl border border-stone-200/80 text-xs font-bold text-stone-800">
+                  <span class="text-base">🏷️</span>
+                  <span>Tagless Bebas Gatal</span>
+                </div>
+                <div class="flex items-center gap-2 bg-white/90 p-2.5 rounded-2xl border border-stone-200/80 text-xs font-bold text-stone-800">
+                  <span class="text-base">🧼</span>
+                  <span>Sablon Tahan Mesin</span>
+                </div>
+                <div class="flex items-center gap-2 bg-white/90 p-2.5 rounded-2xl border border-stone-200/80 text-xs font-bold text-stone-800">
+                  <span class="text-base">🔄</span>
+                  <span>Garansi Tukar Size</span>
+                </div>
+              </div>
+
+              <!-- Action CTAs -->
+              <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+                <a
+                  href="#form-klaim"
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm sm:text-base py-4 px-8 shadow-md hover:shadow-lg active:scale-98 transition-all"
+                >
+                  <Sparkles className="size-4.5" />
+                  <span>Klaim Promo Bundling Diskon 40%</span>
+                  <ArrowRight className="size-4" />
+                </a>
+
+                <a
+                  href="#pilihan-paket"
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white hover:bg-stone-50 text-stone-800 font-bold text-xs sm:text-sm py-3.5 px-6 border border-stone-200 transition-colors"
+                >
+                  <span>Lihat Pilihan Paket</span>
+                  <ChevronDown className="size-4" />
+                </a>
+              </div>
+
+              <!-- Social Proof Counter -->
+              <div class="pt-1 flex items-center justify-center lg:justify-start gap-3 text-xs text-stone-600">
+                <div class="flex items-center -space-x-1.5">
+                  <span class="inline-block w-6 h-6 rounded-full bg-amber-200 border-2 border-white text-center text-xs">👩</span>
+                  <span class="inline-block w-6 h-6 rounded-full bg-rose-200 border-2 border-white text-center text-xs">👩‍🦰</span>
+                  <span class="inline-block w-6 h-6 rounded-full bg-sky-200 border-2 border-white text-center text-xs">👨</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1 text-amber-500 font-bold">
+                    <Star className="size-3.5 fill-amber-400 stroke-amber-400" />
+                    <span>4.9 / 5</span>
+                  </div>
+                  <p class="text-[11px] text-stone-500">Dipercaya 2.800+ Bunda Indonesia</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Visual Hero with Floating Badges -->
+            <div class="lg:col-span-5 relative flex items-center justify-center">
+              <div class="relative w-full max-w-[340px] sm:max-w-[400px] h-[340px] sm:h-[420px] rounded-3xl overflow-hidden border-4 border-white bg-white shadow-xl">
+                <img
+                  src="/images/hero/hero-kaos.jpg"
+                  alt="Promo Bundling Baju Anak CUBS Kids"
+                  class="w-full h-full object-cover object-center"
+                />
+
+                <!-- Top Discount Badge -->
+                <div class="absolute top-3 right-3 bg-rose-600 text-white font-black text-xs px-3 py-1.5 rounded-full shadow-md animate-bounce">
+                  HEMAT 40%
+                </div>
+
+                <!-- Bottom Floating Card -->
+                <div class="absolute bottom-3 inset-x-3 bg-white/95 backdrop-blur-xs p-3 rounded-2xl border border-stone-200/80 shadow-md flex items-center justify-between">
+                  <div>
+                    <span class="text-[10px] font-bold text-emerald-800 uppercase tracking-wider bg-emerald-100 px-2 py-0.5 rounded-md">Promo Hari Ini</span>
+                    <p class="text-xs font-bold text-stone-900 mt-1">Paket Bundling Anak Aktif</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-xs text-stone-400 line-through">Rp 207.000</p>
+                    <p class="text-base font-black text-rose-600">Rp 149.000</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: 3 PILIHAN PAKET PROMO BUNDLING -->
+      <section id="pilihan-paket" class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-xl mx-auto mb-10 space-y-2">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">
+            <ShoppingBag className="size-3.5" />
+            <span>Pilihan Paket Hemat Meta Ads</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-black text-stone-900">
+            Pilih Paket Bundling Terbaik untuk Si Kecil
+          </h2>
+          <p class="text-xs sm:text-sm text-stone-600">
+            Semua paket bebas pilih ukuran (Size 4, Size 6, atau Size 8) dan bebas pilih varian motif yang tersedia.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          
+          <!-- Paket 1 -->
+          <div class="rounded-3xl bg-white border-2 border-stone-200 p-6 sm:p-7 shadow-xs hover:border-emerald-500 hover:shadow-lg transition-all flex flex-col justify-between space-y-6">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">
+                  Paling Laris
+                </span>
+                <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-md">
+                  Hemat Rp 58rb
+                </span>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-bold text-stone-900">Paket 3 Kaos Petualang</h3>
+                <p class="text-xs text-stone-500 mt-1">Solusi baju harian super adem & tahan cuci</p>
+              </div>
+
+              <div class="py-2 border-y border-stone-100">
+                <p class="text-xs text-stone-400 line-through">Rp 207.000</p>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-3xl font-black text-stone-900">Rp 149.000</span>
+                  <span class="text-xs text-stone-500 font-medium">/ 3 Pcs Kaos</span>
+                </div>
+              </div>
+
+              <ul class="space-y-2.5 text-xs text-stone-700">
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span><strong>3 Kaos Katun Combed 24s</strong> (Bebas pilih motif)</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span>Kerah Rib Elastis & <strong>Tagless Bebas Gatal</strong></span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span>Sablon Ramah Anak Tidak Mudah Retak</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span><strong>Free Stiker Karakter Ceria CUBS</strong></span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              <a
+                href={`${waBaseUrl}${waBundle1}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm py-3 px-4 shadow-xs active:scale-98 transition-all text-center"
+              >
+                <MessageCircle className="size-4" />
+                <span>Pesan Paket 3 Kaos via WA</span>
+              </a>
+              <p class="text-[11px] text-stone-400 text-center">Bisa Bayar di Tempat (COD)</p>
+            </div>
+          </div>
+
+          <!-- Paket 2: Highlighted Best Seller -->
+          <div class="rounded-3xl bg-[#FFFDF5] border-2 border-amber-400 p-6 sm:p-7 shadow-lg relative flex flex-col justify-between space-y-6">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-[11px] font-black uppercase tracking-wider px-4 py-1 rounded-full shadow-xs">
+              ⭐ Rekomendasi Bunda (Best Seller)
+            </div>
+
+            <div class="space-y-4 pt-1">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-900 bg-amber-200 px-3 py-1 rounded-full">
+                  Tidur & Main
+                </span>
+                <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-md">
+                  Hemat Rp 69rb
+                </span>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-bold text-stone-900">Paket Ceria Tidur & Main</h3>
+                <p class="text-xs text-stone-500 mt-1">Lengkap untuk siang hari aktif & tidur pulas</p>
+              </div>
+
+              <div class="py-2 border-y border-amber-200/60">
+                <p class="text-xs text-stone-400 line-through">Rp 248.000</p>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-3xl font-black text-stone-900">Rp 179.000</span>
+                  <span class="text-xs text-stone-500 font-medium">/ 3 Pcs Lengkap</span>
+                </div>
+              </div>
+
+              <ul class="space-y-2.5 text-xs text-stone-700">
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span><strong>1 Setelan Piyama Katun Bambu</strong> (Sejuk & Anti-Gerah)</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span><strong>2 Kaos Katun Combed 24s</strong> Bebas Pilih Motif</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span>Karet Pinggang Piyama Lembut Tanpa Bekas</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span><strong>Free Pouch Serbaguna CUBS Kids</strong></span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              <a
+                href={`${waBaseUrl}${waBundle2}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-black text-sm py-3.5 px-4 shadow-md active:scale-98 transition-all text-center"
+              >
+                <MessageCircle className="size-4" />
+                <span>Pesan Paket Tidur & Main via WA</span>
+              </a>
+              <p class="text-[11px] text-amber-800 text-center font-medium">🔥 Sisa 9 Kuota untuk Harga Promo Ini</p>
+            </div>
+          </div>
+
+          <!-- Paket 3 -->
+          <div class="rounded-3xl bg-white border-2 border-stone-200 p-6 sm:p-7 shadow-xs hover:border-emerald-500 hover:shadow-lg transition-all flex flex-col justify-between space-y-6">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-sky-900 bg-sky-100 px-3 py-1 rounded-full">
+                  All-in-One
+                </span>
+                <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-md">
+                  Hemat Rp 127rb
+                </span>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-bold text-stone-900">Paket Sultan Junior</h3>
+                <p class="text-xs text-stone-500 mt-1">Koleksi lengkap jalan-jalan, tidur & bermain</p>
+              </div>
+
+              <div class="py-2 border-y border-stone-100">
+                <p class="text-xs text-stone-400 line-through">Rp 376.000</p>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-3xl font-black text-stone-900">Rp 249.000</span>
+                  <span class="text-xs text-stone-500 font-medium">/ 4 Pcs Mewah</span>
+                </div>
+              </div>
+
+              <ul class="space-y-2.5 text-xs text-stone-700">
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span><strong>1 Jaket Hoodie Zipper</strong> (Baby Terry Lembut)</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span><strong>1 Celana Jogger Stretch</strong> (Lentur & Nyaman)</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span><strong>2 Kaos Katun Combed 24s</strong> Motif Ceria</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                  <span><strong>Subsidi Ongkir Rp 20.000</strong> se-Indonesia</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              <a
+                href={`${waBaseUrl}${waBundle3}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm py-3 px-4 shadow-xs active:scale-98 transition-all text-center"
+              >
+                <MessageCircle className="size-4" />
+                <span>Pesan Paket Sultan via WA</span>
+              </a>
+              <p class="text-[11px] text-stone-400 text-center">Bisa Bayar di Tempat (COD)</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: INTERACTIVE LEAD CAPTURE FORM -->
+      <section class="max-w-6xl mx-auto px-4 sm:px-6">
+        <PromoLeadForm client:load />
+      </section>
+
+      <!-- SECTION: PANDUAN UKURAN (SIZE CHART) -->
+      <section class="max-w-4xl mx-auto px-4 sm:px-6">
+        <div class="rounded-3xl bg-white border border-stone-200/80 p-6 sm:p-8 space-y-6">
+          <div class="text-center space-y-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full">
+              Size Chart Standar CUBS Kids
+            </span>
+            <h3 class="text-xl sm:text-2xl font-bold text-stone-900">
+              Panduan Memilih Ukuran yang Pas untuk Anak
+            </h3>
+            <p class="text-xs sm:text-sm text-stone-500">
+              Jangan khawatir salah ukuran! CUBS memberikan garansi tukar size jika baju yang dipesan kekecilan/kebesaran.
+            </p>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-stone-50 border-b border-stone-200 text-stone-700">
+                  <th class="py-3 px-4 font-bold">Ukuran</th>
+                  <th class="py-3 px-4 font-bold">Rekomendasi Usia</th>
+                  <th class="py-3 px-4 font-bold">Estimasi Berat Badan</th>
+                  <th class="py-3 px-4 font-bold">Panjang Baju</th>
+                  <th class="py-3 px-4 font-bold">Lebar Dada</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-100 text-stone-600">
+                <tr class="hover:bg-stone-50/50">
+                  <td class="py-3 px-4 font-bold text-emerald-700">Size 4</td>
+                  <td class="py-3 px-4">3 - 4 Tahun</td>
+                  <td class="py-3 px-4">13 - 17 kg</td>
+                  <td class="py-3 px-4">44 cm</td>
+                  <td class="py-3 px-4">34 cm</td>
+                </tr>
+                <tr class="hover:bg-stone-50/50 bg-[#FDFBF7]">
+                  <td class="py-3 px-4 font-bold text-emerald-700">Size 6</td>
+                  <td class="py-3 px-4">5 - 6 Tahun</td>
+                  <td class="py-3 px-4">18 - 22 kg</td>
+                  <td class="py-3 px-4">48 cm</td>
+                  <td class="py-3 px-4">37 cm</td>
+                </tr>
+                <tr class="hover:bg-stone-50/50">
+                  <td class="py-3 px-4 font-bold text-emerald-700">Size 8</td>
+                  <td class="py-3 px-4">7 - 8 Tahun</td>
+                  <td class="py-3 px-4">23 - 28 kg</td>
+                  <td class="py-3 px-4">52 cm</td>
+                  <td class="py-3 px-4">40 cm</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bg-amber-50 rounded-2xl p-3.5 border border-amber-200/70 text-xs text-amber-900 flex items-start gap-2.5">
+            <span class="text-base shrink-0">💡</span>
+            <p>
+              <strong>Tips Bunda:</strong> Jika tubuh buah hati lebih berisi atau tinggi di atas rata-rata usianya, kami menyarankan memilih 1 tingkat ukuran di atasnya agar lebih leluasa dan awet dipakai bertumbuh kembang!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: REAL SOCIAL PROOF & TESTIMONIALS -->
+      <section class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-xl mx-auto mb-10 space-y-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-3 py-1 rounded-full">
+            Kata Bunda & Ayah
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-black text-stone-900">
+            Cerita Asli dari Para Orang Tua
+          </h2>
+          <p class="text-xs sm:text-sm text-stone-600">
+            Lebih dari 2.800+ Bunda telah membuktikan kualitas dan kenyamanan baju CUBS Kids.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="rounded-3xl bg-white p-6 border border-stone-200/80 shadow-xs space-y-3">
+            <div class="flex items-center gap-1 text-amber-500">
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+            </div>
+            <p class="text-xs sm:text-sm text-stone-700 leading-relaxed italic">
+              &quot;Beli paket bundling 3 kaos buat Kenzo (4 thn). Beneran adem dipakai lari-larian di playground siang-siang ga bikin punggung biang keringat. Sablon dino-nya awet banget ga ngelupas dicuci mesin!&quot;
+            </p>
+            <div class="pt-2 border-t border-stone-100 flex items-center gap-2.5">
+              <span class="text-2xl">👩</span>
+              <div>
+                <p class="text-xs font-bold text-stone-900">Bunda Rini</p>
+                <p class="text-[11px] text-stone-500">Ibu dari Kenzo (4 Tahun) • Jakarta</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-3xl bg-white p-6 border border-stone-200/80 shadow-xs space-y-3">
+            <div class="flex items-center gap-1 text-amber-500">
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+            </div>
+            <p class="text-xs sm:text-sm text-stone-700 leading-relaxed italic">
+              &quot;Piyama katun bambunya juara! Anakku biasanya gampang rewel bangun tengah malam karena gerah, pas pake piyama CUBS tidurnya pulas sampai pagi. Bahannya jatuh dan adem semriwing.&quot;
+            </p>
+            <div class="pt-2 border-t border-stone-100 flex items-center gap-2.5">
+              <span class="text-2xl">👩‍🦰</span>
+              <div>
+                <p class="text-xs font-bold text-stone-900">Bunda Sarah</p>
+                <p class="text-[11px] text-stone-500">Ibu dari Mikha (5 Tahun) • Surabaya</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-3xl bg-white p-6 border border-stone-200/80 shadow-xs space-y-3">
+            <div class="flex items-center gap-1 text-amber-500">
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+            </div>
+            <p class="text-xs sm:text-sm text-stone-700 leading-relaxed italic">
+              &quot;Pelayanannya ramah banget. Sempat salah pilih size kekecilan, terus dibantu tukar ukuran tanpa dipersulit sama CS-nya. Baju gantinya cepat sampai. Recommended seller!&quot;
+            </p>
+            <div class="pt-2 border-t border-stone-100 flex items-center gap-2.5">
+              <span class="text-2xl">👨</span>
+              <div>
+                <p class="text-xs font-bold text-stone-900">Ayah Fajar</p>
+                <p class="text-[11px] text-stone-500">Ayah dari Aluna (6 Tahun) • Bandung</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: FAQ KHUSUS PROMO META ADS -->
+      <section class="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
+        <div class="rounded-3xl bg-[#F8FBF9] border border-emerald-100 p-6 sm:p-8 space-y-6">
+          <div class="text-center space-y-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">
+              FAQ Seputar Promo
+            </span>
+            <h3 class="text-xl sm:text-2xl font-bold text-stone-900">
+              Pertanyaan yang Kerap Ditanyakan Bunda
+            </h3>
+          </div>
+
+          <div class="space-y-3">
+            <div class="rounded-2xl bg-white p-4 border border-stone-200/80 space-y-1">
+              <h4 class="font-bold text-sm text-stone-900">Apakah bisa bayar di tempat (COD)?</h4>
+              <p class="text-xs text-stone-600 leading-relaxed">
+                Bisa! CUBS Kids melayani pembayaran COD (Cash on Delivery) ke seluruh wilayah kota dan kecamatan di Indonesia yang terjangkau ekspedisi mitra kami.
+              </p>
+            </div>
+
+            <div class="rounded-2xl bg-white p-4 border border-stone-200/80 space-y-1">
+              <h4 class="font-bold text-sm text-stone-900">Bagaimana jika baju yang sampai kebesaran atau kekecilan?</h4>
+              <p class="text-xs text-stone-600 leading-relaxed">
+                Tenang Bunda, kami memberikan <strong>Garansi Tukar Ukuran 7 Hari</strong> setelah paket diterima. Cukup pastikan baju belum dicuci dan label belum dilepas, tim kami akan membantu menukarkan size yang pas.
+              </p>
+            </div>
+
+            <div class="rounded-2xl bg-white p-4 border border-stone-200/80 space-y-1">
+              <h4 class="font-bold text-sm text-stone-900">Berapa lama waktu pengiriman pesanan?</h4>
+              <p class="text-xs text-stone-600 leading-relaxed">
+                Pesanan yang dikonfirmasi sebelum pukul 15.00 WIB dikirim pada hari yang sama dari Jakarta. Estimasi tiba 1-2 hari kerja untuk area Jabodetabek dan 2-4 hari kerja untuk kota lainnya.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Dedicated Landing Page Footer -->
+    <footer class="bg-white border-t border-stone-200 py-8 px-4 text-center text-xs text-stone-500 space-y-3">
+      <div class="flex items-center justify-center gap-2">
+        <img src={cubsLogo.src} alt="CUBS Kids" class="h-6 w-auto object-contain" />
+        <span class="font-bold text-stone-800">CUBS Kids Official Store</span>
+      </div>
+      <p class="max-w-md mx-auto text-[11px] text-stone-400">
+        Pakaian anak katun combed 24s & katun bambu berkualitas tinggi untuk anak usia 3 hingga 8 tahun. Dibuat dengan penuh cinta untuk senyum ceria si kecil.
+      </p>
+      <p class="text-[11px] text-stone-400">
+        &copy; {new Date().getFullYear()} CUBS Kids. Seluruh Hak Cipta Dilindungi.
+      </p>
+    </footer>
+
+    <!-- STICKY FLOATING CTA BAR ON MOBILE (MAXIMIZES META ADS CONVERSION) -->
+    <div class="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-stone-200 p-3 z-50 sm:hidden flex items-center justify-between gap-3 shadow-2xl">
+      <div class="min-w-0">
+        <span class="text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">Hemat 40%</span>
+        <p class="text-xs font-black text-stone-900 truncate">Paket Bundling Anak Aktif</p>
+      </div>
+
+      <a
+        href="#form-klaim"
+        class="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-black text-xs py-2.5 px-4 shadow-sm"
+      >
+        <Sparkles className="size-3.5" />
+        <span>Klaim Promo</span>
+      </a>
+    </div>
+
+  </body>
+</html>
+
