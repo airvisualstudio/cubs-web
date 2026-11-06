@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import ProductCard from "../components/ProductCard.astro";
 import { HeroSlider } from "../components/HeroSlider";
 import { FaqSection } from "../components/FaqSection";
-import { getProducts, getFaq } from "../lib/keystatic";
+import { getProducts, getFaq, getJumbotron } from "../lib/keystatic";
 import {
   Sparkles,
   ArrowRight,
@@ -15,10 +15,11 @@ import {
   Award,
 } from "lucide-react";
 
-// Fetch products & FAQ from Keystatic
+// Fetch products, FAQ & Jumbotron from Keystatic
 const allProducts = await getProducts();
 const featuredProducts = allProducts.filter((p) => p.entry.featured).slice(0, 4);
 const faqData = await getFaq();
+const jumbotronSlides = await getJumbotron();
 
 // Categories for kids 3-8 years in clean solid pastels
 const categories = [
@@ -84,8 +85,8 @@ const testimonials = [
   title="CUBS - Bright Wear for Little Adventurers."
   description="Koleksi pakaian anak usia 3 hingga 8 tahun berbahan 100% katun combed dan katun bambu yang adem, bebas gatal, dan kuat untuk aktivitas bermain si kecil."
 >
-  <!-- Jumbotron Gambar Besar Full-Width Slider -->
-  <HeroSlider client:load />
+  <!-- Jumbotron Gambar Besar Full-Width Slider (Dynamic from Keystatic) -->
+  <HeroSlider client:load initialSlides={jumbotronSlides} />
 
   <!-- Categories Section -->
   <section class="py-12 px-4 sm:px-6 bg-white border-y border-amber-100">

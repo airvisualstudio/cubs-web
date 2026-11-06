@@ -147,6 +147,104 @@ export default config({
     }),
   },
   singletons: {
+    jumbotron: singleton({
+      label: 'Jumbotron',
+      path: 'src/content/jumbotron',
+      format: { data: 'json' },
+      schema: {
+        slides: fields.array(
+          fields.object({
+            badge: fields.text({
+              label: 'Badge Pill (Atas)',
+              defaultValue: 'Koleksi Baju Ceria • Usia 3-8 Tahun',
+            }),
+            themeColor: fields.select({
+              label: 'Warna Tema Pastel Background',
+              options: [
+                { label: 'Hijau Mint (Mint Pastel)', value: 'mint' },
+                { label: 'Kuning Butter (Butter Pastel)', value: 'butter' },
+                { label: 'Merah Muda (Blossom Pink)', value: 'pink' },
+                { label: 'Biru Langit (Sky Blue)', value: 'sky' },
+                { label: 'Ungu Lavender (Lavender Pastel)', value: 'lavender' },
+                { label: 'Oranye Peach (Peach Pastel)', value: 'peach' },
+              ],
+              defaultValue: 'mint',
+            }),
+            title: fields.text({
+              label: 'Judul Utama (Baris 1)',
+              defaultValue: 'Kaos Katun Combed Adem & Nyaman untuk',
+            }),
+            highlightText: fields.text({
+              label: 'Teks Sorotan Berwarna (Baris 2)',
+              defaultValue: 'Petualangan Aktif Si Kecil',
+            }),
+            description: fields.text({
+              label: 'Deskripsi Singkat Jumbotron',
+              multiline: true,
+              defaultValue:
+                '100% Katun Combed 24s berpori adem, sablon ramah anak yang tidak mudah retak dicuci mesin cuci, serta leher tagless bebas gatal.',
+            }),
+            primaryBtnText: fields.text({
+              label: 'Teks Tombol Utama',
+              defaultValue: 'Lihat Koleksi Baju',
+            }),
+            primaryBtnHref: fields.text({
+              label: 'Link Tombol Utama',
+              defaultValue: '/products',
+            }),
+            secondaryBtnText: fields.text({
+              label: 'Teks Tombol Konsultasi (WhatsApp)',
+              defaultValue: 'Konsultasi Size Chart',
+            }),
+            secondaryBtnHref: fields.text({
+              label: 'Link Tombol Konsultasi (WhatsApp)',
+              defaultValue: 'https://wa.me/6281234567890?text=Halo%20CUBS,%20saya%20mau%20tanya%20size%20chart%20baju%20anak',
+            }),
+            image: fields.image({
+              label: 'Foto Gambar Besar Jumbotron',
+              directory: 'public/images/hero',
+              publicPath: '/images/hero/',
+            }),
+            imageAlt: fields.text({
+              label: 'Alt Text Foto',
+              defaultValue: 'Anak ceria memakai baju CUBS Kids',
+            }),
+            sizeBadgeText: fields.text({
+              label: 'Badge Ukuran (Pojok Kiri Atas Foto)',
+              defaultValue: 'Size 4 • 6 • 8 (3-8 Thn)',
+            }),
+            productLabel: fields.text({
+              label: 'Nama Koleksi / Produk (Pojok Bawah Foto)',
+              defaultValue: 'Koleksi Baju Anak Ceria',
+            }),
+            ratingText: fields.text({
+              label: 'Rating Produk',
+              defaultValue: '4.9/5',
+            }),
+            tags: fields.array(
+              fields.object({
+                icon: fields.text({
+                  label: 'Icon / Emoji (misal: 🦖, 🌬️, ⭐, 🏷️)',
+                  defaultValue: '✨',
+                }),
+                label: fields.text({
+                  label: 'Teks Fitur Keunggulan',
+                  defaultValue: 'Bahan Adem',
+                }),
+              }),
+              {
+                label: 'Pills Fitur Keunggulan (Bawah Tombol)',
+                itemLabel: (props) => `${props.fields.icon.value || '✨'} ${props.fields.label.value || 'Fitur'}`,
+              }
+            ),
+          }),
+          {
+            label: 'Daftar Slide Jumbotron (Bisa Tambah, Ubah, & Hapus Slide)',
+            itemLabel: (props) => props.fields.title.value || props.fields.highlightText.value || 'Slide Jumbotron Baru',
+          }
+        ),
+      },
+    }),
     faq: singleton({
       label: 'FAQ (Tanya Jawab Baju Anak)',
       path: 'src/content/faq',

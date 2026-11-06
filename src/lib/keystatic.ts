@@ -64,6 +64,33 @@ export interface FaqData {
   items?: readonly FaqItem[] | FaqItem[] | null;
 }
 
+export interface JumbotronTag {
+  icon: string;
+  label: string;
+}
+
+export interface JumbotronSlideItem {
+  badge: string;
+  themeColor?: 'mint' | 'butter' | 'pink' | 'sky' | 'lavender' | 'peach' | string;
+  title: string;
+  highlightText: string;
+  description: string;
+  primaryBtnText: string;
+  primaryBtnHref: string;
+  secondaryBtnText: string;
+  secondaryBtnHref: string;
+  image?: string | null;
+  imageAlt?: string | null;
+  sizeBadgeText?: string | null;
+  productLabel?: string | null;
+  ratingText?: string | null;
+  tags?: readonly JumbotronTag[] | JumbotronTag[] | null;
+}
+
+export interface JumbotronData {
+  slides?: readonly JumbotronSlideItem[] | JumbotronSlideItem[] | null;
+}
+
 export async function getProducts(): Promise<ProductItem[]> {
   try {
     const items = await reader.collections.products.all();
@@ -106,6 +133,18 @@ export async function getFaq(): Promise<FaqData> {
       items: [],
     };
   }
+}
+
+export async function getJumbotron(): Promise<JumbotronSlideItem[]> {
+  try {
+    const data = await reader.singletons.jumbotron.read();
+    if (data?.slides && Array.isArray(data.slides) && data.slides.length > 0) {
+      return data.slides as JumbotronSlideItem[];
+    }
+  } catch (err) {
+    console.error('Error fetching Jumbotron from Keystatic:', err);
+  }
+  return [];
 }
 
 export function formatRupiah(amount?: number | null): string {

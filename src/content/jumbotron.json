@@ -1,0 +1,88 @@
+{
+  "slides": [
+    {
+      "badge": "Koleksi Kaos Ceria • Usia 3-8 Tahun",
+      "themeColor": "mint",
+      "title": "Kaos Katun Combed Adem & Nyaman untuk",
+      "highlightText": "Petualangan Aktif Si Kecil",
+      "description": "100% Katun Combed 24s berpori adem, sablon ramah anak yang tidak mudah retak dicuci mesin cuci, serta leher tagless bebas gatal.",
+      "primaryBtnText": "Lihat Koleksi Kaos",
+      "primaryBtnHref": "/products?category=atasan",
+      "secondaryBtnText": "Konsultasi Size Chart",
+      "secondaryBtnHref": "https://wa.me/6281234567890?text=Halo%20CUBS,%20saya%20mau%20tanya%20size%20chart%20kaos%20anak%203-8%20tahun",
+      "image": "/images/hero/hero-kaos.jpg",
+      "imageAlt": "Anak ceria memakai kaos katun adem CUBS Kids",
+      "sizeBadgeText": "Size 4 • 6 • 8 (3-8 Thn)",
+      "productLabel": "Kaos Katun Dino Adventure",
+      "ratingText": "4.9/5",
+      "tags": [
+        { "icon": "🦖", "label": "Sablon Dino Awet" },
+        { "icon": "🌬️", "label": "Katun Combed 24s" },
+        { "icon": "🏷️", "label": "Tagless Bebas Gatal" }
+      ]
+    },
+    {
+      "badge": "Best Seller Tidur • Katun Bambu Organik",
+      "themeColor": "butter",
+      "title": "Tidur Pulas & Nyenyak Sepanjang Malam",
+      "highlightText": "Bebas Keringat & Gerah",
+      "description": "Piyama katun bambu yang sejuk alami di iklim tropis, menyerap keringat 3x lebih cepat, dengan celana berpinggang elastis lembut tanpa bekas di perut.",
+      "primaryBtnText": "Lihat Setelan Piyama",
+      "primaryBtnHref": "/products?category=setelan",
+      "secondaryBtnText": "Pesan via WhatsApp",
+      "secondaryBtnHref": "https://wa.me/6281234567890?text=Halo%20CUBS,%20saya%20tertarik%20dengan%20piyama%20katun%20bambu%20anak",
+      "image": "/images/hero/hero-piyama.jpg",
+      "imageAlt": "Anak tidur nyenyak memakai piyama katun bambu CUBS Kids",
+      "sizeBadgeText": "Size 4 • 6 • 8 (3-8 Thn)",
+      "productLabel": "Setelan Piyama Bambu Cubby Star",
+      "ratingText": "4.9/5",
+      "tags": [
+        { "icon": "⭐", "label": "Katun Bambu Sejuk" },
+        { "icon": "🌿", "label": "Bebas Iritasi Kulit" },
+        { "icon": "😴", "label": "Tidur Pulas Nyenyak" }
+      ]
+    },
+    {
+      "badge": "Dress Manis • Cantik & Anggun",
+      "themeColor": "pink",
+      "title": "Dress Katun Manis yang Bikin Putri Kecil",
+      "highlightText": "Makin Ceria Saat Berputar",
+      "description": "Potongan rok A-line mekar mengembang saat berputar, bahan katun rayon twill premium yang jatuh lembut dan tidak gerah dipakai bermain seharian.",
+      "primaryBtnText": "Lihat Koleksi Dress",
+      "primaryBtnHref": "/products?category=dress",
+      "secondaryBtnText": "Cek Stok Ukuran",
+      "secondaryBtnHref": "https://wa.me/6281234567890?text=Halo%20CUBS,%20saya%20mau%20tanya%20koleksi%20dress%20anak",
+      "image": "/images/hero/hero-dress.jpg",
+      "imageAlt": "Anak perempuan memakai dress katun ceria CUBS Kids",
+      "sizeBadgeText": "Size 4 • 6 • 8 (3-8 Thn)",
+      "productLabel": "Dress Katun Summer Floral Breeze",
+      "ratingText": "4.9/5",
+      "tags": [
+        { "icon": "👗", "label": "Mekar Saat Berputar" },
+        { "icon": "🌸", "label": "Motif Pastel Ceria" },
+        { "icon": "✨", "label": "Jatuh Halus & Ringan" }
+      ]
+    },
+    {
+      "badge": "Sporty & Outdoor • Liburan & Cuaca Dingin",
+      "themeColor": "sky",
+      "title": "Jaket Hoodie Zipper & Jogger Stretch untuk",
+      "highlightText": "Aktivitas Seru Si Kecil",
+      "description": "Baby terry cotton lembut berpori yang melindungi dari angin dingin tanpa membuat sumuk. Ritsleting halus dengan pelindung dagu aman untuk si kecil.",
+      "primaryBtnText": "Lihat Jaket & Celana",
+      "primaryBtnHref": "/products?category=bawahan-outer",
+      "secondaryBtnText": "Tanya Customer Service",
+      "secondaryBtnHref": "https://wa.me/6281234567890?text=Halo%20CUBS,%20saya%20mau%20tanya%20jaket%20hoodie%20anak",
+      "image": "/images/hero/hero-jaket.jpg",
+      "imageAlt": "Anak memakai jaket hoodie sporty CUBS Kids",
+      "sizeBadgeText": "Size 4 • 6 • 8 (3-8 Thn)",
+      "productLabel": "Jaket Hoodie Zipper Cubs Active",
+      "ratingText": "4.9/5",
+      "tags": [
+        { "icon": "🧥", "label": "Baby Terry Halus" },
+        { "icon": "⚡", "label": "Lentur 4-Way Stretch" },
+        { "icon": "🛡️", "label": "Pelindung Ritsleting" }
+      ]
+    }
+  ]
+}
