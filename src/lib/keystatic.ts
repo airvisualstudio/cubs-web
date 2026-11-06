@@ -147,6 +147,56 @@ export async function getJumbotron(): Promise<JumbotronSlideItem[]> {
   return [];
 }
 
+export interface WhyCubsItem {
+  icon: string;
+  iconColor?: 'amber' | 'rose' | 'sky' | 'emerald' | 'purple' | string;
+  title: string;
+  description: string;
+}
+
+export interface WhyCubsData {
+  badge?: string | null;
+  title?: string | null;
+  description?: string | null;
+  items?: readonly WhyCubsItem[] | WhyCubsItem[] | null;
+}
+
+export async function getWhyCubs(): Promise<WhyCubsData> {
+  try {
+    const data = await reader.singletons.whyCubs.read();
+    if (data) {
+      return data as WhyCubsData;
+    }
+  } catch (err) {
+    console.error('Error fetching Why CUBS from Keystatic:', err);
+  }
+  return {
+    badge: 'Kualitas Teruji untuk Anak Aktif',
+    title: 'Kenapa Baju CUBS Paling Pas untuk Usia 3 - 8 Tahun?',
+    description: 'Anak usia 3-8 tahun sangat aktif berlari, melompat, dan bereksplorasi. Bajunya harus nyaman dan kuat!',
+    items: [
+      {
+        icon: '🌬️',
+        iconColor: 'amber',
+        title: 'Serat Katun Menyerap Keringat',
+        description: 'Terbuat dari 100% Katun Combed 24s dan katun bambu berkualitas tinggi yang sejuk di badan anak, mencegah biang keringat meski bermain seharian di bawah terik matahari.',
+      },
+      {
+        icon: '🏷️',
+        iconColor: 'rose',
+        title: 'Bebas Label Leher Gatal (Tagless)',
+        description: 'Banyak anak menolak memakai baju karena label kain di belakang leher menusuk. Semua baju CUBS menggunakan sablon leher halus tanpa label fisik yang membuat gatal.',
+      },
+      {
+        icon: '💪',
+        iconColor: 'sky',
+        title: 'Jahitan Rantai Kuat & Elastis',
+        description: 'Jahitan ganda di bagian kerah, pundak, dan selangkangan celana menjamin baju tidak gampang sobek atau melar meski sering dicuci dan ditarik-tarik saat anak bermain aktif.',
+      },
+    ],
+  };
+}
+
 export function formatRupiah(amount?: number | null): string {
   if (amount == null) return 'Rp 0';
   return new Intl.NumberFormat('id-ID', {

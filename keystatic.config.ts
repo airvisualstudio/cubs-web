@@ -281,5 +281,59 @@ export default config({
         ),
       },
     }),
+    whyCubs: singleton({
+      label: 'WHY CUBS',
+      path: 'src/content/why-cubs',
+      format: { data: 'json' },
+      schema: {
+        badge: fields.text({
+          label: 'Badge Header',
+          defaultValue: 'Kualitas Teruji untuk Anak Aktif',
+        }),
+        title: fields.text({
+          label: 'Judul Utama',
+          defaultValue: 'Kenapa Baju CUBS Paling Pas untuk Usia 3 - 8 Tahun?',
+        }),
+        description: fields.text({
+          label: 'Deskripsi Singkat',
+          multiline: true,
+          defaultValue:
+            'Anak usia 3-8 tahun sangat aktif berlari, melompat, dan bereksplorasi. Bajunya harus nyaman dan kuat!',
+        }),
+        items: fields.array(
+          fields.object({
+            icon: fields.text({
+              label: 'Icon / Emoji (misal: 🌬️, 🏷️, 💪, 🩳, ✨)',
+              defaultValue: '✨',
+            }),
+            iconColor: fields.select({
+              label: 'Warna Background Icon',
+              options: [
+                { label: 'Kuning / Amber', value: 'amber' },
+                { label: 'Merah Muda / Rose', value: 'rose' },
+                { label: 'Biru Langit / Sky', value: 'sky' },
+                { label: 'Hijau Mint / Emerald', value: 'emerald' },
+                { label: 'Ungu / Purple', value: 'purple' },
+              ],
+              defaultValue: 'amber',
+            }),
+            title: fields.text({
+              label: 'Judul Keunggulan',
+              defaultValue: 'Serat Katun Menyerap Keringat',
+            }),
+            description: fields.text({
+              label: 'Penjelasan Keunggulan',
+              multiline: true,
+              defaultValue:
+                'Terbuat dari 100% Katun Combed 24s dan katun bambu berkualitas tinggi yang sejuk di badan anak, mencegah biang keringat meski bermain seharian di bawah terik matahari.',
+            }),
+          }),
+          {
+            label: 'Daftar Poin Keunggulan (Bisa Tambah, Ubah, Hapus & Urutkan)',
+            itemLabel: (props) => `${props.fields.icon.value || '✨'} ${props.fields.title.value || 'Poin Keunggulan'}`,
+          }
+        ),
+      },
+    }),
   },
 });
