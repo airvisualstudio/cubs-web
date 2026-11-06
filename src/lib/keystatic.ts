@@ -23,6 +23,18 @@ export interface ProductItem {
   };
 }
 
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface FaqData {
+  badge?: string | null;
+  title?: string | null;
+  description?: string | null;
+  items?: readonly FaqItem[] | FaqItem[] | null;
+}
+
 export async function getProducts(): Promise<ProductItem[]> {
   try {
     const items = await reader.collections.products.all();
@@ -41,6 +53,29 @@ export async function getProduct(slug: string): Promise<ProductItem | null> {
   } catch (err) {
     console.error(`Error fetching product [${slug}]:`, err);
     return null;
+  }
+}
+
+export async function getFaq(): Promise<FaqData> {
+  try {
+    const data = await reader.singletons.faq.read();
+    if (!data) {
+      return {
+        badge: "Tanya Jawab Seputar Baju Anak",
+        title: "Kerap Ditanyakan Bunda & Ayah",
+        description: "Informasi seputar size chart, ketahanan bahan katun, dan kemudahan garansi tukar ukuran.",
+        items: [],
+      };
+    }
+    return data as FaqData;
+  } catch (err) {
+    console.error('Error fetching FAQ from Keystatic:', err);
+    return {
+      badge: "Tanya Jawab Seputar Baju Anak",
+      title: "Kerap Ditanyakan Bunda & Ayah",
+      description: "Informasi seputar size chart, ketahanan bahan katun, dan kemudahan garansi tukar ukuran.",
+      items: [],
+    };
   }
 }
 

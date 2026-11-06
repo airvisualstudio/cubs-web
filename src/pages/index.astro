@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import ProductCard from "../components/ProductCard.astro";
 import { HeroSlider } from "../components/HeroSlider";
 import { FaqSection } from "../components/FaqSection";
-import { getProducts } from "../lib/keystatic";
+import { getProducts, getFaq } from "../lib/keystatic";
 import {
   Sparkles,
   ArrowRight,
@@ -15,9 +15,10 @@ import {
   Award,
 } from "lucide-react";
 
-// Fetch products from Keystatic
+// Fetch products & FAQ from Keystatic
 const allProducts = await getProducts();
 const featuredProducts = allProducts.filter((p) => p.entry.featured).slice(0, 4);
+const faqData = await getFaq();
 
 // Categories for kids 3-8 years in clean solid pastels
 const categories = [
@@ -248,9 +249,15 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- FAQ Section (Radix UI Accordion) -->
+  <!-- FAQ Section (Editable via Keystatic CMS) -->
   <section class="py-16 px-4 sm:px-6 bg-white border-t border-amber-100">
-    <FaqSection client:load />
+    <FaqSection
+      client:load
+      badge={faqData.badge}
+      title={faqData.title}
+      description={faqData.description}
+      items={faqData.items}
+    />
   </section>
 
   <!-- Final CTA Banner: Solid Pastel Yellow & Green Button -->

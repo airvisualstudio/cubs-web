@@ -2,7 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import { ContactForm } from "../components/ContactForm";
 import { FaqSection } from "../components/FaqSection";
+import { getFaq } from "../lib/keystatic";
 import { Phone, Mail, MapPin, Clock, MessageSquare, Sparkles, Instagram } from "lucide-react";
+
+const faqData = await getFaq();
 ---
 
 <Layout
@@ -121,9 +124,15 @@ import { Phone, Mail, MapPin, Clock, MessageSquare, Sparkles, Instagram } from "
         </div>
       </div>
 
-      <!-- FAQ Section -->
+      <!-- FAQ Section (Editable via Keystatic CMS) -->
       <div class="pt-10 border-t border-amber-200/60">
-        <FaqSection client:load />
+        <FaqSection
+          client:load
+          badge={faqData.badge}
+          title={faqData.title}
+          description={faqData.description}
+          items={faqData.items}
+        />
       </div>
     </div>
   </div>

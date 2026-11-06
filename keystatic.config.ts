@@ -1,4 +1,4 @@
-import { config, fields, collection } from '@keystatic/core';
+import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
   storage: {
@@ -84,6 +84,44 @@ export default config({
           multiline: true,
           defaultValue: 'Didesain khusus untuk anak usia 3-8 tahun yang sedang dalam masa aktif bergerak. Menggunakan jahitan rantai ekstra kuat, sablon ramah lingkungan bebas racun, dan tanpa label leher gatal (tagless).',
         }),
+      },
+    }),
+  },
+  singletons: {
+    faq: singleton({
+      label: 'FAQ (Tanya Jawab Baju Anak)',
+      path: 'src/content/faq',
+      format: { data: 'json' },
+      schema: {
+        badge: fields.text({
+          label: 'Badge Header',
+          defaultValue: 'Tanya Jawab Seputar Baju Anak',
+        }),
+        title: fields.text({
+          label: 'Judul Utama FAQ',
+          defaultValue: 'Kerap Ditanyakan Bunda & Ayah',
+        }),
+        description: fields.text({
+          label: 'Deskripsi Singkat FAQ',
+          multiline: true,
+          defaultValue:
+            'Informasi seputar size chart, ketahanan bahan katun, dan kemudahan garansi tukar ukuran.',
+        }),
+        items: fields.array(
+          fields.object({
+            question: fields.text({
+              label: 'Pertanyaan',
+            }),
+            answer: fields.text({
+              label: 'Jawaban',
+              multiline: true,
+            }),
+          }),
+          {
+            label: 'Daftar Pertanyaan & Jawaban',
+            itemLabel: (props) => props.fields.question.value || 'Pertanyaan Baru',
+          }
+        ),
       },
     }),
   },

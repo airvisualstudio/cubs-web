@@ -2,12 +2,19 @@ import * as React from "react";
 import { Accordion } from "radix-ui";
 import { ChevronDown, HelpCircle } from "lucide-react";
 
-interface FaqItem {
+export interface FaqItem {
   question: string;
   answer: string;
 }
 
-const FAQS: FaqItem[] = [
+export interface FaqSectionProps {
+  badge?: string | null;
+  title?: string | null;
+  description?: string | null;
+  items?: readonly FaqItem[] | FaqItem[] | null;
+}
+
+const DEFAULT_FAQS: FaqItem[] = [
   {
     question: "Bagaimana cara memilih ukuran baju yang tepat untuk anak usia 3-8 tahun?",
     answer: "Kami menggunakan standar ukuran: Size 4 (untuk usia 3-4 tahun, berat badan 13-17 kg), Size 6 (untuk usia 5-6 tahun, berat badan 18-22 kg), dan Size 8 (untuk usia 7-8 tahun, berat badan 23-28 kg). Jika buah hati Anda memiliki tubuh lebih berisi atau tinggi, kami menyarankan memilih 1 tingkat ukuran di atasnya agar lebih leluasa dipakai.",
@@ -30,37 +37,49 @@ const FAQS: FaqItem[] = [
   },
 ];
 
-export function FaqSection() {
+export function FaqSection({
+  badge,
+  title,
+  description,
+  items,
+}: FaqSectionProps = {}) {
+  const displayBadge = badge || "Tanya Jawab Seputar Baju Anak";
+  const displayTitle = title || "Kerap Ditanyakan Bunda & Ayah";
+  const displayDesc =
+    description ||
+    "Informasi seputar size chart, ketahanan bahan katun, dan kemudahan garansi tukar ukuran.";
+  const displayItems = items && items.length > 0 ? items : DEFAULT_FAQS;
+
   return (
     <div className="w-full max-w-3xl mx-auto space-y-6">
       <div className="text-center space-y-2 mb-8">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold">
           <HelpCircle className="size-3.5" />
-          <span>Tanya Jawab Seputar Baju Anak</span>
+          <span>{displayBadge}</span>
         </div>
         <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900">
-          Kerap Ditanyakan Bunda & Ayah
+          {displayTitle}
         </h2>
         <p className="text-sm text-stone-600">
-          Informasi seputar size chart, ketahanan bahan katun, dan kemudahan garansi tukar ukuran.
+          {displayDesc}
         </p>
       </div>
 
       <Accordion.Root type="single" collapsible className="space-y-3">
-        {FAQS.map((faq, index) => (
+        {displayItems.map((faq, index) => (
           <Accordion.Item
             key={index}
             value={`item-${index}`}
-            className="rounded-2xl border border-amber-100 bg-white shadow-xs overflow-hidden transition-all data-[state=open]:border-amber-300 data-[state=open]:shadow-md"
+            className="rounded-2xl border border-stone-200/80 bg-white shadow-xs overflow-hidden transition-all data-[state=open]:border-emerald-300 data-[state=open]:shadow-md"
           >
             <Accordion.Header className="flex">
-              <Accordion.Trigger className="group flex flex-1 items-center justify-between p-5 text-left font-bold text-sm sm:text-base text-stone-800 hover:text-amber-700 transition-colors cursor-pointer">
+              <Accordion.Trigger className="group flex flex-1 items-center justify-between p-5 text-left font-bold text-sm sm:text-base text-stone-800 hover:text-emerald-700 transition-colors cursor-pointer">
                 <span>{faq.question}</span>
-                <ChevronDown className="size-4 shrink-0 text-amber-600 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                <ChevronDown className="size-4 shrink-0 text-emerald-600 transition-transform duration-200 group-data-[state=open]:rotate-180" />
               </Accordion.Trigger>
             </Accordion.Header>
             <Accordion.Content className="overflow-hidden text-stone-600 text-sm leading-relaxed px-5 pb-5 pt-0 animate-in fade-in duration-200">
-              <div className="pt-2 border-t border-stone-100">
+              <div className="pt-2 border-t border-stone-100 whitespace-pre-line">
                 {faq.answer}
               </div>
             </Accordion.Content>
