@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { ProductCatalog } from "../../components/ProductCatalog";
 import { getProducts } from "../../lib/keystatic";
-import { Sparkles, Edit3 } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 // Fetch all products from Keystatic Reader
 const products = await getProducts();
@@ -28,19 +28,6 @@ const initialCategory = Astro.url.searchParams.get("category") || "all";
           <p class="text-sm sm:text-base text-stone-600 max-w-xl">
             Tersedia Size 4 (3-4 Thn), Size 6 (5-6 Thn), dan Size 8 (7-8 Thn). Dibuat dari bahan katun murni yang sejuk, tahan cuci, dan bebas label leher gatal.
           </p>
-        </div>
-
-        <!-- CMS Admin Quick Button -->
-        <div>
-          <a
-            href="/keystatic"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 rounded-full bg-white hover:bg-amber-50 text-amber-900 border border-amber-300 font-semibold text-xs sm:text-sm px-4 py-2.5 shadow-xs transition-colors"
-          >
-            <Edit3 className="size-4 text-amber-600" />
-            <span>Kelola di Keystatic CMS</span>
-          </a>
         </div>
       </div>
 

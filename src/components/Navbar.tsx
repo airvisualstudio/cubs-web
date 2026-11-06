@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Dialog } from "radix-ui";
-import { Menu, X, ShoppingBag, PhoneCall, Home, Info, Sparkles } from "lucide-react";
+import { Menu, X, ShoppingBag, PhoneCall, Home, Info } from "lucide-react";
 import cubsLogo from "../assets/cubs-logo.webp";
 
 interface NavbarProps {
@@ -42,7 +42,7 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
     <header className="fixed top-4 sm:top-6 inset-x-0 mx-auto z-50 w-[94%] max-w-5xl">
       <nav
         aria-label="Main Navigation"
-        className="relative overflow-visible rounded-full bg-white/95 dark:bg-stone-900/95 backdrop-blur-md border border-stone-200/70 dark:border-stone-800 shadow-md shadow-stone-300/30 px-3 sm:px-6 py-1 transition-all duration-300"
+        className="relative overflow-visible rounded-full bg-white/95 dark:bg-stone-900/95 backdrop-blur-md border border-stone-200/70 dark:border-stone-800 px-3 sm:px-6 py-1 transition-all duration-300"
       >
         {/* DESKTOP LAYOUT (md & up) */}
         <div className="hidden md:flex items-center justify-between w-full h-11 sm:h-12">
@@ -59,7 +59,7 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
                     key={item.href}
                     href={item.href}
                     className={`px-3.5 lg:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 ${active
-                      ? "bg-emerald-100 text-emerald-950 font-bold shadow-2xs"
+                      ? "bg-emerald-100 text-emerald-950 font-bold"
                       : "text-stone-700 hover:text-emerald-800 hover:bg-emerald-50/60"
                       }`}
                   >
@@ -89,9 +89,8 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
             </a>
           </div>
 
-          {/* Right Wing */}
+          {/* Right Wing: Mirrored links (Product, Contact) */}
           <div className="flex items-center gap-2 lg:gap-4 flex-1">
-            {/* Right Nav Links: Product, Contact Us */}
             <div className="flex items-center justify-start gap-1 lg:gap-2 flex-1 pl-3 lg:pl-6">
               {rightLinks.map((item) => {
                 const active = isActive(item.href);
@@ -100,7 +99,7 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
                     key={item.href}
                     href={item.href}
                     className={`px-3.5 lg:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 ${active
-                      ? "bg-emerald-100 text-emerald-950 font-bold shadow-2xs"
+                      ? "bg-emerald-100 text-emerald-950 font-bold"
                       : "text-stone-700 hover:text-emerald-800 hover:bg-emerald-50/60"
                       }`}
                   >
@@ -112,48 +111,26 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
                 );
               })}
             </div>
-
-            {/* Quick Consultation WhatsApp Action: Solid Green (No Gradient) */}
-            <a
-              href="https://wa.me/6281234567890?text=Halo%20Admin%20CUBS,%20saya%20mau%20tanya%20size%20chart%20baju%20anak%20usia%203-8%20tahun"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Konsultasi Size Chart Anak"
-              className="shrink-0 inline-flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-4 py-2 rounded-full shadow-xs active:scale-95 transition-all"
-            >
-              <Sparkles className="size-3.5" />
-              <span>Konsultasi Size</span>
-            </a>
           </div>
         </div>
 
-        {/* MOBILE LAYOUT (less than md) */}
-        <div className="flex md:hidden items-center justify-between w-full h-11">
-          {/* Mobile Center/Left Logo Sitting Higher */}
+        {/* MOBILE LAYOUT (less than md): Logo fits neatly inside navbar without sticking out */}
+        <div className="flex md:hidden items-center justify-between w-full h-10 sm:h-11 px-1">
+          {/* Mobile Logo: Compact & neatly centered inside the navbar pill */}
           <a
             href="/"
-            className="group relative -translate-y-2 flex items-center transition-transform active:scale-95"
+            className="flex items-center transition-transform active:scale-95"
             aria-label="CUBS Kids Beranda"
           >
             <img
               src={logoSrc}
               alt="CUBS Kids Logo"
-              className="h-13 sm:h-15 w-auto object-contain drop-shadow-xs"
+              className="h-7 sm:h-8 w-auto object-contain"
             />
           </a>
 
-          {/* Mobile Actions: WhatsApp Green Button & Hamburger */}
-          <div className="flex items-center gap-2">
-            <a
-              href="https://wa.me/6281234567890?text=Halo%20Admin%20CUBS,%20saya%20mau%20tanya%20baju%20anak%203-8%20tahun"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-xs"
-            >
-              <Sparkles className="size-3" />
-              <span>Tanya Size</span>
-            </a>
-
+          {/* Mobile Actions: Hamburger */}
+          <div className="flex items-center">
             <Dialog.Root open={open} onOpenChange={setOpen}>
               <Dialog.Trigger asChild>
                 <button
@@ -214,7 +191,7 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
                       href="https://wa.me/6281234567890"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-xs transition-colors"
+                      className="flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm transition-colors"
                     >
                       <PhoneCall className="size-4" />
                       <span>Chat WhatsApp CS</span>

@@ -1,5 +1,12 @@
 import * as React from "react";
 import { CheckCircle2, MessageCircle } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function ContactForm() {
   const [formData, setFormData] = React.useState({
@@ -30,7 +37,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-3xl bg-white p-6 sm:p-8 border border-amber-100 shadow-xl shadow-amber-950/5">
+    <div className="rounded-3xl bg-white p-6 sm:p-8 border border-stone-200/80 shadow-lg shadow-stone-900/5">
       {submitted ? (
         <div className="text-center py-8 space-y-4">
           <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-3xl">
@@ -45,7 +52,7 @@ export function ContactForm() {
           <button
             type="button"
             onClick={() => setSubmitted(false)}
-            className="mt-4 inline-flex items-center gap-2 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold px-4 py-2 transition-colors"
+            className="mt-4 inline-flex items-center gap-2 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold px-4 py-2 transition-colors cursor-pointer"
           >
             Kirim Pesan Lain
           </button>
@@ -62,7 +69,7 @@ export function ContactForm() {
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               placeholder="Contoh: Bunda Sarah"
-              className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm text-stone-800 focus:outline-hidden focus:border-amber-400 focus:bg-white transition-all"
+              className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm text-stone-800 focus:outline-hidden focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200/40 focus:bg-white transition-all"
             />
           </div>
 
@@ -77,7 +84,7 @@ export function ContactForm() {
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="0812-xxxx-xxxx"
-                className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm text-stone-800 focus:outline-hidden focus:border-amber-400 focus:bg-white transition-all"
+                className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm text-stone-800 focus:outline-hidden focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200/40 focus:bg-white transition-all"
               />
             </div>
 
@@ -85,16 +92,20 @@ export function ContactForm() {
               <label className="block text-xs font-bold text-stone-700 mb-1.5 uppercase tracking-wide">
                 Usia Si Kecil (3-8 Thn)
               </label>
-              <select
+              <Select
                 value={formData.ageGroup}
-                onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })}
-                className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm text-stone-800 focus:outline-hidden focus:border-amber-400 focus:bg-white transition-all"
+                onValueChange={(val) => setFormData({ ...formData, ageGroup: val })}
               >
-                <option value="3 - 4 Tahun (Size 4)">3 - 4 Tahun (Size 4)</option>
-                <option value="5 - 6 Tahun (Size 6)">5 - 6 Tahun (Size 6)</option>
-                <option value="7 - 8 Tahun (Size 8)">7 - 8 Tahun (Size 8)</option>
-                <option value="Butuh Rekomendasi Ukuran">Butuh Rekomendasi Ukuran</option>
-              </select>
+                <SelectTrigger className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm font-medium text-stone-800 h-10.5 focus-visible:border-emerald-400 focus-visible:ring-2 focus-visible:ring-emerald-200/40 transition-all">
+                  <SelectValue placeholder="Pilih Usia Anak" />
+                </SelectTrigger>
+                <SelectContent position="popper" className="rounded-2xl border border-stone-200 bg-white shadow-xl">
+                  <SelectItem value="3 - 4 Tahun (Size 4)">3 - 4 Tahun (Size 4)</SelectItem>
+                  <SelectItem value="5 - 6 Tahun (Size 6)">5 - 6 Tahun (Size 6)</SelectItem>
+                  <SelectItem value="7 - 8 Tahun (Size 8)">7 - 8 Tahun (Size 8)</SelectItem>
+                  <SelectItem value="Butuh Rekomendasi Ukuran">Butuh Rekomendasi Ukuran</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -102,17 +113,21 @@ export function ContactForm() {
             <label className="block text-xs font-bold text-stone-700 mb-1.5 uppercase tracking-wide">
               Topik Keperluan
             </label>
-            <select
+            <Select
               value={formData.topic}
-              onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
-              className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm text-stone-800 focus:outline-hidden focus:border-amber-400 focus:bg-white transition-all"
+              onValueChange={(val) => setFormData({ ...formData, topic: val })}
             >
-              <option value="Konsultasi Size Chart Baju">Konsultasi Size Chart & Panduan Berat Badan</option>
-              <option value="Pemesanan Baju & Cek Stok">Pemesanan Baju & Cek Ketersediaan Warna</option>
-              <option value="Garansi Tukar Size">Garansi Tukar Size Baju</option>
-              <option value="Paket Kado Ulang Tahun Anak">Paket Kado Ulang Tahun Anak (Hampers)</option>
-              <option value="Pembelian Jumlah Banyak / Reseller">Pembelian Banyak / Reseller</option>
-            </select>
+              <SelectTrigger className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm font-medium text-stone-800 h-10.5 focus-visible:border-emerald-400 focus-visible:ring-2 focus-visible:ring-emerald-200/40 transition-all">
+                <SelectValue placeholder="Pilih Topik Keperluan" />
+              </SelectTrigger>
+              <SelectContent position="popper" className="rounded-2xl border border-stone-200 bg-white shadow-xl">
+                <SelectItem value="Konsultasi Size Chart Baju">Konsultasi Size Chart & Panduan Berat Badan</SelectItem>
+                <SelectItem value="Pemesanan Baju & Cek Stok">Pemesanan Baju & Cek Ketersediaan Warna</SelectItem>
+                <SelectItem value="Garansi Tukar Size">Garansi Tukar Size Baju</SelectItem>
+                <SelectItem value="Paket Kado Ulang Tahun Anak">Paket Kado Ulang Tahun Anak (Hampers)</SelectItem>
+                <SelectItem value="Pembelian Jumlah Banyak / Reseller">Pembelian Banyak / Reseller</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div>
@@ -124,7 +139,7 @@ export function ContactForm() {
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               placeholder="Sebutkan tinggi/berat badan anak atau model baju yang diminati..."
-              className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm text-stone-800 focus:outline-hidden focus:border-amber-400 focus:bg-white transition-all"
+              className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm text-stone-800 focus:outline-hidden focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200/40 focus:bg-white transition-all"
             />
           </div>
 

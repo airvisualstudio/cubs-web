@@ -1,6 +1,12 @@
 import * as React from "react";
-import { Search, Star, ShoppingCart, ArrowRight, RefreshCw, Sparkles } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select";
+import { Search, Star, ShoppingBag, ShoppingCart, ArrowRight, RefreshCw } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface Product {
   slug: string;
@@ -26,13 +32,6 @@ interface ProductCatalogProps {
   initialProducts: Product[];
   initialCategory?: string;
 }
-
-const CATEA = [
-  { value: "all", label: "Semua Usia (3 - 8 Tahun)" },
-  { value: "3-4", label: "3 - 4 Tahun (Size 4)" },
-  { value: "5-6", label: "5 - 6 Tahun (Size 6)" },
-  { value: "7-8", label: "7 - 8 Tahun (Size 8)" },
-];
 
 const CATEGORIES = [
   { id: "all", label: "Semua Baju", icon: "👕" },
@@ -70,28 +69,6 @@ function formatRupiah(amount?: number | null) {
     currency: "IDR",
     maximumFractionDigits: 0,
   }).format(amount);
-}
-
-export default function AgeFilter() {
-  return (
-    <Select
-      defaultValue="all"
-      onValueChange={(v) =>
-        window.dispatchEvent(new CustomEvent("age-filter", { detail: v }))
-      }
-    >
-      <SelectTrigger className="w-64">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        {options.map((o) => (
-          <SelectItem key={o.value} value={o.value}>
-            {o.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
 }
 
 export function ProductCatalog({ initialProducts, initialCategory }: ProductCatalogProps) {
@@ -153,7 +130,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
   return (
     <div className="space-y-8">
       {/* Search & Filter Toolbar */}
-      <div className="rounded-3xl bg-white p-4 sm:p-6 border border-amber-100 shadow-md space-y-4">
+      <div className="rounded-3xl bg-white p-4 sm:p-6 border border-stone-200/80 shadow-sm space-y-4">
         <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
           {/* Search input */}
           <div className="relative flex-1">
@@ -163,7 +140,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari kaos dino, piyama bambu, dress floral, jogger pants..."
-              className="w-full rounded-full bg-stone-50 border border-stone-200 pl-11 pr-4 py-2.5 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-hidden focus:border-amber-400 focus:ring-2 focus:ring-amber-200/50 transition-all"
+              className="w-full rounded-full bg-stone-50 border border-stone-200 pl-11 pr-4 py-2.5 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-hidden focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200/40 transition-all"
             />
             {searchQuery && (
               <button
@@ -176,34 +153,42 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
             )}
           </div>
 
-          {/* Age & Sort Controls */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
-            {/* Age Filter */}
-            <select
-              value={selectedAge}
-              onChange={(e) => setSelectedAge(e.target.value)}
-              aria-label="Pilih Rentang Usia Anak (3-8 Tahun)"
-              className="rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 px-3.5 py-2.5 focus:outline-hidden focus:border-amber-400 transition-colors"
-            >
-              {AGE_GROUPS.map((a) => (
-                <option key={a.id} value={a.id}>
-                  {a.label}
-                </option>
-              ))}
-            </select>
+          {/* Age & Sort Controls Using shadcn UI Select */}
+          <div className="flex items-center gap-2.5 overflow-x-auto pb-1 md:pb-0">
+            {/* shadcn Select for Age Filter */}
+            <Select value={selectedAge} onValueChange={(val) => setSelectedAge(val)}>
+              <SelectTrigger className="w-[180px] sm:w-[210px] rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 h-10 px-4 focus:ring-2 focus:ring-emerald-200/40 focus:border-emerald-400 transition-colors">
+                <SelectValue placeholder="Pilih Usia" />
+              </SelectTrigger>
+              <SelectContent position="popper" className="rounded-2xl border border-stone-200 bg-white shadow-xl">
+                {AGE_GROUPS.map((a) => (
+                  <SelectItem key={a.id} value={a.id} className="cursor-pointer text-xs sm:text-sm font-medium py-2">
+                    {a.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-            {/* Sort Dropdown */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              aria-label="Urutkan Baju Anak"
-              className="rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 px-3.5 py-2.5 focus:outline-hidden focus:border-amber-400 transition-colors"
-            >
-              <option value="popular">Paling Laris (Populer)</option>
-              <option value="price-asc">Harga: Rendah ke Tinggi</option>
-              <option value="price-desc">Harga: Tinggi ke Rendah</option>
-              <option value="rating">Rating Tertinggi</option>
-            </select>
+            {/* shadcn Select for Sort Dropdown */}
+            <Select value={sortBy} onValueChange={(val) => setSortBy(val)}>
+              <SelectTrigger className="w-[170px] sm:w-[195px] rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 h-10 px-4 focus:ring-2 focus:ring-emerald-200/40 focus:border-emerald-400 transition-colors">
+                <SelectValue placeholder="Urutkan" />
+              </SelectTrigger>
+              <SelectContent position="popper" className="rounded-2xl border border-stone-200 bg-white shadow-xl">
+                <SelectItem value="popular" className="cursor-pointer text-xs sm:text-sm font-medium py-2">
+                  Paling Laris (Populer)
+                </SelectItem>
+                <SelectItem value="price-asc" className="cursor-pointer text-xs sm:text-sm font-medium py-2">
+                  Harga: Rendah ke Tinggi
+                </SelectItem>
+                <SelectItem value="price-desc" className="cursor-pointer text-xs sm:text-sm font-medium py-2">
+                  Harga: Tinggi ke Rendah
+                </SelectItem>
+                <SelectItem value="rating" className="cursor-pointer text-xs sm:text-sm font-medium py-2">
+                  Rating Tertinggi
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
@@ -216,10 +201,11 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                 key={cat.id}
                 type="button"
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 ${active
-                  ? "bg-amber-500 text-white shadow-md shadow-amber-500/20 scale-102"
-                  : "bg-stone-100 hover:bg-stone-200/80 text-stone-700"
-                  }`}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
+                  active
+                    ? "bg-emerald-600 text-white shadow-sm scale-102"
+                    : "bg-stone-100 hover:bg-stone-200/80 text-stone-700"
+                }`}
               >
                 <span>{cat.icon}</span>
                 <span>{cat.label}</span>
@@ -239,7 +225,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
           <button
             type="button"
             onClick={handleReset}
-            className="inline-flex items-center gap-1.5 text-amber-700 font-semibold hover:underline cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold hover:underline cursor-pointer"
           >
             <RefreshCw className="size-3.5" />
             <span>Reset Filter</span>
@@ -269,12 +255,12 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
             return (
               <div
                 key={p.slug}
-                className="group relative flex flex-col rounded-3xl bg-white border border-amber-100/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                className="group relative flex flex-col rounded-3xl bg-white border border-stone-200/80 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
                 {/* Product Image */}
                 <a
                   href={`/products/${p.slug}`}
-                  className="relative aspect-square w-full overflow-hidden bg-amber-50/50 block"
+                  className="relative aspect-square w-full overflow-hidden bg-[#FAF8F5] block"
                 >
                   {entry.image ? (
                     <img
@@ -292,7 +278,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                   {/* Badge */}
                   {entry.badge && (
                     <div className="absolute top-3 left-3">
-                      <span className="inline-flex items-center gap-1 rounded-full bg-amber-500 text-white font-semibold text-xs px-3 py-1 shadow-sm">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 text-white font-semibold text-xs px-3 py-1 shadow-2xs">
                         {entry.badge}
                       </span>
                     </div>
@@ -301,7 +287,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                   {/* Discount Tag */}
                   {discountPercent && (
                     <div className="absolute top-3 right-3">
-                      <span className="inline-flex items-center rounded-full bg-rose-500 text-white font-bold text-xs px-2 py-0.5 shadow-sm">
+                      <span className="inline-flex items-center rounded-full bg-rose-500 text-white font-bold text-xs px-2.5 py-0.5 shadow-2xs">
                         -{discountPercent}%
                       </span>
                     </div>
@@ -311,7 +297,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                 {/* Content */}
                 <div className="flex flex-1 flex-col p-5">
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md">
                       {categoryLabel}
                     </span>
                     <span className="text-xs text-stone-500 font-medium">
@@ -319,7 +305,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-stone-900 text-base leading-snug line-clamp-2 hover:text-amber-700 transition-colors">
+                  <h3 className="font-bold text-stone-900 text-base leading-snug line-clamp-2 hover:text-emerald-700 transition-colors">
                     <a href={`/products/${p.slug}`}>{displayName}</a>
                   </h3>
 
@@ -355,7 +341,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                   <div className="mt-4 grid grid-cols-2 gap-2">
                     <a
                       href={`/products/${p.slug}`}
-                      className="inline-flex items-center justify-center gap-1.5 rounded-full bg-stone-100 hover:bg-amber-100 text-stone-700 hover:text-amber-900 text-xs font-semibold py-2.5 px-3 transition-colors text-center"
+                      className="inline-flex items-center justify-center gap-1.5 rounded-full bg-stone-100 hover:bg-emerald-50 text-stone-700 hover:text-emerald-900 text-xs font-semibold py-2.5 px-3 transition-colors text-center"
                     >
                       <span>Detail</span>
                       <ArrowRight className="size-3.5" />
@@ -376,8 +362,8 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
           })}
         </div>
       ) : (
-        <div className="text-center py-16 px-4 rounded-3xl bg-white border border-amber-100 shadow-sm max-w-lg mx-auto">
-          <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-4 text-3xl">
+        <div className="text-center py-16 px-4 rounded-3xl bg-white border border-stone-200/80 shadow-xs max-w-lg mx-auto">
+          <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-4 text-3xl">
             👕
           </div>
           <h3 className="font-bold text-lg text-stone-900 mb-2">Baju Tidak Ditemukan</h3>
@@ -387,7 +373,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
           <button
             type="button"
             onClick={handleReset}
-            className="inline-flex items-center gap-2 rounded-full bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-5 py-2.5 shadow-md transition-all"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold px-5 py-2.5 shadow-xs transition-all"
           >
             <RefreshCw className="size-4" />
             <span>Lihat Semua Baju</span>

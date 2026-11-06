@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { Navbar } from "../components/Navbar";
+import { ConsultationFab } from "../components/ConsultationFab";
 import Footer from "../components/Footer.astro";
 
 interface Props {
@@ -9,11 +10,12 @@ interface Props {
 }
 
 const {
-  title = "CUBS Kids - Koleksi Perlengkapan, Pakaian & Mainan Anak Aman & Ceria",
+  title = "CUBS - Bright Wear for Little Adventurers",
   description = "Koleksi produk anak pilihan berbahan organik dan aman bersertifikasi. Pakaian, mainan edukasi, dan perlengkapan si kecil terlengkap.",
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
+const isHome = currentPath === "/" || currentPath === "";
 ---
 
 <!doctype html>
@@ -25,16 +27,21 @@ const currentPath = Astro.url.pathname;
     <title>{title}</title>
     <meta name="description" content={description} />
   </head>
-  <body class="bg-[#fcfaf7] text-stone-800 antialiased min-h-screen flex flex-col font-sans selection:bg-amber-200 selection:text-amber-900">
+  <body
+    class="bg-[#fcfaf7] text-stone-800 antialiased min-h-screen flex flex-col font-sans selection:bg-amber-200 selection:text-amber-900"
+  >
     <!-- Floating Rounded Navbar -->
     <Navbar currentPath={currentPath} client:load />
 
-    <!-- Main Content Area with top offset for the sleek floating navbar -->
-    <main class="flex-1 pt-18 sm:pt-22">
+    <!-- Main Content Area: Zero top padding on Home so full-bleed Jumbotron goes all the way to the top -->
+    <main class={`flex-1 ${isHome ? "pt-0" : "pt-18 sm:pt-22"}`}>
       <slot />
     </main>
 
     <!-- Footer -->
     <Footer />
+
+    <!-- Floating Action Button (FAB) Konsultasi Ukuran & Model -->
+    <ConsultationFab client:load />
   </body>
 </html>
