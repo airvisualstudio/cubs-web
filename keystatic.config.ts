@@ -96,6 +96,53 @@ export default config({
           multiline: true,
           defaultValue: 'Didesain khusus untuk anak usia 3-8 tahun yang sedang dalam masa aktif bergerak. Menggunakan jahitan rantai ekstra kuat, sablon ramah lingkungan bebas racun, dan tanpa label leher gatal (tagless).',
         }),
+        showWhatsappButton: fields.checkbox({
+          label: 'Tampilkan Tombol WhatsApp',
+          description: 'Centang untuk menampilkan tombol pesan WhatsApp di halaman produk',
+          defaultValue: true,
+        }),
+        whatsappButtonText: fields.text({
+          label: 'Teks Tombol WhatsApp',
+          defaultValue: 'Pesan via WhatsApp Sekarang',
+        }),
+        whatsappLink: fields.text({
+          label: 'Link / Nomor WhatsApp Custom (Opsional)',
+          description: 'Kosongkan jika ingin memakai nomor CS default (+62 812-3456-7890) & pesan otomatis',
+        }),
+        marketplaceButtons: fields.array(
+          fields.object({
+            platform: fields.select({
+              label: 'Pilihan Platform / Toko Online',
+              options: [
+                { label: 'Shopee', value: 'shopee' },
+                { label: 'Tokopedia', value: 'tokopedia' },
+                { label: 'TikTok Shop', value: 'tiktok' },
+                { label: 'Lazada', value: 'lazada' },
+                { label: 'Blibli', value: 'blibli' },
+                { label: 'Website / Link Toko Lainnya', value: 'custom' },
+              ],
+              defaultValue: 'shopee',
+            }),
+            label: fields.text({
+              label: 'Teks Tombol',
+              description: 'Contoh: Beli di Shopee, Official Store Tokopedia, dll',
+              defaultValue: 'Beli di Shopee',
+            }),
+            url: fields.text({
+              label: 'Link / URL Produk di Online Shop',
+              description: 'Masukkan link toko online produk (contoh: https://shopee.co.id/...)',
+              defaultValue: 'https://',
+            }),
+          }),
+          {
+            label: 'Tombol Online Shop (Shopee, Tokopedia, TikTok, Lazada, dll)',
+            itemLabel: (props) => {
+              const platform = props.fields.platform.value || 'Toko';
+              const label = props.fields.label.value || '';
+              return `${platform.toUpperCase()}: ${label}`;
+            },
+          }
+        ),
       },
     }),
   },

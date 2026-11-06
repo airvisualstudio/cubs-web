@@ -27,6 +27,10 @@ interface Product {
     material?: string | null;
     summary?: string | null;
     description?: string | null;
+    showWhatsappButton?: boolean | null;
+    whatsappButtonText?: string | null;
+    whatsappLink?: string | null;
+    marketplaceButtons?: { platform: string; label: string; url: string }[] | null;
   };
 }
 
@@ -269,7 +273,13 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
             const waMsg = encodeURIComponent(
               `Halo CUBS Kids, saya tertarik untuk memesan baju "${displayName}" seharga ${formatRupiah(entry.price)}. Untuk usia ${ageLabel}, apakah size masih tersedia?`
             );
-            const waUrl = `https://wa.me/6281234567890?text=${waMsg}`;
+            let orderUrl = `https://wa.me/6281234567890?text=${waMsg}`;
+            if (entry.whatsappLink && entry.whatsappLink.trim()) {
+              const custom = entry.whatsappLink.trim();
+              orderUrl = custom.startsWith("http") ? custom : `https://wa.me/${custom.replace(/[^0-9]/g, "")}?text=${waMsg}`;
+            } else if (entry.showWhatsappButton === false && entry.marketplaceButtons && entry.marketplaceButtons.length > 0) {
+              orderUrl = entry.marketplaceButtons[0]?.url || orderUrl;
+            }
             const productImages = [
               entry.image,
               ...(Array.isArray(entry.images) ? entry.images : []),
@@ -342,7 +352,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                       <ArrowRight className="size-3.5" />
                     </a>
                     <a
-                      href={waUrl}
+                      href={orderUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center gap-1.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold py-2.5 px-3 shadow-xs hover:shadow-sm transition-all text-center"

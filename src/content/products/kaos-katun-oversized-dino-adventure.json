@@ -17,5 +17,25 @@
   ],
   "material": "100% Combed Cotton 24s Breathable & Anti-Bakteri",
   "summary": "Kaos oversized santai anak usia 3-8 tahun dengan sablon dino ramah lingkungan yang tidak mudah retak dan super adem.",
-  "description": "Potongan santai memberi kebebasan si kecil untuk aktif berlari dan bermain seharian. Kerah leher rib elastis tidak mudah melar dicuci berulang kali, serta bebas label leher gatal (tagless)."
+  "description": "Potongan santai memberi kebebasan si kecil untuk aktif berlari dan bermain seharian. Kerah leher rib elastis tidak mudah melar dicuci berulang kali, serta bebas label leher gatal (tagless).",
+  "showWhatsappButton": true,
+  "whatsappButtonText": "Pesan via WhatsApp Sekarang",
+  "whatsappLink": "",
+  "marketplaceButtons": [
+    {
+      "platform": "shopee",
+      "label": "Beli di Shopee",
+      "url": "https://shopee.co.id"
+    },
+    {
+      "platform": "tokopedia",
+      "label": "Beli di Tokopedia",
+      "url": "https://tokopedia.com"
+    },
+    {
+      "platform": "tiktok",
+      "label": "Beli di TikTok Shop",
+      "url": "https://tiktok.com"
+    }
+  ]
 }

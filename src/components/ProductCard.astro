@@ -29,7 +29,13 @@ const discountPercent =
 const waMessage = encodeURIComponent(
   `Halo CUBS Kids, saya tertarik untuk memesan produk "${entry.name.replace(/-/g, " ")}" seharga ${formatRupiah(entry.price)}. Apakah stok masih tersedia?`,
 );
-const waLink = `https://wa.me/6281234567890?text=${waMessage}`;
+let orderLink = `https://wa.me/6281234567890?text=${waMessage}`;
+if (entry.whatsappLink && entry.whatsappLink.trim()) {
+  const custom = entry.whatsappLink.trim();
+  orderLink = custom.startsWith("http") ? custom : `https://wa.me/${custom.replace(/[^0-9]/g, "")}?text=${waMessage}`;
+} else if (entry.showWhatsappButton === false && entry.marketplaceButtons && entry.marketplaceButtons.length > 0) {
+  orderLink = entry.marketplaceButtons[0].url;
+}
 const productImages = getProductImages(entry);
 ---
 
@@ -116,7 +122,7 @@ const productImages = getProductImages(entry);
         <ArrowRight className="size-3.5" />
       </a>
       <a
-        href={waLink}
+        href={orderLink}
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center justify-center gap-1.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold py-2.5 px-3 shadow-xs hover:shadow-sm transition-all text-center"

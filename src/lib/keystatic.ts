@@ -3,6 +3,12 @@ import keystaticConfig from '../../keystatic.config';
 
 export const reader = createReader(process.cwd(), keystaticConfig);
 
+export interface MarketplaceButton {
+  platform: 'shopee' | 'tokopedia' | 'tiktok' | 'lazada' | 'blibli' | 'custom';
+  label: string;
+  url: string;
+}
+
 export interface ProductItem {
   slug: string;
   entry: {
@@ -21,6 +27,10 @@ export interface ProductItem {
     material?: string | null;
     summary?: string | null;
     description?: string | null;
+    showWhatsappButton?: boolean | null;
+    whatsappButtonText?: string | null;
+    whatsappLink?: string | null;
+    marketplaceButtons?: readonly MarketplaceButton[] | MarketplaceButton[] | null;
   };
 }
 
