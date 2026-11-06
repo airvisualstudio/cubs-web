@@ -1,0 +1,56 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { ProductCatalog } from "../../components/ProductCatalog";
+import { getProducts } from "../../lib/keystatic";
+import { Sparkles, Edit3 } from "lucide-react";
+
+// Fetch all products from Keystatic Reader
+const products = await getProducts();
+const initialCategory = Astro.url.searchParams.get("category") || "all";
+---
+
+<Layout
+  title="Katalog Produk Anak & Bayi Pilihan - CUBS Kids"
+  description="Jelajahi katalog lengkap produk anak CUBS: piyama katun bambu organik, mainan edukasi kayu Montessori, dan perlengkapan MPASI anti tumpah."
+>
+  <div class="py-10 sm:py-16 px-4 sm:px-6">
+    <div class="mx-auto max-w-6xl space-y-8">
+      <!-- Page Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-amber-200/60">
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold">
+            <Sparkles className="size-3.5" />
+            <span>Katalog Resmi CUBS Kids</span>
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-black text-stone-900 tracking-tight">
+            Katalog Produk Ramah Anak
+          </h1>
+          <p class="text-sm sm:text-base text-stone-600 max-w-xl">
+            Pilihan produk dengan standar keamanan tertinggi, bahan organik lembut, dan desain fungsional untuk mendampingi masa emas si buah hati.
+          </p>
+        </div>
+
+        <!-- CMS Admin Quick Button -->
+        <div>
+          <a
+            href="/keystatic"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-full bg-white hover:bg-amber-50 text-amber-900 border border-amber-300 font-semibold text-xs sm:text-sm px-4 py-2.5 shadow-xs transition-colors"
+          >
+            <Edit3 className="size-4 text-amber-600" />
+            <span>Kelola di Keystatic CMS</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Interactive Catalog Component with Client Hydration -->
+      <ProductCatalog
+        client:load
+        initialProducts={products}
+        initialCategory={initialCategory}
+      />
+    </div>
+  </div>
+</Layout>
+

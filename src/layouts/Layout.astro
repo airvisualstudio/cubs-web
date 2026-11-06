@@ -1,21 +1,40 @@
 ---
 import "../styles/global.css";
-const { title } = Astro.props;
+import { Navbar } from "../components/Navbar";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "CUBS Kids - Koleksi Perlengkapan, Pakaian & Mainan Anak Aman & Ceria",
+  description = "Koleksi produk anak pilihan berbahan organik dan aman bersertifikasi. Pakaian, mainan edukasi, dan perlengkapan si kecil terlengkap.",
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
 ---
 
-<html lang="id">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>{title}</title>
-	</head>
-	<body class="mx-auto max-w-5xl p-6">
-		<header class="mb-8 border-b pb-4">
-			<a href="/" class="text-xl font-bold">Nama Toko</a>
-		</header>
-		<slot />
-		<footer class="mt-12 border-t pt-4 text-sm text-gray-500">
-			© {new Date().getFullYear()} Nama Toko
-		</footer>
-	</body>
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class="bg-[#fcfaf7] text-stone-800 antialiased min-h-screen flex flex-col font-sans selection:bg-amber-200 selection:text-amber-900">
+    <!-- Floating Rounded Navbar -->
+    <Navbar currentPath={currentPath} client:load />
+
+    <!-- Main Content Area with top offset for the floating navbar -->
+    <main class="flex-1 pt-24 sm:pt-28">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <Footer />
+  </body>
 </html>

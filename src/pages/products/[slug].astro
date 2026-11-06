@@ -1,0 +1,260 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ProductCard from "../../components/ProductCard.astro";
+import { getProduct, getProducts, formatRupiah, CATEGORY_LABELS, AGE_LABELS } from "../../lib/keystatic";
+import {
+  Star,
+  ShoppingCart,
+  ShieldCheck,
+  Truck,
+  RefreshCw,
+  ArrowLeft,
+  Share2,
+  Heart,
+  Sparkles,
+  Edit3,
+  CheckCircle2,
+  AlertCircle
+} from "lucide-react";
+
+const { slug } = Astro.params;
+if (!slug) {
+  return Astro.redirect("/products");
+}
+
+const product = await getProduct(slug);
+if (!product) {
+  return Astro.redirect("/products");
+}
+
+const entry = product.entry;
+const displayName = entry.name.replace(/-/g, " ");
+const categoryName = CATEGORY_LABELS[entry.category] || entry.category;
+const ageName = AGE_LABELS[entry.ageGroup] || entry.ageGroup;
+
+const discountPercent =
+  entry.originalPrice && entry.originalPrice > entry.price
+    ? Math.round(((entry.originalPrice - entry.price) / entry.originalPrice) * 100)
+    : null;
+
+const waMessage = encodeURIComponent(
+  `Halo CUBS Kids, saya mau pesan produk:\n- Nama: ${displayName}\n- Harga: ${formatRupiah(entry.price)}\n- Link: https://cubskids.co.id/products/${slug}\nMohon info ketersediaan stok & nomor rekening untuk pembayaran.`
+);
+const waLink = `https://wa.me/6281234567890?text=${waMessage}`;
+
+// Related products
+const allProducts = await getProducts();
+const relatedProducts = allProducts
+  .filter((p) => p.slug !== slug && (p.entry.category === entry.category || p.entry.featured))
+  .slice(0, 4);
+---
+
+<Layout
+  title={`${displayName} - CUBS Kids`}
+  description={entry.summary || `Beli ${displayName} terbaik untuk anak di CUBS Kids.`}
+>
+  <div class="py-10 sm:py-16 px-4 sm:px-6">
+    <div class="mx-auto max-w-6xl space-y-12">
+      <!-- Breadcrumbs & Back Link -->
+      <nav class="flex items-center justify-between text-xs sm:text-sm text-stone-500">
+        <a
+          href="/products"
+          class="inline-flex items-center gap-1.5 font-semibold text-stone-700 hover:text-amber-700 transition-colors"
+        >
+          <ArrowLeft className="size-4" />
+          <span>Kembali ke Katalog Produk</span>
+        </a>
+
+        <!-- Admin Edit Shortcut -->
+        <a
+          href={`/keystatic/collection/products/item/${slug}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 transition-colors"
+        >
+          <Edit3 className="size-3.5 text-amber-600" />
+          <span>Edit Produk di Keystatic</span>
+        </a>
+      </nav>
+
+      <!-- Main Product Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+        <!-- Left: Product Image Showcase -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="relative aspect-square w-full rounded-4xl bg-linear-to-tr from-amber-50 via-orange-50 to-stone-50 border border-amber-100 p-8 shadow-xl flex items-center justify-center overflow-hidden">
+            {entry.image ? (
+              <img
+                src={entry.image}
+                alt={displayName}
+                class="w-full h-full object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
+              />
+            ) : (
+              <div class="text-8xl">🧸</div>
+            )}
+
+            <!-- Badge -->
+            {entry.badge && (
+              <div class="absolute top-6 left-6">
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-500 text-white font-bold text-xs sm:text-sm px-4 py-1.5 shadow-md">
+                  <Sparkles className="size-3.5" />
+                  <span>{entry.badge}</span>
+                </span>
+              </div>
+            )}
+
+            <!-- Discount Badge -->
+            {discountPercent && (
+              <div class="absolute top-6 right-6">
+                <span class="inline-flex items-center rounded-full bg-rose-500 text-white font-extrabold text-xs sm:text-sm px-3.5 py-1 shadow-md">
+                  Hemat {discountPercent}%
+                </span>
+              </div>
+            )}
+          </div>
+
+          <!-- Feature Pills Under Image -->
+          <div class="grid grid-cols-3 gap-3">
+            <div class="rounded-2xl bg-white p-3 border border-amber-100 shadow-2xs text-center space-y-0.5">
+              <span class="text-lg">🌿</span>
+              <p class="text-[11px] font-bold text-stone-800">100% Organik</p>
+              <p class="text-[10px] text-stone-500">Hypoallergenic</p>
+            </div>
+            <div class="rounded-2xl bg-white p-3 border border-amber-100 shadow-2xs text-center space-y-0.5">
+              <span class="text-lg">🛡️</span>
+              <p class="text-[11px] font-bold text-stone-800">BPA Free & SNI</p>
+              <p class="text-[10px] text-stone-500">Lulus Uji Lab</p>
+            </div>
+            <div class="rounded-2xl bg-white p-3 border border-amber-100 shadow-2xs text-center space-y-0.5">
+              <span class="text-lg">🔄</span>
+              <p class="text-[11px] font-bold text-stone-800">Garansi Tukar</p>
+              <p class="text-[10px] text-stone-500">7 Hari Tukar Size</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Product Info & Order CTA -->
+        <div class="lg:col-span-6 space-y-6">
+          <!-- Category & Age Group -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-3 py-1 rounded-full">
+              {categoryName}
+            </span>
+            <span class="text-xs font-semibold text-stone-600 bg-stone-100 px-3 py-1 rounded-full">
+              Usia: {ageName}
+            </span>
+            <span class="text-xs font-semibold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">
+              {entry.stockStatus === 'preorder' ? 'Pre-Order' : 'Ready Stock'}
+            </span>
+          </div>
+
+          <!-- Product Title -->
+          <h1 class="text-2xl sm:text-4xl font-black text-stone-900 tracking-tight leading-tight">
+            {displayName}
+          </h1>
+
+          <!-- Rating & Sold Count -->
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-1.5 text-amber-500">
+              <Star className="size-4 fill-amber-400 stroke-amber-400" />
+              <span class="text-sm font-bold text-stone-800">{entry.rating || "4.9"}</span>
+            </div>
+            <span class="text-stone-300">•</span>
+            <span class="text-sm text-stone-500 font-medium">{entry.soldCount || 100}+ Terjual</span>
+            <span class="text-stone-300">•</span>
+            <span class="text-xs text-emerald-600 font-semibold flex items-center gap-1">
+              <CheckCircle2 className="size-3.5" />
+              <span>Stok Terverifikasi</span>
+            </span>
+          </div>
+
+          <!-- Price Display -->
+          <div class="rounded-3xl bg-linear-to-r from-amber-50 to-orange-50 border border-amber-200/60 p-5 flex items-baseline gap-3">
+            <span class="text-3xl sm:text-4xl font-black text-stone-900">
+              {formatRupiah(entry.price)}
+            </span>
+            {entry.originalPrice && (
+              <span class="text-sm sm:text-base text-stone-400 line-through">
+                {formatRupiah(entry.originalPrice)}
+              </span>
+            )}
+            {discountPercent && (
+              <span class="text-xs font-bold text-rose-600 bg-rose-100 px-2.5 py-1 rounded-full">
+                Hemat {formatRupiah(entry.originalPrice! - entry.price)}
+              </span>
+            )}
+          </div>
+
+          <!-- Material Guarantee Box -->
+          {entry.material && (
+            <div class="rounded-2xl bg-white border border-stone-200 p-4 space-y-1">
+              <div class="flex items-center gap-2 text-stone-900 font-bold text-xs uppercase tracking-wider">
+                <ShieldCheck className="size-4 text-emerald-600" />
+                <span>Spesifikasi Material</span>
+              </div>
+              <p class="text-sm text-stone-700 font-medium">
+                {entry.material}
+              </p>
+            </div>
+          )}
+
+          <!-- Short Summary -->
+          {entry.summary && (
+            <p class="text-sm sm:text-base text-stone-700 leading-relaxed">
+              {entry.summary}
+            </p>
+          )}
+
+          <!-- Order Actions -->
+          <div class="pt-2 space-y-3">
+            <a
+              href={waLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center gap-2.5 rounded-full bg-linear-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold text-base py-4 px-8 shadow-xl shadow-orange-500/25 active:scale-98 transition-all"
+            >
+              <ShoppingCart className="size-5" />
+              <span>Pesan via WhatsApp Sekarang</span>
+            </a>
+
+            <p class="text-xs text-center text-stone-500">
+              💬 Terhubung langsung dengan Customer Service CUBS untuk konfirmasi stok & warna.
+            </p>
+          </div>
+
+          <!-- Full Description Accordion / Box -->
+          {entry.description && (
+            <div class="pt-6 border-t border-stone-200 space-y-2">
+              <h3 class="font-bold text-sm sm:text-base text-stone-900">
+                Deskripsi Lengkap Produk
+              </h3>
+              <p class="text-sm text-stone-600 leading-relaxed whitespace-pre-line">
+                {entry.description}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Related Products Section -->
+      {relatedProducts.length > 0 && (
+        <div class="pt-16 border-t border-amber-200/60 space-y-8">
+          <div class="space-y-1">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900">
+              Produk Terkait untuk Si Kecil
+            </h2>
+            <p class="text-sm text-stone-600">
+              Koleksi lain yang sering dipilih bersama produk ini.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {relatedProducts.map((p) => (
+              <ProductCard product={p} />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>
+

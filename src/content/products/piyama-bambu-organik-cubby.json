@@ -1,0 +1,16 @@
+{
+  "name": "piyama-bambu-organik-cubby",
+  "price": 89000,
+  "originalPrice": 119000,
+  "category": "pakaian",
+  "ageGroup": "1-3y",
+  "badge": "Best Seller",
+  "featured": true,
+  "stockStatus": "ready",
+  "rating": "4.9",
+  "soldCount": 480,
+  "image": "/images/products/piyama.svg",
+  "material": "100% Bamboo Cotton Bersertifikasi OEKO-TEX Standard 100",
+  "summary": "Setelan piyama anak katun bambu yang ultra-lembut, sejuk di kulit sensitif, dan anti-bakteri alami.",
+  "description": "Didesain khusus untuk memberikan kenyamanan tidur maksimal. Bahannya stretch, menyerap keringat dengan sangat cepat, dan bebas label kerah (tagless) agar leher si kecil tidak gatal."
+}

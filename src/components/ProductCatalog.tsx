@@ -1,0 +1,379 @@
+import * as React from "react";
+import { Search, SlidersHorizontal, Star, ShoppingCart, ArrowRight, Sparkles, AlertCircle, RefreshCw } from "lucide-react";
+
+interface Product {
+  slug: string;
+  entry: {
+    name: string;
+    price: number;
+    originalPrice?: number | null;
+    category: string;
+    ageGroup: string;
+    badge?: string | null;
+    featured?: boolean | null;
+    stockStatus: string;
+    rating?: string | null;
+    soldCount?: number | null;
+    image?: string | null;
+    material?: string | null;
+    summary?: string | null;
+    description?: string | null;
+  };
+}
+
+interface ProductCatalogProps {
+  initialProducts: Product[];
+  initialCategory?: string;
+}
+
+const CATEGORIES = [
+  { id: "all", label: "Semua Produk", icon: "🧸" },
+  { id: "pakaian", label: "Pakaian & Setelan", icon: "👕" },
+  { id: "mainan", label: "Mainan & Edukasi", icon: "🎨" },
+  { id: "perlengkapan", label: "Perlengkapan Bayi", icon: "🍼" },
+  { id: "aksesoris", label: "Sepatu & Aksesoris", icon: "👟" },
+];
+
+const AGE_GROUPS = [
+  { id: "all", label: "Semua Usia" },
+  { id: "0-12m", label: "0 - 12 Bulan (Bayi)" },
+  { id: "1-3y", label: "1 - 3 Tahun (Toddler)" },
+  { id: "4-7y", label: "4 - 7 Tahun (Kids)" },
+];
+
+function formatRupiah(amount?: number | null) {
+  if (amount == null) return "Rp 0";
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+export function ProductCatalog({ initialProducts, initialCategory }: ProductCatalogProps) {
+  const [selectedCategory, setSelectedCategory] = React.useState<string>(initialCategory || "all");
+  const [selectedAge, setSelectedAge] = React.useState<string>("all");
+  const [searchQuery, setSearchQuery] = React.useState<string>("");
+  const [sortBy, setSortBy] = React.useState<string>("popular");
+
+  // Read URL query params on mount
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get("category");
+      if (cat) setSelectedCategory(cat);
+    }
+  }, []);
+
+  const filteredProducts = React.useMemo(() => {
+    return initialProducts.filter((p) => {
+      // Category filter
+      if (selectedCategory !== "all" && p.entry.category !== selectedCategory) {
+        return false;
+      }
+
+      // Age filter
+      if (selectedAge !== "all" && p.entry.ageGroup !== selectedAge && p.entry.ageGroup !== "all") {
+        return false;
+      }
+
+      // Search query
+      if (searchQuery.trim() !== "") {
+        const q = searchQuery.toLowerCase();
+        const name = (p.entry.name || "").replace(/-/g, " ").toLowerCase();
+        const summary = (p.entry.summary || "").toLowerCase();
+        const material = (p.entry.material || "").toLowerCase();
+        const category = (p.entry.category || "").toLowerCase();
+        if (!name.includes(q) && !summary.includes(q) && !material.includes(q) && !category.includes(q)) {
+          return false;
+        }
+      }
+
+      return true;
+    }).sort((a, b) => {
+      if (sortBy === "price-asc") return a.entry.price - b.entry.price;
+      if (sortBy === "price-desc") return b.entry.price - a.entry.price;
+      if (sortBy === "rating") return parseFloat(b.entry.rating || "0") - parseFloat(a.entry.rating || "0");
+      // Default: popular (sold count)
+      return (b.entry.soldCount || 0) - (a.entry.soldCount || 0);
+    });
+  }, [initialProducts, selectedCategory, selectedAge, searchQuery, sortBy]);
+
+  const handleReset = () => {
+    setSelectedCategory("all");
+    setSelectedAge("all");
+    setSearchQuery("");
+    setSortBy("popular");
+  };
+
+  return (
+    <div className="space-y-8">
+      {/* Search & Filter Toolbar */}
+      <div className="rounded-3xl bg-white p-4 sm:p-6 border border-amber-100 shadow-md space-y-4">
+        <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+          {/* Search input */}
+          <div className="relative flex-1">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-stone-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Cari piyama bambu, mainan montessori, perlengkapan MPASI..."
+              className="w-full rounded-full bg-stone-50 border border-stone-200 pl-11 pr-4 py-2.5 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-hidden focus:border-amber-400 focus:ring-2 focus:ring-amber-200/50 transition-all"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-600 bg-stone-200/60 rounded-full px-2 py-0.5"
+              >
+                Hapus
+              </button>
+            )}
+          </div>
+
+          {/* Age & Sort Controls */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
+            {/* Age Filter */}
+            <select
+              value={selectedAge}
+              onChange={(e) => setSelectedAge(e.target.value)}
+              aria-label="Filter Usia Anak"
+              className="rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 px-3.5 py-2.5 focus:outline-hidden focus:border-amber-400 transition-colors"
+            >
+              {AGE_GROUPS.map((a) => (
+                <option key={a.id} value={a.id}>
+                  {a.label}
+                </option>
+              ))}
+            </select>
+
+            {/* Sort Dropdown */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              aria-label="Urutkan Produk"
+              className="rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 px-3.5 py-2.5 focus:outline-hidden focus:border-amber-400 transition-colors"
+            >
+              <option value="popular">Terlaris (Populer)</option>
+              <option value="price-asc">Harga: Rendah ke Tinggi</option>
+              <option value="price-desc">Harga: Tinggi ke Rendah</option>
+              <option value="rating">Rating Tertinggi</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Category Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto pt-2 pb-1 scrollbar-none">
+          {CATEGORIES.map((cat) => {
+            const active = selectedCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
+                  active
+                    ? "bg-amber-500 text-white shadow-md shadow-amber-500/20 scale-102"
+                    : "bg-stone-100 hover:bg-stone-200/80 text-stone-700"
+                }`}
+              >
+                <span>{cat.icon}</span>
+                <span>{cat.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Results Header */}
+      <div className="flex items-center justify-between text-xs sm:text-sm text-stone-600 px-2">
+        <span>
+          Menemukan <strong>{filteredProducts.length}</strong> produk aman untuk si kecil
+        </span>
+
+        {(selectedCategory !== "all" || selectedAge !== "all" || searchQuery !== "") && (
+          <button
+            type="button"
+            onClick={handleReset}
+            className="inline-flex items-center gap-1.5 text-amber-700 font-semibold hover:underline cursor-pointer"
+          >
+            <RefreshCw className="size-3.5" />
+            <span>Reset Filter</span>
+          </button>
+        )}
+      </div>
+
+      {/* Products Grid */}
+      {filteredProducts.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {filteredProducts.map((p) => {
+            const entry = p.entry;
+            const discountPercent =
+              entry.originalPrice && entry.originalPrice > entry.price
+                ? Math.round(((entry.originalPrice - entry.price) / entry.originalPrice) * 100)
+                : null;
+
+            const displayName = entry.name.replace(/-/g, " ");
+            const waMsg = encodeURIComponent(
+              `Halo CUBS Kids, saya tertarik untuk memesan produk "${displayName}" seharga ${formatRupiah(entry.price)}. Apakah stok masih ada?`
+            );
+            const waUrl = `https://wa.me/6281234567890?text=${waMsg}`;
+
+            return (
+              <div
+                key={p.slug}
+                className="group relative flex flex-col rounded-3xl bg-white border border-amber-100/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+              >
+                {/* Product Image */}
+                <a
+                  href={`/products/${p.slug}`}
+                  className="relative aspect-square w-full overflow-hidden bg-amber-50/50 block"
+                >
+                  {entry.image ? (
+                    <img
+                      src={entry.image}
+                      alt={displayName}
+                      className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="h-full w-full flex items-center justify-center text-5xl">
+                      🧸
+                    </div>
+                  )}
+
+                  {/* Badge */}
+                  {entry.badge && (
+                    <div className="absolute top-3 left-3">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-amber-500 text-white font-semibold text-xs px-3 py-1 shadow-sm">
+                        {entry.badge}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Discount Tag */}
+                  {discountPercent && (
+                    <div className="absolute top-3 right-3">
+                      <span className="inline-flex items-center rounded-full bg-rose-500 text-white font-bold text-xs px-2 py-0.5 shadow-sm">
+                        -{discountPercent}%
+                      </span>
+                    </div>
+                  )}
+                </a>
+
+                {/* Content */}
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">
+                      {entry.category}
+                    </span>
+                    <span className="text-xs text-stone-500 font-medium">
+                      {entry.ageGroup}
+                    </span>
+                  </div>
+
+                  <h3 className="font-bold text-stone-900 text-base leading-snug line-clamp-2 hover:text-amber-700 transition-colors">
+                    <a href={`/products/${p.slug}`}>{displayName}</a>
+                  </h3>
+
+                  {entry.material && (
+                    <p className="text-xs text-stone-500 mt-1 line-clamp-1">
+                      ✨ {entry.material}
+                    </p>
+                  )}
+
+                  {/* Rating */}
+                  <div className="flex items-center gap-2 mt-2.5">
+                    <div className="flex items-center gap-1 text-amber-500">
+                      <Star className="size-3.5 fill-amber-400 stroke-amber-400" />
+                      <span className="text-xs font-bold text-stone-800">{entry.rating || "4.9"}</span>
+                    </div>
+                    <span className="text-stone-300">•</span>
+                    <span className="text-xs text-stone-500">{entry.soldCount || 100}+ terjual</span>
+                  </div>
+
+                  {/* Pricing */}
+                  <div className="mt-4 pt-3 border-t border-stone-100 flex items-baseline gap-2">
+                    <span className="text-lg font-extrabold text-stone-900">
+                      {formatRupiah(entry.price)}
+                    </span>
+                    {entry.originalPrice && (
+                      <span className="text-xs text-stone-400 line-through">
+                        {formatRupiah(entry.originalPrice)}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Buttons */}
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    <a
+                      href={`/products/${p.slug}`}
+                      className="inline-flex items-center justify-center gap-1.5 rounded-full bg-stone-100 hover:bg-amber-100 text-stone-700 hover:text-amber-900 text-xs font-semibold py-2.5 px-3 transition-colors text-center"
+                    >
+                      <span>Detail</span>
+                      <ArrowRight className="size-3.5" />
+                    </a>
+                    <a
+                      href={waUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-1.5 rounded-full bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-semibold py-2.5 px-3 shadow-xs hover:shadow-md transition-all text-center"
+                    >
+                      <ShoppingCart className="size-3.5" />
+                      <span>Pesan</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="text-center py-16 px-4 rounded-3xl bg-white border border-amber-100 shadow-sm max-w-lg mx-auto">
+          <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-4 text-3xl">
+            🧸
+          </div>
+          <h3 className="font-bold text-lg text-stone-900 mb-2">Produk Tidak Ditemukan</h3>
+          <p className="text-sm text-stone-500 mb-6">
+            Tidak ada produk yang cocok dengan kata kunci &quot;{searchQuery}&quot; atau filter yang dipilih. Silakan coba kata kunci lain.
+          </p>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="inline-flex items-center gap-2 rounded-full bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-5 py-2.5 shadow-md transition-all"
+          >
+            <RefreshCw className="size-4" />
+            <span>Lihat Semua Produk</span>
+          </button>
+        </div>
+      )}
+
+      {/* Keystatic CMS Helper Callout for Admin */}
+      <div className="rounded-3xl bg-linear-to-r from-amber-100/80 via-orange-50/80 to-amber-100/80 border border-amber-200/70 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3.5">
+          <div className="w-12 h-12 rounded-2xl bg-white shadow-xs flex items-center justify-center text-2xl shrink-0">
+            ✨
+          </div>
+          <div>
+            <h4 className="font-bold text-stone-900 text-sm sm:text-base">
+              Kelola & Tambah Produk Melalui Keystatic CMS
+            </h4>
+            <p className="text-xs sm:text-sm text-stone-600">
+              Katalog ini terhubung langsung ke Keystatic. Anda dapat menambah varian produk, mengubah harga, mengunggah foto, dan mengatur status stok kapan saja!
+            </p>
+          </div>
+        </div>
+        <a
+          href="/keystatic"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="shrink-0 inline-flex items-center gap-2 rounded-full bg-amber-900 hover:bg-amber-950 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 shadow-md transition-all"
+        >
+          <span>Buka Keystatic Admin</span>
+          <ArrowRight className="size-4" />
+        </a>
+      </div>
+    </div>
+  );
+}

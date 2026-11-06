@@ -1,0 +1,141 @@
+---
+import { Heart, Sparkles, ShieldCheck, Truck, RefreshCw, Phone, Mail, MapPin } from "lucide-react";
+---
+
+<footer class="mt-20 border-t border-amber-100 bg-linear-to-b from-amber-50/50 to-orange-50/80 pt-16 pb-12">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <!-- Top Feature / Trust Bar -->
+    <div class="mb-12 grid grid-cols-2 md:grid-cols-4 gap-6 pb-12 border-b border-amber-200/60">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+          <ShieldCheck className="size-6" />
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-stone-900">100% Aman & Non-Toxic</h4>
+          <p class="text-xs text-stone-500">Standar keamanan SNI & OEKO-TEX</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
+          <Heart className="size-6" />
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-stone-900">Hypoallergenic</h4>
+          <p class="text-xs text-stone-500">Lembut untuk kulit sensitif bayi</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+          <Truck className="size-6" />
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-stone-900">Pengiriman Cepat</h4>
+          <p class="text-xs text-stone-500">Packing rapi & aman seluruh Nusantara</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
+          <RefreshCw className="size-6" />
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-stone-900">Garansi Tukar Size</h4>
+          <p class="text-xs text-stone-500">7 hari retur jika ukuran tidak pas</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Footer Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <!-- Brand column -->
+      <div class="md:col-span-1 space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🧸</span>
+          <span class="font-extrabold text-2xl tracking-tight text-stone-900">CUBS Kids</span>
+        </div>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          Koleksi pakaian, mainan edukasi, dan perlengkapan anak yang dirancang dengan cinta dan material bersertifikat aman untuk mendampingi tumbuh kembang si buah hati.
+        </p>
+        <div class="pt-2">
+          <a
+            href="/keystatic"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-white border border-amber-300 text-amber-800 shadow-xs hover:bg-amber-100 transition-colors"
+          >
+            <span>⚙️ Kelola Produk (Keystatic CMS)</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation links -->
+      <div>
+        <h4 class="font-bold text-stone-900 mb-4 text-sm uppercase tracking-wider">Navigasi Cepat</h4>
+        <ul class="space-y-2.5 text-sm text-stone-600">
+          <li>
+            <a href="/" class="hover:text-amber-700 transition-colors">Beranda (Home)</a>
+          </li>
+          <li>
+            <a href="/about" class="hover:text-amber-700 transition-colors">Tentang Kami (About)</a>
+          </li>
+          <li>
+            <a href="/products" class="hover:text-amber-700 transition-colors">Katalog Produk (Product)</a>
+          </li>
+          <li>
+            <a href="/contact" class="hover:text-amber-700 transition-colors">Kontak & Bantuan</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Categories -->
+      <div>
+        <h4 class="font-bold text-stone-900 mb-4 text-sm uppercase tracking-wider">Kategori Produk</h4>
+        <ul class="space-y-2.5 text-sm text-stone-600">
+          <li>
+            <a href="/products?category=pakaian" class="hover:text-amber-700 transition-colors">Pakaian & Setelan Piyama</a>
+          </li>
+          <li>
+            <a href="/products?category=mainan" class="hover:text-amber-700 transition-colors">Mainan Montessori & Boneka</a>
+          </li>
+          <li>
+            <a href="/products?category=perlengkapan" class="hover:text-amber-700 transition-colors">Perlengkapan MPASI & Gelas</a>
+          </li>
+          <li>
+            <a href="/products?category=aksesoris" class="hover:text-amber-700 transition-colors">Sepatu Prewalker & Topi</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-stone-900 mb-4 text-sm uppercase tracking-wider">Layanan Pelanggan</h4>
+        <div class="flex items-start gap-2.5 text-sm text-stone-600">
+          <MapPin className="size-4 text-amber-600 shrink-0 mt-0.5" />
+          <span>Jl. Flamboyan Ceria No. 12, Kebayoran Baru, Jakarta Selatan</span>
+        </div>
+        <div class="flex items-center gap-2.5 text-sm text-stone-600">
+          <Phone className="size-4 text-amber-600 shrink-0" />
+          <span>WhatsApp: +62 812-3456-7890</span>
+        </div>
+        <div class="flex items-center gap-2.5 text-sm text-stone-600">
+          <Mail className="size-4 text-amber-600 shrink-0" />
+          <span>halo@cubskids.co.id</span>
+        </div>
+        <p class="text-xs text-stone-500 pt-2">
+          Jam Operasional: Senin - Sabtu (08:00 - 20:00 WIB)
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Copyright -->
+    <div class="mt-12 pt-8 border-t border-amber-200/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+      <p>© {new Date().getFullYear()} CUBS Kids & Baby. Hak Cipta Dilindungi Undang-Undang.</p>
+      <div class="flex items-center gap-4">
+        <span>Dibuat dengan ❤️ untuk Senyuman Si Kecil</span>
+      </div>
+    </div>
+  </div>
+</footer>
+

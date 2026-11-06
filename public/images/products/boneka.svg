@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <defs>
+      <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FFEDD5" />
+        <stop offset="100%" stop-color="#FED7AA" />
+      </linearGradient>
+    </defs>
+    <rect width="400" height="400" rx="32" fill="url(#bg4)" />
+    <circle cx="200" cy="200" r="140" fill="white" opacity="0.7" />
+    <ellipse cx="200" cy="225" rx="60" ry="55" fill="#D97706" />
+    <ellipse cx="200" cy="230" rx="40" ry="35" fill="#FDE68A" />
+    <circle cx="200" cy="150" r="50" fill="#D97706" />
+    <circle cx="155" cy="115" r="18" fill="#D97706" />
+    <circle cx="155" cy="115" r="10" fill="#FDE68A" />
+    <circle cx="245" cy="115" r="18" fill="#D97706" />
+    <circle cx="245" cy="115" r="10" fill="#FDE68A" />
+    <ellipse cx="200" cy="160" rx="20" ry="15" fill="#FDE68A" />
+    <ellipse cx="200" cy="153" rx="8" ry="6" fill="#78350F" />
+    <path d="M200 159 L200 167 M194 165 Q200 170 206 165" stroke="#78350F" stroke-width="2.5" fill="none" />
+    <circle cx="180" cy="140" r="5" fill="#78350F" />
+    <circle cx="220" cy="140" r="5" fill="#78350F" />
+    <polygon points="185,195 200,200 185,205" fill="#EF4444" />
+    <polygon points="215,195 200,200 215,205" fill="#EF4444" />
+    <circle cx="200" cy="200" r="4" fill="#B91C1C" />
+    <text x="200" y="325" font-family="sans-serif" font-size="18" font-weight="bold" fill="#B45309" text-anchor="middle">Cubby Plush Bear</text>
+  </svg>

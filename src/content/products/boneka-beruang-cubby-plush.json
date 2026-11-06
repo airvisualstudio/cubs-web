@@ -1,0 +1,16 @@
+{
+  "name": "boneka-beruang-cubby-plush",
+  "price": 99000,
+  "originalPrice": 139000,
+  "category": "mainan",
+  "ageGroup": "all",
+  "badge": "Iconic Cubs",
+  "featured": true,
+  "stockStatus": "ready",
+  "rating": "4.9",
+  "soldCount": 750,
+  "image": "/images/products/boneka.svg",
+  "material": "Kain Velboa Lembut & Isian Silikon Hypoallergenic Grade A",
+  "summary": "Boneka maskot Cubby yang ramah, empuk dipeluk, dan tidak memicu alergi debu.",
+  "description": "Sahabat tidur dan teman cerita terbaik untuk si kecil. Jahitan ekstra kuat dan mata boneka dibordir rapi sehingga tidak ada manik-manik kecil yang membahayakan."
+}
