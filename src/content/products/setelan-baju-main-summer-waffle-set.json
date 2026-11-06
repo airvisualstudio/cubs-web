@@ -9,13 +9,20 @@
   "stockStatus": "ready",
   "rating": "4.9",
   "soldCount": 450,
-  "image": "/images/products/setelan-waffle.svg",
   "images": [
-    "/images/products/setelan-waffle.svg",
-    "/images/hero/hero-kaos.jpg",
-    "/images/products/jumper.svg"
+    null,
+    null,
+    null
   ],
   "material": "100% Cotton Waffle Knit Texture",
   "summary": "Setelan atasan dan celana pendek bertekstur waffle unik yang trendi, sejuk, dan tidak perlu disetrika.",
-  "description": "Pilihan favorit anak untuk bermain di rumah dan taman. Celana dilengkapi tali serut aktif dan saku fungsional untuk menyimpan mainan kecil si anak."
+  "description": "Pilihan favorit anak untuk bermain di rumah dan taman. Celana dilengkapi tali serut aktif dan saku fungsional untuk menyimpan mainan kecil si anak.",
+  "showWhatsappButton": true,
+  "marketplaceButtons": [
+    {
+      "platform": "shopee",
+      "label": "Beli di Shopee",
+      "url": "https://shopee.co.id/Gemini-AI-Pro-4-Argon-Google-AI-Pro-18-Bulan-Google-Flow-Drive-5TB-Aktivasi-Cepat-i.1287177752.43084557715?extraParams=%7B%22display_model_id%22%3A366529661279%2C%22model_selection_logic%22%3A3%7D&image_ids=id-11134207-81ztp-mufygtzxpce8d9"
+    }
+  ]
 }
