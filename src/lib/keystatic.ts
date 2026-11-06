@@ -17,10 +17,29 @@ export interface ProductItem {
     rating?: string | null;
     soldCount?: number | null;
     image?: string | null;
+    images?: readonly (string | null)[] | (string | null)[] | null;
     material?: string | null;
     summary?: string | null;
     description?: string | null;
   };
+}
+
+export function getProductImages(entry: {
+  image?: string | null;
+  images?: readonly (string | null)[] | (string | null)[] | null;
+}): string[] {
+  const result: string[] = [];
+  if (entry.image) {
+    result.push(entry.image);
+  }
+  if (entry.images && Array.isArray(entry.images)) {
+    for (const img of entry.images) {
+      if (img && !result.includes(img)) {
+        result.push(img);
+      }
+    }
+  }
+  return result.length > 0 ? result : ['/images/products/kaos-dino.svg'];
 }
 
 export interface FaqItem {

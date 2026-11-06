@@ -10,6 +10,11 @@
   "rating": "4.8",
   "soldCount": 310,
   "image": "/images/products/dress-rainbow.svg",
+  "images": [
+    "/images/products/dress-rainbow.svg",
+    "/images/hero/hero-dress.jpg",
+    "/images/products/dress-floral.svg"
+  ],
   "material": "100% Katun Jepang Halus & Ringan",
   "summary": "Dress anak dengan rok A-line bertingkat warna pelangi yang mekar saat berputar, favorit anak perempuan.",
   "description": "Warna pelangi cerah menggunakan pewarna yang tidak luntur saat dicuci. Potongan longgar yang tidak membatasi ruang gerak anak yang aktif."

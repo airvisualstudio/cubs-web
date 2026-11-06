@@ -10,6 +10,11 @@
   "rating": "4.9",
   "soldCount": 520,
   "image": "/images/products/kaos-dino.svg",
+  "images": [
+    "/images/products/kaos-dino.svg",
+    "/images/hero/hero-kaos.jpg",
+    "/images/products/polo-stripes.svg"
+  ],
   "material": "100% Combed Cotton 24s Breathable & Anti-Bakteri",
   "summary": "Kaos oversized santai anak usia 3-8 tahun dengan sablon dino ramah lingkungan yang tidak mudah retak dan super adem.",
   "description": "Potongan santai memberi kebebasan si kecil untuk aktif berlari dan bermain seharian. Kerah leher rib elastis tidak mudah melar dicuci berulang kali, serta bebas label leher gatal (tagless)."

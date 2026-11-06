@@ -10,6 +10,11 @@
   "rating": "4.9",
   "soldCount": 410,
   "image": "/images/products/hoodie-zipper.svg",
+  "images": [
+    "/images/products/hoodie-zipper.svg",
+    "/images/hero/hero-jaket.jpg",
+    "/images/products/jogger-pants.svg"
+  ],
   "material": "Baby Terry Cotton Premium (Hangat, Lembut & Tidak Berat)",
   "summary": "Jaket hoodie ritsleting anak dengan saku kanguru ganda dan tudung kepala untuk melindungi si kecil saat cuaca dingin.",
   "description": "Ritsleting YKK halus anti macet dengan pelindung kain di bagian dagu agar leher anak tidak terjepit. Bagian dalam lembut berpori yang tidak membuat gerah."

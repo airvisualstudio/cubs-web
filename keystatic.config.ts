@@ -66,10 +66,22 @@ export default config({
           defaultValue: 180,
         }),
         image: fields.image({
-          label: 'Foto Baju',
+          label: 'Foto Utama Baju (Cover)',
           directory: 'public/images/products',
           publicPath: '/images/products/',
         }),
+        images: fields.array(
+          fields.image({
+            label: 'Foto Produk',
+            directory: 'public/images/products',
+            publicPath: '/images/products/',
+          }),
+          {
+            label: 'Galeri Foto Produk (Upload hingga 12 Foto)',
+            itemLabel: (props) => (props.value ? `Foto: ${props.value}` : 'Upload Foto Baru'),
+            validation: { length: { max: 12 } },
+          }
+        ),
         material: fields.text({
           label: 'Bahan Kain (misal: 100% Katun Combed 24s / Katun Bambu)',
           defaultValue: '100% Katun Combed 24s Lembut & Adem',

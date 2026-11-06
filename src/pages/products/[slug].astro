@@ -1,7 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ProductCard from "../../components/ProductCard.astro";
-import { getProduct, getProducts, formatRupiah, CATEGORY_LABELS, AGE_LABELS } from "../../lib/keystatic";
+import { ProductGallery } from "../../components/ProductGallery";
+import {
+  getProduct,
+  getProducts,
+  formatRupiah,
+  CATEGORY_LABELS,
+  AGE_LABELS,
+  getProductImages,
+} from "../../lib/keystatic";
 import {
   Star,
   ShoppingCart,
@@ -40,6 +48,7 @@ const waMessage = encodeURIComponent(
   `Halo CUBS Kids, saya mau pesan produk:\n- Nama: ${displayName}\n- Harga: ${formatRupiah(entry.price)}\n- Link: https://cubskids.co.id/products/${slug}\nMohon info ketersediaan stok & nomor rekening untuk pembayaran.`
 );
 const waLink = `https://wa.me/6281234567890?text=${waMessage}`;
+const productImages = getProductImages(entry);
 
 // Related products
 const allProducts = await getProducts();
@@ -67,38 +76,15 @@ const relatedProducts = allProducts
 
       <!-- Main Product Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
-        <!-- Left: Product Image Showcase -->
+        <!-- Left: Product Image Showcase (Multiple Sliding Images & Thumbnails) -->
         <div class="lg:col-span-6 space-y-4">
-          <div class="relative aspect-square w-full rounded-4xl bg-[#FDFBF7] border border-stone-200/80 p-8 shadow-xs flex items-center justify-center overflow-hidden">
-            {entry.image ? (
-              <img
-                src={entry.image}
-                alt={displayName}
-                class="w-full h-full object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
-              />
-            ) : (
-              <div class="text-8xl">🧸</div>
-            )}
-
-            <!-- Badge -->
-            {entry.badge && (
-              <div class="absolute top-6 left-6">
-                <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-500 text-white font-bold text-xs sm:text-sm px-4 py-1.5 shadow-md">
-                  <Sparkles className="size-3.5" />
-                  <span>{entry.badge}</span>
-                </span>
-              </div>
-            )}
-
-            <!-- Discount Badge -->
-            {discountPercent && (
-              <div class="absolute top-6 right-6">
-                <span class="inline-flex items-center rounded-full bg-rose-500 text-white font-extrabold text-xs sm:text-sm px-3.5 py-1 shadow-md">
-                  Hemat {discountPercent}%
-                </span>
-              </div>
-            )}
-          </div>
+          <ProductGallery
+            client:load
+            images={productImages}
+            productName={displayName}
+            badge={entry.badge}
+            discountPercent={discountPercent}
+          />
 
           <!-- Feature Pills Under Image -->
           <div class="grid grid-cols-3 gap-3">

@@ -10,6 +10,11 @@
   "rating": "4.8",
   "soldCount": 290,
   "image": "/images/products/polo-stripes.svg",
+  "images": [
+    "/images/products/polo-stripes.svg",
+    "/images/hero/hero-kaos.jpg",
+    "/images/products/kaos-dino.svg"
+  ],
   "material": "Cotton Pique Soft Knit Breathable",
   "summary": "Baju polo berkerah rapi namun tetap santai, cocok untuk acara keluarga, les, maupun bepergian.",
   "description": "Kain rajut berpori menjaga sirkulasi udara optimal. Kancing depan yang kuat dan kerah tegak yang tetap rapi meski sudah sering dicuci."

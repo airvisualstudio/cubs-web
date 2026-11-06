@@ -23,9 +23,16 @@ function SelectGroup({
 }
 
 function SelectValue({
+  className,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Value>) {
-  return <SelectPrimitive.Value data-slot="select-value" {...props} />
+  return (
+    <SelectPrimitive.Value
+      data-slot="select-value"
+      className={cn("truncate whitespace-nowrap block text-left min-w-0 flex-1", className)}
+      {...props}
+    />
+  )
 }
 
 function SelectTrigger({
@@ -41,15 +48,15 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "flex w-fit items-center justify-between gap-2 rounded-2xl border border-stone-200 bg-white px-3.5 py-2 text-sm font-medium text-stone-700 shadow-xs transition-all outline-none hover:border-stone-300 focus-visible:border-emerald-400 focus-visible:ring-2 focus-visible:ring-emerald-200/50 disabled:cursor-not-allowed disabled:opacity-50 data-placeholder:text-stone-400 cursor-pointer select-none",
-        size === "sm" ? "h-8 text-xs px-3" : "h-10",
+        "flex w-fit items-center justify-between gap-1.5 rounded-2xl border border-stone-200 bg-white px-3 sm:px-3.5 py-2 text-xs sm:text-sm font-medium text-stone-700 shadow-xs transition-all outline-none hover:border-stone-300 focus-visible:border-emerald-400 focus-visible:ring-2 focus-visible:ring-emerald-200/50 disabled:cursor-not-allowed disabled:opacity-50 data-placeholder:text-stone-400 cursor-pointer select-none min-w-0 whitespace-nowrap",
+        size === "sm" ? "h-8 text-xs px-2.5" : "h-10",
         className
       )}
       {...props}
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDownIcon className="pointer-events-none size-4 text-stone-400 transition-transform duration-200" />
+        <ChevronDownIcon className="pointer-events-none size-4 text-stone-400 transition-transform duration-200 shrink-0" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   )

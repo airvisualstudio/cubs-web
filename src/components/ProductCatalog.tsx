@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Search, Star, ShoppingBag, ShoppingCart, ArrowRight, RefreshCw } from "lucide-react";
+import { ProductCardImageSlider } from "./ProductCardImageSlider";
 import {
   Select,
   SelectContent,
@@ -22,6 +23,7 @@ interface Product {
     rating?: string | null;
     soldCount?: number | null;
     image?: string | null;
+    images?: (string | null)[] | null;
     material?: string | null;
     summary?: string | null;
     description?: string | null;
@@ -42,10 +44,10 @@ const CATEGORIES = [
 ];
 
 const AGE_GROUPS = [
-  { id: "all", label: "Semua Usia (3 - 8 Tahun)" },
-  { id: "3-4y", label: "3 - 4 Tahun (Size 4)" },
-  { id: "5-6y", label: "5 - 6 Tahun (Size 6)" },
-  { id: "7-8y", label: "7 - 8 Tahun (Size 8)" },
+  { id: "all", label: "Semua Usia" },
+  { id: "3-4y", label: "3-4 Thn (Size 4)" },
+  { id: "5-6y", label: "5-6 Thn (Size 6)" },
+  { id: "7-8y", label: "7-8 Thn (Size 8)" },
 ];
 
 const CATEGORY_NAMES: Record<string, string> = {
@@ -129,35 +131,52 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
 
   return (
     <div className="space-y-8">
-      {/* Search & Filter Toolbar */}
-      <div className="rounded-3xl bg-white p-4 sm:p-6 border border-stone-200/80 shadow-sm space-y-4">
-        <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
-          {/* Search input */}
+      {/* Search & Filter Toolbar: Fully Responsive on Mobile & Desktop */}
+      <div className="rounded-3xl bg-white p-3.5 sm:p-6 border border-stone-200/80 shadow-xs space-y-3 sm:space-y-4">
+        <div className="flex flex-col md:flex-row gap-2 sm:gap-3 items-stretch md:items-center justify-between">
+          {/* Search input: Responsive text & height */}
           <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-stone-400" />
+            <Search className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 size-4 text-stone-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Cari kaos dino, piyama bambu, dress floral, jogger pants..."
-              className="w-full rounded-full bg-stone-50 border border-stone-200 pl-11 pr-4 py-2.5 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-hidden focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200/40 transition-all"
+              placeholder="Cari baju, kaos, setelan anak..."
+              className="w-full rounded-full bg-stone-50 border border-stone-200 pl-10 sm:pl-11 pr-16 sm:pr-20 py-2 sm:py-2.5 text-xs sm:text-sm text-stone-800 placeholder:text-stone-400 focus:outline-hidden focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200/40 transition-all h-9 sm:h-11"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-600 bg-stone-200/60 rounded-full px-2 py-0.5"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-600 bg-stone-200/60 rounded-full px-2 py-0.5"
               >
                 Hapus
               </button>
             )}
           </div>
 
-          {/* Age & Sort Controls Using shadcn UI Select */}
-          <div className="flex items-center gap-2.5 overflow-x-auto pb-1 md:pb-0">
+          {/* Mobile Category Select: shadcn Select dropdown only visible on mobile */}
+          <div className="block sm:hidden">
+            <Select value={selectedCategory} onValueChange={(val) => setSelectedCategory(val)}>
+              <SelectTrigger className="w-full rounded-full bg-stone-50 border border-stone-200 text-xs font-medium text-stone-700 h-9 px-3 focus:ring-2 focus:ring-emerald-200/40 focus:border-emerald-400 transition-colors">
+                <span className="text-stone-400 font-normal mr-1.5 shrink-0">Kategori:</span>
+                <SelectValue placeholder="Pilih Kategori" />
+              </SelectTrigger>
+              <SelectContent position="popper" className="rounded-2xl border border-stone-200 bg-white shadow-xl">
+                {CATEGORIES.map((cat) => (
+                  <SelectItem key={cat.id} value={cat.id} className="cursor-pointer text-xs font-medium py-2">
+                    {cat.icon} {cat.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Age & Sort Controls: Proportional 50-50 Grid on Mobile, Flex on Desktop */}
+          <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center sm:gap-2.5 w-full md:w-auto">
             {/* shadcn Select for Age Filter */}
             <Select value={selectedAge} onValueChange={(val) => setSelectedAge(val)}>
-              <SelectTrigger className="w-[180px] sm:w-[210px] rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 h-10 px-4 focus:ring-2 focus:ring-emerald-200/40 focus:border-emerald-400 transition-colors">
+              <SelectTrigger className="w-full sm:w-[170px] md:w-[185px] rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 h-9 sm:h-11 px-3 sm:px-4 focus:ring-2 focus:ring-emerald-200/40 focus:border-emerald-400 transition-colors">
                 <SelectValue placeholder="Pilih Usia" />
               </SelectTrigger>
               <SelectContent position="popper" className="rounded-2xl border border-stone-200 bg-white shadow-xl">
@@ -171,29 +190,29 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
 
             {/* shadcn Select for Sort Dropdown */}
             <Select value={sortBy} onValueChange={(val) => setSortBy(val)}>
-              <SelectTrigger className="w-[170px] sm:w-[195px] rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 h-10 px-4 focus:ring-2 focus:ring-emerald-200/40 focus:border-emerald-400 transition-colors">
+              <SelectTrigger className="w-full sm:w-[165px] md:w-[180px] rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 h-9 sm:h-11 px-3 sm:px-4 focus:ring-2 focus:ring-emerald-200/40 focus:border-emerald-400 transition-colors">
                 <SelectValue placeholder="Urutkan" />
               </SelectTrigger>
               <SelectContent position="popper" className="rounded-2xl border border-stone-200 bg-white shadow-xl">
                 <SelectItem value="popular" className="cursor-pointer text-xs sm:text-sm font-medium py-2">
-                  Paling Laris (Populer)
+                  Paling Laris
                 </SelectItem>
                 <SelectItem value="price-asc" className="cursor-pointer text-xs sm:text-sm font-medium py-2">
-                  Harga: Rendah ke Tinggi
+                  Harga Terendah
                 </SelectItem>
                 <SelectItem value="price-desc" className="cursor-pointer text-xs sm:text-sm font-medium py-2">
-                  Harga: Tinggi ke Rendah
+                  Harga Tertinggi
                 </SelectItem>
                 <SelectItem value="rating" className="cursor-pointer text-xs sm:text-sm font-medium py-2">
-                  Rating Tertinggi
+                  Rating Terbaik
                 </SelectItem>
               </SelectContent>
             </Select>
           </div>
         </div>
 
-        {/* Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pt-2 pb-1 scrollbar-none">
+        {/* Category Pills: Shown on Tablet & Desktop (Hidden on Mobile) */}
+        <div className="hidden sm:flex items-center gap-2 overflow-x-auto pt-1 pb-1 scrollbar-none">
           {CATEGORIES.map((cat) => {
             const active = selectedCategory === cat.id;
             return (
@@ -201,9 +220,9 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                 key={cat.id}
                 type="button"
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
+                className={`shrink-0 flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                   active
-                    ? "bg-emerald-600 text-white shadow-sm scale-102"
+                    ? "bg-emerald-600 text-white shadow-xs scale-102"
                     : "bg-stone-100 hover:bg-stone-200/80 text-stone-700"
                 }`}
               >
@@ -251,51 +270,27 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
               `Halo CUBS Kids, saya tertarik untuk memesan baju "${displayName}" seharga ${formatRupiah(entry.price)}. Untuk usia ${ageLabel}, apakah size masih tersedia?`
             );
             const waUrl = `https://wa.me/6281234567890?text=${waMsg}`;
+            const productImages = [
+              entry.image,
+              ...(Array.isArray(entry.images) ? entry.images : []),
+            ].filter((x): x is string => Boolean(x));
 
             return (
               <div
                 key={p.slug}
                 className="group relative flex flex-col rounded-3xl bg-white border border-stone-200/80 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
-                {/* Product Image */}
-                <a
-                  href={`/products/${p.slug}`}
-                  className="relative aspect-square w-full overflow-hidden bg-[#FAF8F5] block"
-                >
-                  {entry.image ? (
-                    <img
-                      src={entry.image}
-                      alt={displayName}
-                      className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="h-full w-full flex items-center justify-center text-5xl">
-                      👕
-                    </div>
-                  )}
-
-                  {/* Badge */}
-                  {entry.badge && (
-                    <div className="absolute top-3 left-3">
-                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 text-white font-semibold text-xs px-3 py-1 shadow-2xs">
-                        {entry.badge}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Discount Tag */}
-                  {discountPercent && (
-                    <div className="absolute top-3 right-3">
-                      <span className="inline-flex items-center rounded-full bg-rose-500 text-white font-bold text-xs px-2.5 py-0.5 shadow-2xs">
-                        -{discountPercent}%
-                      </span>
-                    </div>
-                  )}
-                </a>
+                {/* Product Multiple Image Slider */}
+                <ProductCardImageSlider
+                  images={productImages}
+                  slug={p.slug}
+                  alt={displayName}
+                  badge={entry.badge}
+                  discountPercent={discountPercent}
+                />
 
                 {/* Content */}
-                <div className="flex flex-1 flex-col p-5">
+                <div className="flex flex-1 flex-col p-4 sm:p-5">
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md">
                       {categoryLabel}

@@ -10,6 +10,11 @@
   "rating": "4.9",
   "soldCount": 340,
   "image": "/images/products/dress-floral.svg",
+  "images": [
+    "/images/products/dress-floral.svg",
+    "/images/hero/hero-dress.jpg",
+    "/images/products/dress-rainbow.svg"
+  ],
   "material": "100% Premium Cotton Rayon Twill Ultra Soft",
   "summary": "Gaun santai anak perempuan motif bunga pastel dengan aksen pita manis dan potongan mengembang ceria.",
   "description": "Sangat cocok untuk jalan-jalan santai, acara ulang tahun, maupun bepergian di akhir pekan. Bahannya jatuh anggun dan menyerap keringat anak yang ceria bergerak."
