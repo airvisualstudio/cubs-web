@@ -28,7 +28,7 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
 
   const rightLinks = [
     { label: "Product", href: "/products", icon: ShoppingBag },
-    { label: "Contact Us", href: "/contact", icon: PhoneCall },
+    { label: "Contact", href: "/contact", icon: PhoneCall },
   ];
 
   const allLinks = [...leftLinks, ...rightLinks];
@@ -49,10 +49,6 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
           {/* Left Wing */}
           <div className="flex items-center gap-2 lg:gap-4 flex-1">
             {/* Small Age Badge in Pastel Mint on Far Left */}
-            <span className="hidden lg:inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100 shrink-0">
-              <span>🧸</span>
-              <span>3 - 8 Thn</span>
-            </span>
 
             {/* Left Nav Links: Home, About */}
             <div className="flex items-center justify-end gap-1 lg:gap-2 flex-1 pr-3 lg:pr-6">
@@ -62,11 +58,10 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
                   <a
                     key={item.href}
                     href={item.href}
-                    className={`px-3.5 lg:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 ${
-                      active
-                        ? "bg-emerald-100 text-emerald-950 font-bold shadow-2xs"
-                        : "text-stone-700 hover:text-emerald-800 hover:bg-emerald-50/60"
-                    }`}
+                    className={`px-3.5 lg:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 ${active
+                      ? "bg-emerald-100 text-emerald-950 font-bold shadow-2xs"
+                      : "text-stone-700 hover:text-emerald-800 hover:bg-emerald-50/60"
+                      }`}
                   >
                     <span>{item.label}</span>
                     {active && (
@@ -79,17 +74,17 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
           </div>
 
           {/* Center Overlapping Logo (Sits Higher so Navbar is Slightly Below the Logo) */}
-          <div className="relative shrink-0 z-30 flex items-center justify-center px-1">
+          <div className="relative shrink-0 z-30 flex items-center justify-center px-l mt-5">
             <a
               href="/"
-              title="CUBS Kids - Baju Anak Usia 3-8 Tahun"
+              title="CUBS Kids -  Bright Wear for Little Adventurers"
               aria-label="CUBS Kids Beranda"
               className="group relative -translate-y-2.5 sm:-translate-y-3.5 flex items-center justify-center transition-transform duration-300 hover:scale-105 active:scale-95"
             >
               <img
                 src={logoSrc}
                 alt="CUBS Kids Logo"
-                className="h-16 sm:h-20 md:h-22 w-auto object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+                className="h-16 sm:h-20 md:h-22 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </a>
           </div>
@@ -104,11 +99,10 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
                   <a
                     key={item.href}
                     href={item.href}
-                    className={`px-3.5 lg:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 ${
-                      active
-                        ? "bg-emerald-100 text-emerald-950 font-bold shadow-2xs"
-                        : "text-stone-700 hover:text-emerald-800 hover:bg-emerald-50/60"
-                    }`}
+                    className={`px-3.5 lg:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 ${active
+                      ? "bg-emerald-100 text-emerald-950 font-bold shadow-2xs"
+                      : "text-stone-700 hover:text-emerald-800 hover:bg-emerald-50/60"
+                      }`}
                   >
                     <span>{item.label}</span>
                     {active && (
@@ -202,11 +196,10 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
                           <a
                             href={item.href}
                             onClick={() => setOpen(false)}
-                            className={`flex items-center gap-3 px-4 py-2.5 rounded-2xl text-base font-medium transition-all ${
-                              active
-                                ? "bg-emerald-100 text-emerald-950 font-bold"
-                                : "text-stone-700 hover:bg-stone-50"
-                            }`}
+                            className={`flex items-center gap-3 px-4 py-2.5 rounded-2xl text-base font-medium transition-all ${active
+                              ? "bg-emerald-100 text-emerald-950 font-bold"
+                              : "text-stone-700 hover:bg-stone-50"
+                              }`}
                           >
                             <Icon className="size-5 text-emerald-600" />
                             <span>{item.label}</span>

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Search, Star, ShoppingCart, ArrowRight, RefreshCw, Sparkles } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select";
 
 interface Product {
   slug: string;
@@ -25,6 +26,13 @@ interface ProductCatalogProps {
   initialProducts: Product[];
   initialCategory?: string;
 }
+
+const CATEA = [
+  { value: "all", label: "Semua Usia (3 - 8 Tahun)" },
+  { value: "3-4", label: "3 - 4 Tahun (Size 4)" },
+  { value: "5-6", label: "5 - 6 Tahun (Size 6)" },
+  { value: "7-8", label: "7 - 8 Tahun (Size 8)" },
+];
 
 const CATEGORIES = [
   { id: "all", label: "Semua Baju", icon: "👕" },
@@ -62,6 +70,28 @@ function formatRupiah(amount?: number | null) {
     currency: "IDR",
     maximumFractionDigits: 0,
   }).format(amount);
+}
+
+export default function AgeFilter() {
+  return (
+    <Select
+      defaultValue="all"
+      onValueChange={(v) =>
+        window.dispatchEvent(new CustomEvent("age-filter", { detail: v }))
+      }
+    >
+      <SelectTrigger className="w-64">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        {options.map((o) => (
+          <SelectItem key={o.value} value={o.value}>
+            {o.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
 }
 
 export function ProductCatalog({ initialProducts, initialCategory }: ProductCatalogProps) {
@@ -186,11 +216,10 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                 key={cat.id}
                 type="button"
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
-                  active
-                    ? "bg-amber-500 text-white shadow-md shadow-amber-500/20 scale-102"
-                    : "bg-stone-100 hover:bg-stone-200/80 text-stone-700"
-                }`}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 ${active
+                  ? "bg-amber-500 text-white shadow-md shadow-amber-500/20 scale-102"
+                  : "bg-stone-100 hover:bg-stone-200/80 text-stone-700"
+                  }`}
               >
                 <span>{cat.icon}</span>
                 <span>{cat.label}</span>
