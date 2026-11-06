@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ProductCard from "../components/ProductCard.astro";
+import { HeroSlider } from "../components/HeroSlider";
 import { FaqSection } from "../components/FaqSection";
 import { getProducts } from "../lib/keystatic";
 import {
@@ -8,8 +9,6 @@ import {
   ArrowRight,
   ShieldCheck,
   Heart,
-  Baby,
-  Smile,
   CheckCircle2,
   Star,
   ShoppingBag,
@@ -20,170 +19,73 @@ import {
 const allProducts = await getProducts();
 const featuredProducts = allProducts.filter((p) => p.entry.featured).slice(0, 4);
 
-// Categories
+// Categories for kids 3-8 years in clean solid pastels
 const categories = [
   {
-    title: "Pakaian & Setelan",
-    desc: "Katun bambu organik adem & bebas gatal",
-    icon: "👕",
-    href: "/products?category=pakaian",
-    bg: "bg-sky-50 border-sky-200/80 text-sky-800",
+    title: "Kaos & Atasan",
+    desc: "Katun combed 24s adem, sablon awet & tahan cuci",
+    icon: "🦖",
+    href: "/products?category=atasan",
+    bg: "bg-[#F0F9FF] border-[#BAE6FD] text-sky-900",
   },
   {
-    title: "Mainan & Edukasi",
-    desc: "Montessori kayu halus & boneka plush",
-    icon: "🎨",
-    href: "/products?category=mainan",
-    bg: "bg-amber-50 border-amber-200/80 text-amber-800",
+    title: "Setelan & Piyama",
+    desc: "Katun bambu sejuk alami bikin tidur anak nyenyak",
+    icon: "⭐",
+    href: "/products?category=setelan",
+    bg: "bg-[#FFFDF5] border-[#FDE68A] text-amber-900",
   },
   {
-    title: "Perlengkapan Bayi",
-    desc: "Silikon food grade BPA-Free & anti tumpah",
-    icon: "🍼",
-    href: "/products?category=perlengkapan",
-    bg: "bg-rose-50 border-rose-200/80 text-rose-800",
+    title: "Dress & Terusan",
+    desc: "Gaun katun manis dan mengembang ceria saat berputar",
+    icon: "👗",
+    href: "/products?category=dress",
+    bg: "bg-[#FDF2F8] border-[#FBCFE8] text-rose-900",
   },
   {
-    title: "Sepatu & Aksesoris",
-    desc: "Prewalker fleksibel & topi UV protektif",
-    icon: "👟",
-    href: "/products?category=aksesoris",
-    bg: "bg-emerald-50 border-emerald-200/80 text-emerald-800",
+    title: "Jaket & Celana",
+    desc: "Hoodie hangat & jogger stretch untuk anak yang aktif",
+    icon: "🧥",
+    href: "/products?category=bawahan-outer",
+    bg: "bg-[#F0FDF4] border-[#BBF7D0] text-emerald-900",
   },
 ];
 
 const testimonials = [
   {
-    name: "Bunda Ayu",
-    role: "Ibu dari Keenan (18 Bulan)",
-    city: "Jakarta Selatan",
+    name: "Bunda Rini",
+    role: "Ibu dari Kenzo (4 Tahun)",
+    city: "Jakarta Barat",
     avatar: "👩",
     rating: 5,
-    text: "Piyama katun bambunya beneran sejuk banget! Anakku yang biasanya suka garuk-garuk leher pas tidur sekarang pules semalaman. Bahannya stretch dan cucian berulang kali ga melar.",
+    text: "Kaos dino-nya beneran favorit Kenzo! Sablonnya ga retak walau udah dicuci berkali-kali di mesin cuci. Bahannya adem banget dipakai lari-larian di playground.",
   },
   {
-    name: "Ayah Dimas",
-    role: "Ayah dari Arka (2 Tahun)",
+    name: "Ayah Fajar",
+    role: "Ayah dari Aluna (6 Tahun)",
     city: "Bandung",
     avatar: "👨",
     rating: 5,
-    text: "Balok susun Montessori-nya halus parah, ga ada serpihan kayu tajam sama sekali. Warnanya juga cerah tapi ga berbau cat kimia. Aman banget buat main seharian.",
+    text: "Dress twirl pelangi buat Aluna pas banget di badan. Bahannya jatuh dan jahitan kerahnya rapi, ga ada label gatal di leher jadi anaknya betah pakai seharian.",
   },
   {
-    name: "Bunda Citra",
-    role: "Ibu dari Olivia (8 Bulan)",
-    city: "Surabaya",
+    name: "Bunda Melly",
+    role: "Ibu dari Zidan (7 Tahun)",
+    city: "Tangerang Selatan",
     avatar: "👩‍🦰",
     rating: 5,
-    text: "Sippy cup silikonnya beneran anti tumpah walaupun sering dilempar dari high chair. Pelayanan admin WhatsApp-nya ramah dan pengiriman super cepat!",
+    text: "Celana jogger sama hoodie zipper-nya bahannya tebel tapi ga gerah. Anakku yang aktif manjat-manjat ga ngeluh sesak karena karet pinggangnya elastis empuk.",
   },
 ];
 ---
 
-<Layout title="CUBS Kids - Sahabat Tumbuh Kembang Si Buah Hati">
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden py-12 sm:py-20 px-4 sm:px-6">
-    <!-- Background playful glow circles -->
-    <div class="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-amber-200/40 blur-3xl -z-10"></div>
-    <div class="pointer-events-none absolute top-48 right-10 w-72 h-72 rounded-full bg-rose-200/30 blur-3xl -z-10"></div>
-
-    <div class="mx-auto max-w-6xl">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <!-- Hero Text -->
-        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-          <!-- Playful Badge -->
-          <div class="inline-flex items-center gap-2 rounded-full bg-amber-100/90 text-amber-900 border border-amber-300/60 px-4 py-1.5 text-xs sm:text-sm font-semibold shadow-xs">
-            <span class="text-base">🧸</span>
-            <span>Koleksi Produk Anak Bersertifikasi SNI & OEKO-TEX</span>
-          </div>
-
-          <!-- Main Heading -->
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-stone-900 leading-[1.12]">
-            Kenyamanan & Keceriaan Terbaik untuk <span class="text-transparent bg-clip-text bg-linear-to-r from-amber-500 via-orange-500 to-rose-500">Si Buah Hati</span>
-          </h1>
-
-          <!-- Description -->
-          <p class="text-base sm:text-lg text-stone-600 max-w-2xl leading-relaxed mx-auto lg:mx-0">
-            Didesain khusus bersama para orang tua: pakaian katun bambu yang ramah kulit sensitif, mainan edukasi kayu bersudut tumpul, hingga perlengkapan makan silikon platinum bebas BPA.
-          </p>
-
-          <!-- Action Buttons -->
-          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
-            <a
-              href="/products"
-              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-sm sm:text-base px-8 py-3.5 shadow-lg shadow-orange-500/25 active:scale-98 transition-all"
-            >
-              <ShoppingBag className="size-5" />
-              <span>Lihat Katalog Produk</span>
-              <ArrowRight className="size-4" />
-            </a>
-
-            <a
-              href="/about"
-              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white hover:bg-stone-50 text-stone-800 font-bold text-sm sm:text-base px-6 py-3.5 border border-stone-200 shadow-xs transition-colors"
-            >
-              <span>Cerita Kami</span>
-            </a>
-          </div>
-
-          <!-- Trust Badges List -->
-          <div class="pt-4 grid grid-cols-3 gap-3 border-t border-amber-200/50 max-w-lg mx-auto lg:mx-0">
-            <div class="flex items-center gap-2 text-left">
-              <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
-              <span class="text-xs font-semibold text-stone-700">100% Organik</span>
-            </div>
-            <div class="flex items-center gap-2 text-left">
-              <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
-              <span class="text-xs font-semibold text-stone-700">Bebas Racun / BPA</span>
-            </div>
-            <div class="flex items-center gap-2 text-left">
-              <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
-              <span class="text-xs font-semibold text-stone-700">Garansi Tukar Size</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Hero Visual Banner -->
-        <div class="lg:col-span-5 relative">
-          <div class="relative mx-auto max-w-md rounded-4xl bg-linear-to-tr from-amber-100 via-orange-100 to-rose-100 p-6 sm:p-8 shadow-2xl border border-amber-200/70 overflow-hidden">
-            <!-- Center illustration -->
-            <div class="aspect-square rounded-3xl bg-white p-6 shadow-md flex flex-col items-center justify-center relative overflow-hidden">
-              <img
-                src="/images/products/piyama.svg"
-                alt="CUBS Kids Hero"
-                class="w-56 h-56 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
-              />
-              <span class="mt-4 font-extrabold text-stone-800 text-lg">Piyama Katun Bambu Cubby</span>
-              <span class="text-xs text-amber-700 font-semibold bg-amber-100 px-3 py-1 rounded-full mt-1">
-                ⭐ 4.9 (480+ Terjual)
-              </span>
-            </div>
-
-            <!-- Floating safety card top left -->
-            <div class="absolute top-4 left-4 rounded-2xl bg-white/95 backdrop-blur-xs p-3 shadow-lg border border-amber-100 flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm font-bold">
-                ✓
-              </div>
-              <div>
-                <p class="text-xs font-bold text-stone-900">OEKO-TEX Certified</p>
-                <p class="text-[10px] text-stone-500">Hypoallergenic Standard</p>
-              </div>
-            </div>
-
-            <!-- Floating review pill bottom right -->
-            <div class="absolute bottom-4 right-4 rounded-2xl bg-white/95 backdrop-blur-xs p-3 shadow-lg border border-amber-100 flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-base">
-                🧸
-              </div>
-              <div>
-                <p class="text-xs font-bold text-stone-900">1000+ Orang Tua Puas</p>
-                <p class="text-[10px] text-amber-600 font-semibold">Ulasan Bintang 5</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<Layout
+  title="CUBS Kids - Koleksi Baju Anak Ceria Usia 3 - 8 Tahun"
+  description="Koleksi pakaian anak usia 3 hingga 8 tahun berbahan 100% katun combed dan katun bambu yang adem, bebas gatal, dan kuat untuk aktivitas bermain si kecil."
+>
+  <!-- Top Hero Image Slider with Captions, Badges, & Action Buttons -->
+  <section class="pt-2 sm:pt-4 pb-8 sm:pb-12">
+    <HeroSlider client:load />
   </section>
 
   <!-- Categories Section -->
@@ -191,10 +93,10 @@ const testimonials = [
     <div class="mx-auto max-w-6xl">
       <div class="text-center max-w-xl mx-auto mb-10 space-y-2">
         <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900">
-          Koleksi Kategori Pilihan
+          Kategori Pilihan Baju Anak (3-8 Thn)
         </h2>
         <p class="text-sm text-stone-600">
-          Dirancang untuk berbagai tahapan usia si kecil, dari newborn hingga anak aktif.
+          Dari pakaian harian santai, setelan piyama sejuk, hingga dress cantik siap jalan-jalan.
         </p>
       </div>
 
@@ -227,13 +129,13 @@ const testimonials = [
         <div class="space-y-1.5">
           <div class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full">
             <Sparkles className="size-3.5" />
-            <span>Katalog Terupdate</span>
+            <span>Katalog Terbaru (Usia 3-8 Thn)</span>
           </div>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900">
-            Produk Pilihan Si Kecil
+            Baju Pilihan Favorit Anak
           </h2>
           <p class="text-sm text-stone-600">
-            Dikelola & dapat diupdate langsung melalui Keystatic CMS.
+            Dikelola & dapat diupdate langsung via Keystatic CMS.
           </p>
         </div>
 
@@ -257,50 +159,50 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- Why Parents Choose CUBS -->
-  <section class="py-16 px-4 sm:px-6 bg-linear-to-b from-amber-50/40 to-orange-50/40 border-y border-amber-100">
+  <!-- Why Parents Choose CUBS for 3-8y -->
+  <section class="py-16 px-4 sm:px-6 bg-[#F8FBF9] border-y border-emerald-100/70">
     <div class="mx-auto max-w-6xl">
       <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
         <div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold">
           <Award className="size-3.5" />
-          <span>Komitmen Keamanan CUBS</span>
+          <span>Kualitas Teruji untuk Anak Aktif</span>
         </div>
         <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900">
-          Mengapa Ribuan Bunda & Ayah Percaya pada CUBS?
+          Kenapa Baju CUBS Paling Pas untuk Usia 3 - 8 Tahun?
         </h2>
         <p class="text-sm text-stone-600">
-          Standar tinggi yang kami terapkan untuk setiap helai kain dan setiap sudut mainan.
+          Anak usia 3-8 tahun sangat aktif berlari, melompat, dan bereksplorasi. Bajunya harus nyaman dan kuat!
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="rounded-3xl bg-white p-7 border border-amber-100 shadow-md space-y-3">
           <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-2xl">
-            🌿
+            🌬️
           </div>
-          <h3 class="font-bold text-lg text-stone-900">100% Organik & Hypoallergenic</h3>
+          <h3 class="font-bold text-lg text-stone-900">Serat Katun Menyerap Keringat</h3>
           <p class="text-sm text-stone-600 leading-relaxed">
-            Terbuat dari serat bambu dan katun organik pilihan yang secara alami memiliki sifat anti-bakteri, menyerap keringat 3x lebih cepat, dan tidak membuat kulit bayi iritasi.
+            Terbuat dari 100% Katun Combed 24s dan katun bambu berkualitas tinggi yang sejuk di badan anak, mencegah biang keringat meski bermain seharian di bawah terik matahari.
           </p>
         </div>
 
         <div class="rounded-3xl bg-white p-7 border border-amber-100 shadow-md space-y-3">
           <div class="w-14 h-14 rounded-2xl bg-rose-100 text-rose-800 flex items-center justify-center text-2xl">
-            🛡️
+            🏷️
           </div>
-          <h3 class="font-bold text-lg text-stone-900">Bebas Bahan Kimia Berbahaya</h3>
+          <h3 class="font-bold text-lg text-stone-900">Bebas Label Leher Gatal (Tagless)</h3>
           <p class="text-sm text-stone-600 leading-relaxed">
-            Nol kandungan BPA, timbal, merkuri, dan ftalat. Mainan kayu dicat menggunakan pewarna berbahan dasar air ramah lingkungan yang aman meskipun tidak sengaja digigit anak.
+            Banyak anak menolak memakai baju karena label kain di belakang leher menusuk. Semua baju CUBS menggunakan sablon leher halus tanpa label fisik yang membuat gatal.
           </p>
         </div>
 
         <div class="rounded-3xl bg-white p-7 border border-amber-100 shadow-md space-y-3">
           <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-800 flex items-center justify-center text-2xl">
-            👶
+            💪
           </div>
-          <h3 class="font-bold text-lg text-stone-900">Desain Ergonomis & Praktis</h3>
+          <h3 class="font-bold text-lg text-stone-900">Jahitan Rantai Kuat & Elastis</h3>
           <p class="text-sm text-stone-600 leading-relaxed">
-            Kerah fleksibel, kancing bebas nikel yang mudah dibuka saat ganti popok, dan potongan longgar yang memberi ruang bebas bagi si kecil untuk merangkak dan bergerak aktif.
+            Jahitan ganda di bagian kerah, pundak, dan selangkangan celana menjamin baju tidak gampang sobek atau melar meski sering dicuci dan ditarik-tarik saat anak bermain aktif.
           </p>
         </div>
       </div>
@@ -312,10 +214,10 @@ const testimonials = [
     <div class="mx-auto max-w-6xl">
       <div class="text-center max-w-xl mx-auto mb-12 space-y-2">
         <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900">
-          Cerita Bunda & Ayah Bersama CUBS
+          Ulasan Bunda & Ayah Bersama CUBS
         </h2>
         <p class="text-sm text-stone-600">
-          Ulasan jujur dari keluarga yang telah merasakan kenyamanan produk kami.
+          Pengalaman nyata para orang tua dengan buah hati usia 3 - 8 tahun.
         </p>
       </div>
 
@@ -353,38 +255,35 @@ const testimonials = [
     <FaqSection client:load />
   </section>
 
-  <!-- Final CTA Banner -->
+  <!-- Final CTA Banner: Solid Pastel Yellow & Green Button -->
   <section class="py-16 px-4 sm:px-6">
-    <div class="mx-auto max-w-5xl rounded-4xl bg-linear-to-r from-amber-400 via-orange-400 to-rose-400 p-8 sm:p-12 text-white shadow-xl shadow-orange-500/15 text-center space-y-6 relative overflow-hidden">
-      <div class="pointer-events-none absolute -right-12 -top-12 w-48 h-48 rounded-full bg-white/10 blur-xl"></div>
-      <div class="pointer-events-none absolute -left-12 -bottom-12 w-48 h-48 rounded-full bg-white/10 blur-xl"></div>
-
-      <span class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/20 backdrop-blur-xs text-xs font-bold uppercase tracking-wider text-white">
-        ✨ Siap Memberikan yang Terbaik untuk Si Kecil?
+    <div class="mx-auto max-w-5xl rounded-3xl sm:rounded-4xl bg-[#FEF3C7] border border-amber-200 p-8 sm:p-12 text-stone-900 shadow-sm text-center space-y-5">
+      <span class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-amber-200/90 text-amber-950 text-xs font-bold uppercase tracking-wider">
+        ✨ Temukan Ukuran yang Pas untuk Si Kecil (3-8 Thn)
       </span>
 
-      <h2 class="text-3xl sm:text-4xl font-black max-w-xl mx-auto leading-tight">
-        Temukan Koleksi Pakaian & Mainan Aman Hari Ini
+      <h2 class="text-3xl sm:text-4xl font-black max-w-xl mx-auto leading-tight text-stone-900">
+        Siap Beri Baju Paling Nyaman untuk Aktivitas Si Kecil?
       </h2>
 
-      <p class="text-sm sm:text-base text-amber-50 max-w-lg mx-auto">
-        Dapatkan gratis ongkir dan konsultasi ukuran gratis langsung dengan tim CS kami.
+      <p class="text-sm sm:text-base text-stone-700 max-w-lg mx-auto">
+        Tersedia Size 4, Size 6, dan Size 8 dengan garansi tukar ukuran 7 hari tanpa ribet.
       </p>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
         <a
           href="/products"
-          class="w-full sm:w-auto rounded-full bg-stone-900 hover:bg-stone-800 text-white font-bold text-sm px-8 py-3.5 shadow-md active:scale-98 transition-all"
+          class="w-full sm:w-auto rounded-full bg-stone-900 hover:bg-stone-800 text-white font-bold text-sm px-8 py-3.5 shadow-xs active:scale-98 transition-all"
         >
-          Buka Katalog Produk
+          Lihat Katalog Baju Anak
         </a>
         <a
-          href="https://wa.me/6281234567890"
+          href="https://wa.me/6281234567890?text=Halo%20CUBS,%20saya%20mau%20konsultasi%20size%20chart%20baju%20anak"
           target="_blank"
           rel="noopener noreferrer"
-          class="w-full sm:w-auto rounded-full bg-white hover:bg-stone-100 text-stone-900 font-bold text-sm px-8 py-3.5 shadow-md active:scale-98 transition-all"
+          class="w-full sm:w-auto rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 shadow-xs active:scale-98 transition-all"
         >
-          Chat WhatsApp CS
+          Konsultasi Size via WhatsApp
         </a>
       </div>
     </div>

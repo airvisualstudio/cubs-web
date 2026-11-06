@@ -9,24 +9,24 @@ interface FaqItem {
 
 const FAQS: FaqItem[] = [
   {
-    question: "Apakah bahan pakaian CUBS aman untuk bayi dengan kulit sensitif / eksim?",
-    answer: "Sangat aman! Seluruh produk pakaian CUBS menggunakan 100% Bamboo Cotton bersertifikasi OEKO-TEX Standard 100 Class 1 (standar tertinggi untuk bayi). Bahannya bebas formalin, logam berat, dan pewarna karsinogenik sehingga hypoallergenic dan sejuk di kulit.",
+    question: "Bagaimana cara memilih ukuran baju yang tepat untuk anak usia 3-8 tahun?",
+    answer: "Kami menggunakan standar ukuran: Size 4 (untuk usia 3-4 tahun, berat badan 13-17 kg), Size 6 (untuk usia 5-6 tahun, berat badan 18-22 kg), dan Size 8 (untuk usia 7-8 tahun, berat badan 23-28 kg). Jika buah hati Anda memiliki tubuh lebih berisi atau tinggi, kami menyarankan memilih 1 tingkat ukuran di atasnya agar lebih leluasa dipakai.",
   },
   {
-    question: "Bagaimana jika ukuran baju atau sepatu yang dibeli kekecilan / kebesaran?",
-    answer: "Kami menyediakan Garansi Tukar Ukuran dalam 7 hari setelah barang diterima, asalkan label belum dilepas dan barang belum dicuci. Bunda dan Ayah cukup menghubungi WhatsApp Customer Service kami untuk dibantu proses penukaran dengan mudah.",
+    question: "Apakah bahannya adem dan tidak memicu gatal saat anak berkeringat?",
+    answer: "Sangat adem! Kami menggunakan 100% Katun Combed 24s gramasi pas dan Katun Bambu Organik yang secara alami menyerap keringat 3x lebih cepat dibandingkan katun biasa. Selain itu, seluruh baju CUBS 'tagless' (tanpa label kain di leher) sehingga tidak ada bagian yang menusuk atau membuat leher gatal.",
   },
   {
-    question: "Apakah mainan kayu dan perlengkapan makan sudah lolos uji aman (Food Grade & SNI)?",
-    answer: "Ya! Mainan edukasi kayu kami telah memiliki sertifikasi SNI dan menggunakan cat berbahan dasar air (water-based non-toxic paint). Sedangkan peralatan makan terbuat dari 100% Platinum Food Grade Silicone yang bebas BPA, PVC, Phthalate, dan tahan disteril uap hingga 220°C.",
+    question: "Bagaimana jika baju yang dibeli kekecilan atau kebesaran di badan anak?",
+    answer: "Tenang saja Bunda & Ayah! CUBS memberikan Garansi Tukar Ukuran 7 Hari setelah paket diterima. Cukup pastikan baju belum dicuci dan label belum dilepas, tim customer service kami akan dengan senang hati membantu penukaran size.",
   },
   {
-    question: "Berapa lama proses pengiriman barang ke alamat saya?",
-    answer: "Pesanan yang terkonfirmasi sebelum pukul 15.00 WIB akan dikirim pada hari yang sama dari gudang kami di Jakarta. Estimasi tiba untuk area Jabodetabek adalah 1-2 hari kerja, dan luar kota berkisar antara 2-4 hari kerja.",
+    question: "Apakah sablon grafisnya tahan lama dan aman dicuci mesin cuci?",
+    answer: "Ya, kami menggunakan tinta sablon berbahan dasar air (water-based ink) berstandar internasional yang elastis dan menyatu dengan serat kain. Sablon tidak mudah pecah, retak, atau lengket saat disetrika dari sisi dalam.",
   },
   {
-    question: "Bagaimana cara memesan produk di CUBS?",
-    answer: "Bunda dan Ayah bisa langsung mengklik tombol 'Pesan' pada produk yang diinginkan untuk terhubung langsung ke WhatsApp admin kami, atau berkonsultasi mengenai rekomendasi usia dan kado si kecil terlebih dahulu.",
+    question: "Berapa lama estimasi pengiriman dan bagaimana cara memesan?",
+    answer: "Pesanan yang terkonfirmasi sebelum jam 15.00 WIB akan dikirim pada hari yang sama dari Jakarta. Estimasi sampai 1-2 hari untuk Jabodetabek dan 2-4 hari kerja untuk kota lainnya. Bunda/Ayah cukup klik tombol 'Pesan' di produk yang diinginkan untuk terhubung langsung ke WhatsApp kami.",
   },
 ];
 
@@ -36,13 +36,13 @@ export function FaqSection() {
       <div className="text-center space-y-2 mb-8">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold">
           <HelpCircle className="size-3.5" />
-          <span>Pertanyaan Umum Orang Tua</span>
+          <span>Tanya Jawab Seputar Baju Anak</span>
         </div>
         <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900">
           Kerap Ditanyakan Bunda & Ayah
         </h2>
         <p className="text-sm text-stone-600">
-          Semua yang perlu diketahui seputar kenyamanan, keamanan produk, dan pengiriman.
+          Informasi seputar size chart, ketahanan bahan katun, dan kemudahan garansi tukar ukuran.
         </p>
       </div>
 
@@ -70,4 +70,3 @@ export function FaqSection() {
     </div>
   );
 }
-

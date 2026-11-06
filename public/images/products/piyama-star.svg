@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <defs>
+      <linearGradient id="bgStar" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FEF3C7" />
+        <stop offset="100%" stop-color="#FDE68A" />
+      </linearGradient>
+      <linearGradient id="clothYellow" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FDE047" />
+        <stop offset="100%" stop-color="#EAB308" />
+      </linearGradient>
+    </defs>
+    <rect width="400" height="400" rx="32" fill="url(#bgStar)" />
+    <circle cx="200" cy="200" r="140" fill="white" opacity="0.8" />
+    <!-- Top -->
+    <path d="M135 110 L170 100 C185 118 215 118 230 100 L265 110 L285 165 L248 175 L245 220 L155 220 L152 175 L115 165 Z" fill="url(#clothYellow)" stroke="#CA8A04" stroke-width="4" stroke-linejoin="round" />
+    <!-- Buttons -->
+    <circle cx="200" cy="140" r="4" fill="#A16207" />
+    <circle cx="200" cy="165" r="4" fill="#A16207" />
+    <circle cx="200" cy="190" r="4" fill="#A16207" />
+    <!-- Bottom Pants -->
+    <path d="M160 225 L240 225 L245 295 L210 295 L200 245 L190 295 L155 295 Z" fill="#CA8A04" stroke="#854D0E" stroke-width="3" />
+    <!-- Star accents -->
+    <polygon points="175,145 178,153 186,154 180,160 182,168 175,164 168,168 170,160 164,154 172,153" fill="#F59E0B" />
+    <polygon points="225,145 228,153 236,154 230,160 232,168 225,164 218,168 220,160 214,154 222,153" fill="#F59E0B" />
+    <text x="200" y="340" font-family="sans-serif" font-size="16" font-weight="bold" fill="#A16207" text-anchor="middle">Setelan Piyama Katun Bambu</text>
+  </svg>

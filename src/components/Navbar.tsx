@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Dialog } from "radix-ui";
-import { Menu, X, Sparkles, ShoppingBag, HeartHandshake, PhoneCall, Home, Info, Edit3 } from "lucide-react";
+import { Menu, X, ShoppingBag, PhoneCall, Home, Info, Sparkles } from "lucide-react";
+import cubsLogo from "../assets/cubs-logo.webp";
 
 interface NavbarProps {
   currentPath?: string;
@@ -9,17 +10,28 @@ interface NavbarProps {
 export function Navbar({ currentPath = "/" }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
 
-  // Normalize path without trailing slash
-  const normPath = currentPath.endsWith("/") && currentPath.length > 1
-    ? currentPath.slice(0, -1)
-    : currentPath;
+  const logoSrc =
+    typeof cubsLogo === "string"
+      ? cubsLogo
+      : (cubsLogo as any)?.src || "/images/cubs-logo.webp";
 
-  const navLinks = [
+  // Normalize path without trailing slash
+  const normPath =
+    currentPath.endsWith("/") && currentPath.length > 1
+      ? currentPath.slice(0, -1)
+      : currentPath;
+
+  const leftLinks = [
     { label: "Home", href: "/", icon: Home },
     { label: "About", href: "/about", icon: Info },
-    { label: "Product", href: "/products", icon: ShoppingBag },
-    { label: "Contact", href: "/contact", icon: PhoneCall },
   ];
+
+  const rightLinks = [
+    { label: "Product", href: "/products", icon: ShoppingBag },
+    { label: "Contact Us", href: "/contact", icon: PhoneCall },
+  ];
+
+  const allLinks = [...leftLinks, ...rightLinks];
 
   const isActive = (href: string) => {
     if (href === "/") return normPath === "/" || normPath === "";
@@ -27,109 +39,154 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
   };
 
   return (
-    <header className="fixed top-3 sm:top-5 inset-x-0 mx-auto z-50 w-[94%] max-w-5xl">
+    <header className="fixed top-4 sm:top-6 inset-x-0 mx-auto z-50 w-[94%] max-w-5xl">
       <nav
         aria-label="Main Navigation"
-        className="rounded-full bg-white/92 dark:bg-stone-900/90 backdrop-blur-md border border-amber-200/70 dark:border-stone-800 shadow-xl shadow-amber-950/5 px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between transition-all duration-300"
+        className="relative overflow-visible rounded-full bg-white/95 dark:bg-stone-900/95 backdrop-blur-md border border-stone-200/70 dark:border-stone-800 shadow-md shadow-stone-300/30 px-3 sm:px-6 py-1 transition-all duration-300"
       >
-        {/* Brand Logo */}
-        <a href="/" className="flex items-center gap-2.5 group">
-          <div className="w-10 h-10 rounded-full bg-linear-to-tr from-amber-400 to-orange-400 flex items-center justify-center text-white shadow-md shadow-orange-300/40 group-hover:scale-105 transition-transform">
-            {/* Cute bear cub icon */}
-            <span className="text-xl select-none" role="img" aria-label="Cubs Bear">
-              🧸
+        {/* DESKTOP LAYOUT (md & up) */}
+        <div className="hidden md:flex items-center justify-between w-full h-11 sm:h-12">
+          {/* Left Wing */}
+          <div className="flex items-center gap-2 lg:gap-4 flex-1">
+            {/* Small Age Badge in Pastel Mint on Far Left */}
+            <span className="hidden lg:inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100 shrink-0">
+              <span>🧸</span>
+              <span>3 - 8 Thn</span>
             </span>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-extrabold text-lg sm:text-xl tracking-tight text-stone-900 dark:text-stone-100 flex items-center gap-1">
-              CUBS
-              <span className="text-xs font-semibold px-1.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-200">
-                Kids
-              </span>
-            </span>
-            <span className="text-[10px] font-medium text-stone-500 dark:text-stone-400 hidden xs:inline leading-none">
-              Produk Aman Si Kecil
-            </span>
-          </div>
-        </a>
 
-        {/* Desktop Menu Links */}
-        <ul className="hidden md:flex items-center gap-1 lg:gap-2">
-          {navLinks.map((item) => {
-            const active = isActive(item.href);
-            return (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 ${
-                    active
-                      ? "bg-amber-100/90 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 font-semibold shadow-xs"
-                      : "text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100/70 dark:hover:bg-stone-800/60"
-                  }`}
-                >
-                  <span>{item.label}</span>
-                  {active && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                  )}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
+            {/* Left Nav Links: Home, About */}
+            <div className="flex items-center justify-end gap-1 lg:gap-2 flex-1 pr-3 lg:pr-6">
+              {leftLinks.map((item) => {
+                const active = isActive(item.href);
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className={`px-3.5 lg:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+                      active
+                        ? "bg-emerald-100 text-emerald-950 font-bold shadow-2xs"
+                        : "text-stone-700 hover:text-emerald-800 hover:bg-emerald-50/60"
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    {active && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    )}
+                  </a>
+                );
+              })}
+            </div>
+          </div>
 
-        {/* Right Action Buttons */}
-        <div className="flex items-center gap-2">
-          {/* Keystatic CMS Quick Access Pill */}
+          {/* Center Overlapping Logo (Sits Higher so Navbar is Slightly Below the Logo) */}
+          <div className="relative shrink-0 z-30 flex items-center justify-center px-1">
+            <a
+              href="/"
+              title="CUBS Kids - Baju Anak Usia 3-8 Tahun"
+              aria-label="CUBS Kids Beranda"
+              className="group relative -translate-y-2.5 sm:-translate-y-3.5 flex items-center justify-center transition-transform duration-300 hover:scale-105 active:scale-95"
+            >
+              <img
+                src={logoSrc}
+                alt="CUBS Kids Logo"
+                className="h-16 sm:h-20 md:h-22 w-auto object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+              />
+            </a>
+          </div>
+
+          {/* Right Wing */}
+          <div className="flex items-center gap-2 lg:gap-4 flex-1">
+            {/* Right Nav Links: Product, Contact Us */}
+            <div className="flex items-center justify-start gap-1 lg:gap-2 flex-1 pl-3 lg:pl-6">
+              {rightLinks.map((item) => {
+                const active = isActive(item.href);
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className={`px-3.5 lg:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+                      active
+                        ? "bg-emerald-100 text-emerald-950 font-bold shadow-2xs"
+                        : "text-stone-700 hover:text-emerald-800 hover:bg-emerald-50/60"
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    {active && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    )}
+                  </a>
+                );
+              })}
+            </div>
+
+            {/* Quick Consultation WhatsApp Action: Solid Green (No Gradient) */}
+            <a
+              href="https://wa.me/6281234567890?text=Halo%20Admin%20CUBS,%20saya%20mau%20tanya%20size%20chart%20baju%20anak%20usia%203-8%20tahun"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Konsultasi Size Chart Anak"
+              className="shrink-0 inline-flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-4 py-2 rounded-full shadow-xs active:scale-95 transition-all"
+            >
+              <Sparkles className="size-3.5" />
+              <span>Konsultasi Size</span>
+            </a>
+          </div>
+        </div>
+
+        {/* MOBILE LAYOUT (less than md) */}
+        <div className="flex md:hidden items-center justify-between w-full h-11">
+          {/* Mobile Center/Left Logo Sitting Higher */}
           <a
-            href="/keystatic"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Kelola Produk di Keystatic CMS"
-            className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 transition-colors"
+            href="/"
+            className="group relative -translate-y-2 flex items-center transition-transform active:scale-95"
+            aria-label="CUBS Kids Beranda"
           >
-            <Edit3 className="size-3.5 text-orange-500" />
-            <span>CMS Admin</span>
+            <img
+              src={logoSrc}
+              alt="CUBS Kids Logo"
+              className="h-13 sm:h-15 w-auto object-contain drop-shadow-xs"
+            />
           </a>
 
-          {/* WhatsApp Direct Order / Consultation */}
-          <a
-            href="https://wa.me/6281234567890?text=Halo%20Admin%20CUBS,%20saya%20mau%20tanya%20produk%20anak"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm px-3.5 sm:px-4 py-2 rounded-full shadow-md shadow-orange-500/20 active:scale-95 transition-all"
-          >
-            <Sparkles className="size-3.5" />
-            <span>Konsultasi</span>
-          </a>
+          {/* Mobile Actions: WhatsApp Green Button & Hamburger */}
+          <div className="flex items-center gap-2">
+            <a
+              href="https://wa.me/6281234567890?text=Halo%20Admin%20CUBS,%20saya%20mau%20tanya%20baju%20anak%203-8%20tahun"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-xs"
+            >
+              <Sparkles className="size-3" />
+              <span>Tanya Size</span>
+            </a>
 
-          {/* Mobile Menu Trigger */}
-          <div className="md:hidden">
             <Dialog.Root open={open} onOpenChange={setOpen}>
               <Dialog.Trigger asChild>
                 <button
                   type="button"
                   aria-label="Buka Menu"
-                  className="p-2 rounded-full text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 focus:outline-hidden"
+                  className="p-1.5 rounded-full text-stone-700 hover:bg-stone-100 focus:outline-hidden"
                 >
-                  <Menu className="size-6" />
+                  <Menu className="size-5" />
                 </button>
               </Dialog.Trigger>
 
               <Dialog.Portal>
                 <Dialog.Overlay className="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-xs transition-opacity animate-in fade-in duration-200" />
-                <Dialog.Content className="fixed top-20 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md rounded-3xl bg-white dark:bg-stone-900 border border-amber-200 p-6 shadow-2xl animate-in zoom-in-95 duration-200 focus:outline-hidden">
-                  <div className="flex items-center justify-between pb-4 border-b border-stone-100 dark:border-stone-800">
+                <Dialog.Content className="fixed top-18 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md rounded-3xl bg-white border border-stone-200 p-6 shadow-xl animate-in zoom-in-95 duration-200 focus:outline-hidden">
+                  <div className="flex items-center justify-between pb-4 border-b border-stone-100">
                     <div className="flex items-center gap-2">
-                      <span className="text-2xl">🧸</span>
-                      <span className="font-bold text-lg text-stone-900 dark:text-stone-100">
-                        CUBS Menu
-                      </span>
+                      <img
+                        src={logoSrc}
+                        alt="CUBS Kids Logo"
+                        className="h-10 w-auto object-contain"
+                      />
                     </div>
                     <Dialog.Close asChild>
                       <button
                         type="button"
                         aria-label="Tutup Menu"
-                        className="p-1.5 rounded-full text-stone-500 hover:bg-stone-100 dark:hover:bg-stone-800"
+                        className="p-1.5 rounded-full text-stone-500 hover:bg-stone-100"
                       >
                         <X className="size-5" />
                       </button>
@@ -137,7 +194,7 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
                   </div>
 
                   <ul className="flex flex-col gap-2 py-4">
-                    {navLinks.map((item) => {
+                    {allLinks.map((item) => {
                       const Icon = item.icon;
                       const active = isActive(item.href);
                       return (
@@ -145,13 +202,13 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
                           <a
                             href={item.href}
                             onClick={() => setOpen(false)}
-                            className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-base font-medium transition-all ${
+                            className={`flex items-center gap-3 px-4 py-2.5 rounded-2xl text-base font-medium transition-all ${
                               active
-                                ? "bg-amber-100 text-amber-900 font-semibold"
+                                ? "bg-emerald-100 text-emerald-950 font-bold"
                                 : "text-stone-700 hover:bg-stone-50"
                             }`}
                           >
-                            <Icon className="size-5 text-amber-600" />
+                            <Icon className="size-5 text-emerald-600" />
                             <span>{item.label}</span>
                           </a>
                         </li>
@@ -159,24 +216,15 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
                     })}
                   </ul>
 
-                  <div className="pt-3 border-t border-stone-100 dark:border-stone-800 flex flex-col gap-2">
-                    <a
-                      href="/keystatic"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-amber-50 text-amber-800 font-medium text-sm border border-amber-200"
-                    >
-                      <Edit3 className="size-4" />
-                      <span>Buka Keystatic CMS (Admin)</span>
-                    </a>
+                  <div className="pt-3 border-t border-stone-100 flex flex-col gap-2">
                     <a
                       href="https://wa.me/6281234567890"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-linear-to-r from-amber-500 to-orange-500 text-white font-semibold text-sm shadow-md"
+                      className="flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-xs transition-colors"
                     >
                       <PhoneCall className="size-4" />
-                      <span>Chat WhatsApp Kami</span>
+                      <span>Chat WhatsApp CS</span>
                     </a>
                   </div>
                 </Dialog.Content>
@@ -188,4 +236,3 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
     </header>
   );
 }
-

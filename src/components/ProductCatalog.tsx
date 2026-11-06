@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Search, SlidersHorizontal, Star, ShoppingCart, ArrowRight, Sparkles, AlertCircle, RefreshCw } from "lucide-react";
+import { Search, Star, ShoppingCart, ArrowRight, RefreshCw, Sparkles } from "lucide-react";
 
 interface Product {
   slug: string;
@@ -27,19 +27,33 @@ interface ProductCatalogProps {
 }
 
 const CATEGORIES = [
-  { id: "all", label: "Semua Produk", icon: "🧸" },
-  { id: "pakaian", label: "Pakaian & Setelan", icon: "👕" },
-  { id: "mainan", label: "Mainan & Edukasi", icon: "🎨" },
-  { id: "perlengkapan", label: "Perlengkapan Bayi", icon: "🍼" },
-  { id: "aksesoris", label: "Sepatu & Aksesoris", icon: "👟" },
+  { id: "all", label: "Semua Baju", icon: "👕" },
+  { id: "atasan", label: "Kaos & Atasan", icon: "🦖" },
+  { id: "setelan", label: "Setelan & Piyama", icon: "⭐" },
+  { id: "dress", label: "Dress & Terusan", icon: "👗" },
+  { id: "bawahan-outer", label: "Jaket & Celana", icon: "🧥" },
 ];
 
 const AGE_GROUPS = [
-  { id: "all", label: "Semua Usia" },
-  { id: "0-12m", label: "0 - 12 Bulan (Bayi)" },
-  { id: "1-3y", label: "1 - 3 Tahun (Toddler)" },
-  { id: "4-7y", label: "4 - 7 Tahun (Kids)" },
+  { id: "all", label: "Semua Usia (3 - 8 Tahun)" },
+  { id: "3-4y", label: "3 - 4 Tahun (Size 4)" },
+  { id: "5-6y", label: "5 - 6 Tahun (Size 6)" },
+  { id: "7-8y", label: "7 - 8 Tahun (Size 8)" },
 ];
+
+const CATEGORY_NAMES: Record<string, string> = {
+  atasan: "Kaos & Atasan",
+  setelan: "Setelan & Piyama",
+  dress: "Dress & Terusan",
+  "bawahan-outer": "Jaket & Celana",
+};
+
+const AGE_NAMES: Record<string, string> = {
+  "3-4y": "3-4 Tahun",
+  "5-6y": "5-6 Tahun",
+  "7-8y": "7-8 Tahun",
+  "3-8y": "3-8 Tahun",
+};
 
 function formatRupiah(amount?: number | null) {
   if (amount == null) return "Rp 0";
@@ -73,7 +87,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
       }
 
       // Age filter
-      if (selectedAge !== "all" && p.entry.ageGroup !== selectedAge && p.entry.ageGroup !== "all") {
+      if (selectedAge !== "all" && p.entry.ageGroup !== selectedAge && p.entry.ageGroup !== "3-8y") {
         return false;
       }
 
@@ -118,7 +132,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Cari piyama bambu, mainan montessori, perlengkapan MPASI..."
+              placeholder="Cari kaos dino, piyama bambu, dress floral, jogger pants..."
               className="w-full rounded-full bg-stone-50 border border-stone-200 pl-11 pr-4 py-2.5 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-hidden focus:border-amber-400 focus:ring-2 focus:ring-amber-200/50 transition-all"
             />
             {searchQuery && (
@@ -138,7 +152,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
             <select
               value={selectedAge}
               onChange={(e) => setSelectedAge(e.target.value)}
-              aria-label="Filter Usia Anak"
+              aria-label="Pilih Rentang Usia Anak (3-8 Tahun)"
               className="rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 px-3.5 py-2.5 focus:outline-hidden focus:border-amber-400 transition-colors"
             >
               {AGE_GROUPS.map((a) => (
@@ -152,10 +166,10 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              aria-label="Urutkan Produk"
+              aria-label="Urutkan Baju Anak"
               className="rounded-full bg-stone-50 border border-stone-200 text-xs sm:text-sm font-medium text-stone-700 px-3.5 py-2.5 focus:outline-hidden focus:border-amber-400 transition-colors"
             >
-              <option value="popular">Terlaris (Populer)</option>
+              <option value="popular">Paling Laris (Populer)</option>
               <option value="price-asc">Harga: Rendah ke Tinggi</option>
               <option value="price-desc">Harga: Tinggi ke Rendah</option>
               <option value="rating">Rating Tertinggi</option>
@@ -189,7 +203,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
       {/* Results Header */}
       <div className="flex items-center justify-between text-xs sm:text-sm text-stone-600 px-2">
         <span>
-          Menemukan <strong>{filteredProducts.length}</strong> produk aman untuk si kecil
+          Menemukan <strong>{filteredProducts.length}</strong> baju anak usia 3-8 tahun
         </span>
 
         {(selectedCategory !== "all" || selectedAge !== "all" || searchQuery !== "") && (
@@ -215,8 +229,11 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                 : null;
 
             const displayName = entry.name.replace(/-/g, " ");
+            const categoryLabel = CATEGORY_NAMES[entry.category] || entry.category;
+            const ageLabel = AGE_NAMES[entry.ageGroup] || entry.ageGroup;
+
             const waMsg = encodeURIComponent(
-              `Halo CUBS Kids, saya tertarik untuk memesan produk "${displayName}" seharga ${formatRupiah(entry.price)}. Apakah stok masih ada?`
+              `Halo CUBS Kids, saya tertarik untuk memesan baju "${displayName}" seharga ${formatRupiah(entry.price)}. Untuk usia ${ageLabel}, apakah size masih tersedia?`
             );
             const waUrl = `https://wa.me/6281234567890?text=${waMsg}`;
 
@@ -239,7 +256,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                     />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center text-5xl">
-                      🧸
+                      👕
                     </div>
                   )}
 
@@ -266,10 +283,10 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                 <div className="flex flex-1 flex-col p-5">
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">
-                      {entry.category}
+                      {categoryLabel}
                     </span>
                     <span className="text-xs text-stone-500 font-medium">
-                      {entry.ageGroup}
+                      Usia {ageLabel}
                     </span>
                   </div>
 
@@ -290,7 +307,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                       <span className="text-xs font-bold text-stone-800">{entry.rating || "4.9"}</span>
                     </div>
                     <span className="text-stone-300">•</span>
-                    <span className="text-xs text-stone-500">{entry.soldCount || 100}+ terjual</span>
+                    <span className="text-xs text-stone-500">{entry.soldCount || 150}+ terjual</span>
                   </div>
 
                   {/* Pricing */}
@@ -318,7 +335,7 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
                       href={waUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-1.5 rounded-full bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-semibold py-2.5 px-3 shadow-xs hover:shadow-md transition-all text-center"
+                      className="inline-flex items-center justify-center gap-1.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold py-2.5 px-3 shadow-xs hover:shadow-sm transition-all text-center"
                     >
                       <ShoppingCart className="size-3.5" />
                       <span>Pesan</span>
@@ -332,11 +349,11 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
       ) : (
         <div className="text-center py-16 px-4 rounded-3xl bg-white border border-amber-100 shadow-sm max-w-lg mx-auto">
           <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-4 text-3xl">
-            🧸
+            👕
           </div>
-          <h3 className="font-bold text-lg text-stone-900 mb-2">Produk Tidak Ditemukan</h3>
+          <h3 className="font-bold text-lg text-stone-900 mb-2">Baju Tidak Ditemukan</h3>
           <p className="text-sm text-stone-500 mb-6">
-            Tidak ada produk yang cocok dengan kata kunci &quot;{searchQuery}&quot; atau filter yang dipilih. Silakan coba kata kunci lain.
+            Tidak ada koleksi baju anak yang cocok dengan kata kunci &quot;{searchQuery}&quot; atau filter usia yang dipilih. Silakan coba kata kunci lain.
           </p>
           <button
             type="button"
@@ -344,36 +361,10 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
             className="inline-flex items-center gap-2 rounded-full bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-5 py-2.5 shadow-md transition-all"
           >
             <RefreshCw className="size-4" />
-            <span>Lihat Semua Produk</span>
+            <span>Lihat Semua Baju</span>
           </button>
         </div>
       )}
-
-      {/* Keystatic CMS Helper Callout for Admin */}
-      <div className="rounded-3xl bg-linear-to-r from-amber-100/80 via-orange-50/80 to-amber-100/80 border border-amber-200/70 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-3.5">
-          <div className="w-12 h-12 rounded-2xl bg-white shadow-xs flex items-center justify-center text-2xl shrink-0">
-            ✨
-          </div>
-          <div>
-            <h4 className="font-bold text-stone-900 text-sm sm:text-base">
-              Kelola & Tambah Produk Melalui Keystatic CMS
-            </h4>
-            <p className="text-xs sm:text-sm text-stone-600">
-              Katalog ini terhubung langsung ke Keystatic. Anda dapat menambah varian produk, mengubah harga, mengunggah foto, dan mengatur status stok kapan saja!
-            </p>
-          </div>
-        </div>
-        <a
-          href="/keystatic"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="shrink-0 inline-flex items-center gap-2 rounded-full bg-amber-900 hover:bg-amber-950 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 shadow-md transition-all"
-        >
-          <span>Buka Keystatic Admin</span>
-          <ArrowRight className="size-4" />
-        </a>
-      </div>
     </div>
   );
 }

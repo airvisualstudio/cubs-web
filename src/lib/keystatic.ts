@@ -9,8 +9,8 @@ export interface ProductItem {
     name: string;
     price: number;
     originalPrice?: number | null;
-    category: 'pakaian' | 'mainan' | 'perlengkapan' | 'aksesoris';
-    ageGroup: '0-12m' | '1-3y' | '4-7y' | 'all';
+    category: 'atasan' | 'setelan' | 'dress' | 'bawahan-outer';
+    ageGroup: '3-4y' | '5-6y' | '7-8y' | '3-8y';
     badge?: string | null;
     featured?: boolean | null;
     stockStatus: 'ready' | 'preorder' | 'limited';
@@ -54,16 +54,15 @@ export function formatRupiah(amount?: number | null): string {
 }
 
 export const CATEGORY_LABELS: Record<string, string> = {
-  pakaian: 'Pakaian & Setelan',
-  mainan: 'Mainan & Edukasi',
-  perlengkapan: 'Perlengkapan Bayi',
-  aksesoris: 'Sepatu & Aksesoris',
+  atasan: 'Kaos & Atasan',
+  setelan: 'Setelan & Piyama',
+  dress: 'Dress & Terusan',
+  'bawahan-outer': 'Jaket & Celana',
 };
 
 export const AGE_LABELS: Record<string, string> = {
-  '0-12m': '0 - 12 Bulan (Bayi)',
-  '1-3y': '1 - 3 Tahun (Toddler)',
-  '4-7y': '4 - 7 Tahun (Kids)',
-  all: 'Semua Usia',
+  '3-4y': '3 - 4 Tahun (Size 4)',
+  '5-6y': '5 - 6 Tahun (Size 6)',
+  '7-8y': '7 - 8 Tahun (Size 8)',
+  '3-8y': 'Semua Ukuran (3-8 Thn)',
 };
-

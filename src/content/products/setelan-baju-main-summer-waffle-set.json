@@ -1,0 +1,16 @@
+{
+  "name": "setelan-baju-main-summer-waffle-set",
+  "price": 85000,
+  "originalPrice": 110000,
+  "category": "setelan",
+  "ageGroup": "3-4y",
+  "badge": "Super Nyaman",
+  "featured": false,
+  "stockStatus": "ready",
+  "rating": "4.9",
+  "soldCount": 450,
+  "image": "/images/products/setelan-waffle.svg",
+  "material": "100% Cotton Waffle Knit Texture",
+  "summary": "Setelan atasan dan celana pendek bertekstur waffle unik yang trendi, sejuk, dan tidak perlu disetrika.",
+  "description": "Pilihan favorit anak untuk bermain di rumah dan taman. Celana dilengkapi tali serut aktif dan saku fungsional untuk menyimpan mainan kecil si anak."
+}

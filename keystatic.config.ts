@@ -6,46 +6,46 @@ export default config({
   },
   collections: {
     products: collection({
-      label: 'Katalog Produk Anak',
+      label: 'Katalog Baju Anak (Usia 3-8 Tahun)',
       slugField: 'name',
       path: 'src/content/products/*',
       format: { data: 'json' },
       schema: {
-        name: fields.slug({ name: { label: 'Nama Produk' } }),
+        name: fields.slug({ name: { label: 'Nama Baju Anak' } }),
         price: fields.integer({
           label: 'Harga (Rp)',
           validation: { min: 0 },
-          defaultValue: 99000,
+          defaultValue: 79000,
         }),
         originalPrice: fields.integer({
           label: 'Harga Sebelum Diskon (Rp, Opsional)',
         }),
         category: fields.select({
-          label: 'Kategori Produk',
+          label: 'Kategori Pakaian Anak',
           options: [
-            { label: 'Pakaian & Setelan', value: 'pakaian' },
-            { label: 'Mainan & Edukasi', value: 'mainan' },
-            { label: 'Perlengkapan Bayi', value: 'perlengkapan' },
-            { label: 'Sepatu & Aksesoris', value: 'aksesoris' },
+            { label: 'Kaos & Atasan', value: 'atasan' },
+            { label: 'Setelan & Piyama', value: 'setelan' },
+            { label: 'Dress & Terusan', value: 'dress' },
+            { label: 'Jaket & Celana', value: 'bawahan-outer' },
           ],
-          defaultValue: 'pakaian',
+          defaultValue: 'atasan',
         }),
         ageGroup: fields.select({
-          label: 'Kelompok Usia',
+          label: 'Rekomendasi Usia',
           options: [
-            { label: '0 - 12 Bulan (Bayi/Newborn)', value: '0-12m' },
-            { label: '1 - 3 Tahun (Balita/Toddler)', value: '1-3y' },
-            { label: '4 - 7 Tahun (Anak-anak)', value: '4-7y' },
-            { label: 'Semua Usia', value: 'all' },
+            { label: '3 - 4 Tahun (Size 4)', value: '3-4y' },
+            { label: '5 - 6 Tahun (Size 6)', value: '5-6y' },
+            { label: '7 - 8 Tahun (Size 8)', value: '7-8y' },
+            { label: 'Semua Ukuran (3-8 Tahun)', value: '3-8y' },
           ],
-          defaultValue: '1-3y',
+          defaultValue: '3-4y',
         }),
         badge: fields.text({
-          label: 'Badge / Label Promo (misal: Best Seller, New Arrival, Diskon 20%)',
+          label: 'Badge / Promo (misal: Best Seller, New Arrival, Diskon 25%)',
           defaultValue: 'Best Seller',
         }),
         featured: fields.checkbox({
-          label: 'Tampilkan di Halaman Utama (Featured Product)',
+          label: 'Tampilkan di Halaman Utama (Featured)',
           defaultValue: true,
         }),
         stockStatus: fields.select({
@@ -62,30 +62,29 @@ export default config({
           defaultValue: '4.9',
         }),
         soldCount: fields.integer({
-          label: 'Jumlah Terjual (misal: 250)',
-          defaultValue: 150,
+          label: 'Jumlah Terjual',
+          defaultValue: 180,
         }),
         image: fields.image({
-          label: 'Foto Produk',
+          label: 'Foto Baju',
           directory: 'public/images/products',
           publicPath: '/images/products/',
         }),
         material: fields.text({
-          label: 'Material / Bahan Aman',
-          defaultValue: '100% Katun Organik Bersertifikasi OEKO-TEX',
+          label: 'Bahan Kain (misal: 100% Katun Combed 24s / Katun Bambu)',
+          defaultValue: '100% Katun Combed 24s Lembut & Adem',
         }),
         summary: fields.text({
-          label: 'Ringkasan Singkat (1-2 Kalimat)',
+          label: 'Ringkasan Singkat Baju',
           multiline: true,
-          defaultValue: 'Bahan lembut dan sejuk, sangat aman untuk kulit sensitif si kecil.',
+          defaultValue: 'Bahan katun sejuk, menyerap keringat maksimal saat anak lari-larian dan bermain aktif.',
         }),
         description: fields.text({
-          label: 'Deskripsi Lengkap Produk',
+          label: 'Deskripsi Lengkap & Panduan Ukuran',
           multiline: true,
-          defaultValue: 'Didesain khusus untuk memberikan kenyamanan maksimal sepanjang hari saat si kecil aktif bermain maupun beristirahat. Menggunakan pewarna alami tanpa bahan kimia berbahaya.',
+          defaultValue: 'Didesain khusus untuk anak usia 3-8 tahun yang sedang dalam masa aktif bergerak. Menggunakan jahitan rantai ekstra kuat, sablon ramah lingkungan bebas racun, dan tanpa label leher gatal (tagless).',
         }),
       },
     }),
   },
 });
-

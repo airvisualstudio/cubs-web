@@ -1,0 +1,16 @@
+{
+  "name": "setelan-piyama-katun-bambu-cubby-star",
+  "price": 95000,
+  "originalPrice": 129000,
+  "category": "setelan",
+  "ageGroup": "5-6y",
+  "badge": "Tidur Pulas",
+  "featured": true,
+  "stockStatus": "ready",
+  "rating": "5.0",
+  "soldCount": 680,
+  "image": "/images/products/piyama-star.svg",
+  "material": "100% Organic Bamboo Cotton (OEKO-TEX Standard 100)",
+  "summary": "Setelan piyama anak katun bambu yang sejuk alami di malam hari, lembut di kulit sensitif, dan stretch.",
+  "description": "Didesain khusus untuk anak usia 3-8 tahun dengan karet pinggang elastis lembut yang tidak meninggalkan bekas merah di perut. Kain bambu memiliki pori-pori mikro yang menyejukkan suhu tubuh saat tidur."
+}

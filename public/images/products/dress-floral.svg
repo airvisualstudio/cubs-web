@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <defs>
+      <linearGradient id="bgDress" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FCE7F3" />
+        <stop offset="100%" stop-color="#FBCFE8" />
+      </linearGradient>
+      <linearGradient id="pinkDress" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#F472B6" />
+        <stop offset="100%" stop-color="#EC4899" />
+      </linearGradient>
+    </defs>
+    <rect width="400" height="400" rx="32" fill="url(#bgDress)" />
+    <circle cx="200" cy="200" r="140" fill="white" opacity="0.8" />
+    <!-- Bodice -->
+    <path d="M165 110 C180 125 220 125 235 110 L250 145 L230 180 L170 180 L150 145 Z" fill="url(#pinkDress)" stroke="#BE185D" stroke-width="4" stroke-linejoin="round" />
+    <!-- Flare Skirt -->
+    <path d="M170 180 L230 180 L280 285 C240 295 160 295 120 285 Z" fill="#FB7185" stroke="#BE185D" stroke-width="4" stroke-linejoin="round" />
+    <!-- Waist Bow -->
+    <ellipse cx="200" cy="180" rx="14" ry="7" fill="#FDE047" stroke="#CA8A04" stroke-width="2" />
+    <polygon points="190,180 178,172 178,188" fill="#FDE047" stroke="#CA8A04" stroke-width="1.5" />
+    <polygon points="210,180 222,172 222,188" fill="#FDE047" stroke="#CA8A04" stroke-width="1.5" />
+    <!-- Floral Pattern dots -->
+    <circle cx="160" cy="230" r="6" fill="white" opacity="0.9" />
+    <circle cx="200" cy="245" r="6" fill="white" opacity="0.9" />
+    <circle cx="240" cy="230" r="6" fill="white" opacity="0.9" />
+    <circle cx="180" cy="270" r="5" fill="white" opacity="0.9" />
+    <circle cx="220" cy="270" r="5" fill="white" opacity="0.9" />
+    <text x="200" y="340" font-family="sans-serif" font-size="16" font-weight="bold" fill="#BE185D" text-anchor="middle">Dress Katun Floral Breeze</text>
+  </svg>

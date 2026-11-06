@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <defs>
+      <linearGradient id="bgWaffle" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FFEDD5" />
+        <stop offset="100%" stop-color="#FED7AA" />
+      </linearGradient>
+    </defs>
+    <rect width="400" height="400" rx="32" fill="url(#bgWaffle)" />
+    <circle cx="200" cy="200" r="140" fill="white" opacity="0.8" />
+    <!-- Waffle Top -->
+    <path d="M130 115 L168 105 C185 120 215 120 232 105 L270 115 L285 168 L250 178 L245 225 L155 225 L150 178 L115 168 Z" fill="#FB923C" stroke="#C2410C" stroke-width="4" stroke-linejoin="round" />
+    <!-- Pocket -->
+    <rect x="165" y="145" width="22" height="22" rx="4" fill="#EA580C" />
+    <!-- Shorts -->
+    <path d="M158 230 L242 230 L248 290 L212 290 L200 250 L188 290 L152 290 Z" fill="#9A3412" stroke="#7C2D12" stroke-width="3" />
+    <!-- Drawstring -->
+    <circle cx="195" cy="238" r="2" fill="white" />
+    <circle cx="205" cy="238" r="2" fill="white" />
+    <path d="M195 240 Q197 252 192 258 M205 240 Q203 252 208 258" stroke="white" stroke-width="2" fill="none" />
+    <text x="200" y="340" font-family="sans-serif" font-size="16" font-weight="bold" fill="#9A3412" text-anchor="middle">Setelan Baju Main Waffle</text>
+  </svg>

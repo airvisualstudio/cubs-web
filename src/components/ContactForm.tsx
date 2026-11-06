@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Send, CheckCircle2, MessageCircle, Sparkles } from "lucide-react";
+import { CheckCircle2, MessageCircle } from "lucide-react";
 
 export function ContactForm() {
   const [formData, setFormData] = React.useState({
     name: "",
     phone: "",
-    ageGroup: "1-3y",
-    topic: "konsultasi",
+    ageGroup: "3 - 4 Tahun (Size 4)",
+    topic: "Konsultasi Size Chart Baju",
     message: "",
   });
 
@@ -21,7 +21,7 @@ export function ContactForm() {
       `Halo CUBS Kids! Saya ${formData.name} (${formData.phone}).\n` +
       `Usia Anak: ${formData.ageGroup}\n` +
       `Topik: ${formData.topic}\n` +
-      `Pesan: ${formData.message || 'Mohon info rekomendasi produk yang cocok.'}`
+      `Pesan: ${formData.message || 'Mohon rekomendasi ukuran baju yang tepat untuk anak saya.'}`
     );
 
     // Open WhatsApp
@@ -40,7 +40,7 @@ export function ContactForm() {
             Terima Kasih, Bunda / Ayah {formData.name}!
           </h3>
           <p className="text-sm text-stone-600 max-w-sm mx-auto">
-            Pesan Anda telah diarahkan ke WhatsApp Customer Service kami. Tim kami akan merespons dalam hitungan menit pada jam operasional.
+            Pesan Anda telah diarahkan ke WhatsApp Customer Service CUBS Kids. Kami akan merespons dalam hitungan menit untuk membantu pemilihan ukuran baju yang paling pas.
           </p>
           <button
             type="button"
@@ -83,18 +83,17 @@ export function ContactForm() {
 
             <div>
               <label className="block text-xs font-bold text-stone-700 mb-1.5 uppercase tracking-wide">
-                Usia Si Kecil
+                Usia Si Kecil (3-8 Thn)
               </label>
               <select
                 value={formData.ageGroup}
                 onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })}
                 className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm text-stone-800 focus:outline-hidden focus:border-amber-400 focus:bg-white transition-all"
               >
-                <option value="0 - 6 Bulan (Newborn)">0 - 6 Bulan (Newborn)</option>
-                <option value="6 - 12 Bulan (Bayi)">6 - 12 Bulan (Bayi)</option>
-                <option value="1 - 3 Tahun (Toddler)">1 - 3 Tahun (Toddler)</option>
-                <option value="4 - 7 Tahun (Kids)">4 - 7 Tahun (Kids)</option>
-                <option value="Belum Lahir / Kado Lahiran">Untuk Kado Lahiran</option>
+                <option value="3 - 4 Tahun (Size 4)">3 - 4 Tahun (Size 4)</option>
+                <option value="5 - 6 Tahun (Size 6)">5 - 6 Tahun (Size 6)</option>
+                <option value="7 - 8 Tahun (Size 8)">7 - 8 Tahun (Size 8)</option>
+                <option value="Butuh Rekomendasi Ukuran">Butuh Rekomendasi Ukuran</option>
               </select>
             </div>
           </div>
@@ -108,30 +107,30 @@ export function ContactForm() {
               onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
               className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm text-stone-800 focus:outline-hidden focus:border-amber-400 focus:bg-white transition-all"
             >
-              <option value="Konsultasi Produk & Ukuran">Konsultasi Produk & Ukuran (Size Guide)</option>
-              <option value="Pemesanan & Cek Stok">Pemesanan & Cek Stok</option>
-              <option value="Paket Kado / Hampers Bayi">Paket Kado / Hampers Bayi Custom</option>
-              <option value="Garansi Tukar Ukuran">Garansi Tukar Ukuran</option>
-              <option value="Kerjasama & Reseller">Kerjasama & Reseller</option>
+              <option value="Konsultasi Size Chart Baju">Konsultasi Size Chart & Panduan Berat Badan</option>
+              <option value="Pemesanan Baju & Cek Stok">Pemesanan Baju & Cek Ketersediaan Warna</option>
+              <option value="Garansi Tukar Size">Garansi Tukar Size Baju</option>
+              <option value="Paket Kado Ulang Tahun Anak">Paket Kado Ulang Tahun Anak (Hampers)</option>
+              <option value="Pembelian Jumlah Banyak / Reseller">Pembelian Banyak / Reseller</option>
             </select>
           </div>
 
           <div>
             <label className="block text-xs font-bold text-stone-700 mb-1.5 uppercase tracking-wide">
-              Pesan / Pertanyaan
+              Pesan / Keterangan Baju
             </label>
             <textarea
               rows={3}
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              placeholder="Ceritakan apa yang bisa kami bantu untuk si kecil..."
+              placeholder="Sebutkan tinggi/berat badan anak atau model baju yang diminati..."
               className="w-full rounded-2xl bg-stone-50 border border-stone-200 px-4 py-2.5 text-sm text-stone-800 focus:outline-hidden focus:border-amber-400 focus:bg-white transition-all"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-sm py-3 px-6 shadow-md shadow-orange-500/20 active:scale-98 transition-all cursor-pointer"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm py-3 px-6 shadow-sm active:scale-98 transition-all cursor-pointer"
           >
             <MessageCircle className="size-4" />
             <span>Kirim Pesan via WhatsApp CS</span>
@@ -141,4 +140,3 @@ export function ContactForm() {
     </div>
   );
 }
-
