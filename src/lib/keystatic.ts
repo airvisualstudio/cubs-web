@@ -288,6 +288,145 @@ export async function getTestimonials(): Promise<TestimonialsData> {
   };
 }
 
+export interface BioLinkItem {
+  title: string;
+  subtitle?: string | null;
+  url: string;
+  icon?: string | null;
+  badge?: string | null;
+  isHighlighted?: boolean | null;
+  buttonColor?: 'white' | 'emerald' | 'butter' | 'sky' | 'pink' | 'dark' | string | null;
+  openInNewTab?: boolean | null;
+  isActive?: boolean | null;
+}
+
+export interface SocialLinksData {
+  whatsapp?: string | null;
+  instagram?: string | null;
+  tiktok?: string | null;
+  shopee?: string | null;
+  tokopedia?: string | null;
+  youtube?: string | null;
+}
+
+export interface BioLinksData {
+  profileTitle?: string | null;
+  profileTagline?: string | null;
+  verifiedBadge?: boolean | null;
+  avatarImage?: string | null;
+  bentoBackgroundImage?: string | null;
+  bentoOverlay?: 'light' | 'mint' | 'butter' | 'dark' | string | null;
+  themeStyle?: 'cream' | 'mint' | 'butter' | 'sky' | 'pink' | string | null;
+  socialLinks?: SocialLinksData | null;
+  items?: readonly BioLinkItem[] | BioLinkItem[] | null;
+  footerNote?: string | null;
+}
+
+export async function getBioLinks(): Promise<BioLinksData> {
+  try {
+    const data = await reader.singletons.links.read();
+    if (data) {
+      return data as BioLinksData;
+    }
+  } catch (err) {
+    console.error('Error fetching BioLinks from Keystatic:', err);
+  }
+  return {
+    profileTitle: 'CUBS Kids Official',
+    profileTagline: 'Bright Wear for Little Adventurers 🐻 • Pakaian Anak Usia 3-8 Tahun Adem, Lembut & Bebas Label Gatal',
+    verifiedBadge: true,
+    themeStyle: 'cream',
+    socialLinks: {
+      whatsapp: '',
+      instagram: 'https://instagram.com/cubskids',
+      tiktok: 'https://tiktok.com/@cubskids',
+      shopee: 'https://shopee.co.id',
+      tokopedia: 'https://tokopedia.com',
+      youtube: '',
+    },
+    items: [
+      {
+        title: 'Klaim Promo Bundling Diskon 40%',
+        subtitle: 'Paket hemat 3 kaos katun & setelan + Garansi tukar size 7 hari',
+        url: '/promo',
+        icon: '🎁',
+        badge: 'PROMO SPESIAL',
+        isHighlighted: true,
+        buttonColor: 'emerald',
+        openInNewTab: false,
+        isActive: true,
+      },
+      {
+        title: 'Katalog Lengkap Baju Anak (Size 4, 6, 8)',
+        subtitle: 'Kaos katun combed 24s, setelan piyama bambu, dress & jaket',
+        url: '/products',
+        icon: '🦖',
+        badge: 'READY STOCK',
+        isHighlighted: false,
+        buttonColor: 'white',
+        openInNewTab: false,
+        isActive: true,
+      },
+      {
+        title: 'Konsultasi Size & Chat CS via WhatsApp',
+        subtitle: 'Bantuan pilih ukuran buah hati & tanya ketersediaan motif',
+        url: 'whatsapp',
+        icon: '💬',
+        badge: 'FAST RESPONSE',
+        isHighlighted: false,
+        buttonColor: 'butter',
+        openInNewTab: true,
+        isActive: true,
+      },
+      {
+        title: 'Belanja di Official Store Shopee',
+        subtitle: 'Gratis ongkir Xtra & voucher cashback koin Shopee',
+        url: 'https://shopee.co.id',
+        icon: '🧡',
+        badge: 'SHOPEE MALL',
+        isHighlighted: false,
+        buttonColor: 'white',
+        openInNewTab: true,
+        isActive: true,
+      },
+      {
+        title: 'Belanja di Official Store Tokopedia',
+        subtitle: 'Bebas ongkir ke seluruh Indonesia & promo bundling Tokopedia',
+        url: 'https://tokopedia.com',
+        icon: '💚',
+        badge: 'OFFICIAL STORE',
+        isHighlighted: false,
+        buttonColor: 'white',
+        openInNewTab: true,
+        isActive: true,
+      },
+      {
+        title: 'Kenapa Baju CUBS Paling Pas untuk Si Kecil?',
+        subtitle: 'Kualitas katun teruji, sablon awet tahan cuci & leher tanpa label gatal',
+        url: '/#why-cubs',
+        icon: '✨',
+        badge: '',
+        isHighlighted: false,
+        buttonColor: 'white',
+        openInNewTab: false,
+        isActive: true,
+      },
+      {
+        title: 'Kunjungi Website Utama CUBS Kids',
+        subtitle: 'cubskids.co.id',
+        url: '/',
+        icon: '🌐',
+        badge: '',
+        isHighlighted: false,
+        buttonColor: 'white',
+        openInNewTab: false,
+        isActive: true,
+      },
+    ],
+    footerNote: 'CUBS Kids - Bright Wear for Little Adventurers',
+  };
+}
+
 export function getCleanWhatsappNumber(phone?: string | null): string {
   if (!phone) return '6281234567890';
   const digits = phone.replace(/[^0-9]/g, '');

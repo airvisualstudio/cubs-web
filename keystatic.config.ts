@@ -437,5 +437,140 @@ export default config({
         ),
       },
     }),
+    links: singleton({
+      label: 'Bio Links (/links - Linktree)',
+      path: 'src/content/links',
+      format: { data: 'json' },
+      schema: {
+        profileTitle: fields.text({
+          label: 'Nama Profil / Brand',
+          defaultValue: 'CUBS Kids Official',
+        }),
+        profileTagline: fields.text({
+          label: 'Bio / Tagline Singkat',
+          multiline: true,
+          defaultValue: 'Bright Wear for Little Adventurers 🐻 • Pakaian Anak Usia 3-8 Tahun Adem, Lembut & Bebas Label Gatal',
+        }),
+        verifiedBadge: fields.checkbox({
+          label: 'Tampilkan Centang Biru Terverifikasi',
+          defaultValue: true,
+        }),
+        avatarImage: fields.image({
+          label: 'Foto Profil / Avatar Kustom (Opsional, kosongkan untuk memakai Logo Resmi CUBS)',
+          directory: 'public/images/links',
+          publicPath: '/images/links/',
+        }),
+        bentoBackgroundImage: fields.image({
+          label: 'Foto Background Latar Bento (/linksbento - Opsional)',
+          description: 'Foto latar belakang halaman bento grid. Kosongkan untuk memakai foto anak ceria bawaan (/images/hero/hero-kaos.jpg)',
+          directory: 'public/images/bento',
+          publicPath: '/images/bento/',
+        }),
+        bentoOverlay: fields.select({
+          label: 'Efek Overlay Latar Bento',
+          options: [
+            { label: 'Pastel Warm Frosted (Bersih & Elegan)', value: 'light' },
+            { label: 'Pastel Mint Frosted (Segar & Sejuk)', value: 'mint' },
+            { label: 'Pastel Butter Frosted (Ceria & Hangat)', value: 'butter' },
+            { label: 'Dark Minimalist Frosted (Kontras Tinggi)', value: 'dark' },
+          ],
+          defaultValue: 'light',
+        }),
+        themeStyle: fields.select({
+          label: 'Warna Tema Latar Halaman',
+          options: [
+            { label: 'Pastel Cream Warm (#FCFAF7)', value: 'cream' },
+            { label: 'Pastel Mint (#EBF7EE)', value: 'mint' },
+            { label: 'Pastel Butter Yellow (#FFF9E6)', value: 'butter' },
+            { label: 'Pastel Sky Blue (#F0F9FF)', value: 'sky' },
+            { label: 'Pastel Blossom Pink (#FDF0F4)', value: 'pink' },
+          ],
+          defaultValue: 'cream',
+        }),
+        socialLinks: fields.object({
+          whatsapp: fields.text({
+            label: 'Link / Nomor WhatsApp (Kosongkan untuk otomatis pakai nomor Kontak & Alamat)',
+            defaultValue: '',
+          }),
+          instagram: fields.text({
+            label: 'Link Instagram',
+            defaultValue: 'https://instagram.com/cubskids',
+          }),
+          tiktok: fields.text({
+            label: 'Link TikTok',
+            defaultValue: 'https://tiktok.com/@cubskids',
+          }),
+          shopee: fields.text({
+            label: 'Link Shopee Official',
+            defaultValue: 'https://shopee.co.id',
+          }),
+          tokopedia: fields.text({
+            label: 'Link Tokopedia Official',
+            defaultValue: 'https://tokopedia.com',
+          }),
+          youtube: fields.text({
+            label: 'Link YouTube (Opsional)',
+            defaultValue: '',
+          }),
+        }),
+        items: fields.array(
+          fields.object({
+            title: fields.text({
+              label: 'Judul Tombol Link',
+              defaultValue: '🔥 Promo Spesial Bundling 40%',
+            }),
+            subtitle: fields.text({
+              label: 'Keterangan Singkat di Bawah Judul (Opsional)',
+              defaultValue: 'Paket hemat 3 kaos katun & setelan + Garansi tukar size 7 hari',
+            }),
+            url: fields.text({
+              label: 'URL / Link Tujuan (Bisa /promo, /products, link wa.me, shopee, dll. Tulis "whatsapp" untuk auto WA)',
+              defaultValue: '/promo',
+            }),
+            icon: fields.text({
+              label: 'Icon Emoji (misal: 🎁, 🦖, 💬, 🧡, 💚, 🌐, ✨, ⭐)',
+              defaultValue: '🎁',
+            }),
+            badge: fields.text({
+              label: 'Badge / Label Kecil di Sudut (misal: PROMO, BEST SELLER, HOT)',
+              defaultValue: '',
+            }),
+            isHighlighted: fields.checkbox({
+              label: 'Sorot Tombol (Animasi denyut halus & border aksen khusus)',
+              defaultValue: false,
+            }),
+            buttonColor: fields.select({
+              label: 'Warna Tombol',
+              options: [
+                { label: 'Putih Bersih (Default Bersih)', value: 'white' },
+                { label: 'Hijau Emerald (Solid CTA CUBS)', value: 'emerald' },
+                { label: 'Kuning Butter Pastel', value: 'butter' },
+                { label: 'Biru Sky Pastel', value: 'sky' },
+                { label: 'Merah Muda Pastel', value: 'pink' },
+                { label: 'Hitam Solid Elegan', value: 'dark' },
+              ],
+              defaultValue: 'white',
+            }),
+            openInNewTab: fields.checkbox({
+              label: 'Buka di Tab Baru',
+              defaultValue: false,
+            }),
+            isActive: fields.checkbox({
+              label: 'Aktifkan / Tampilkan Tombol Ini',
+              defaultValue: true,
+            }),
+          }),
+          {
+            label: 'Daftar Tombol Tautan (Bisa Tambah, Edit, Hapus & Atur Urutan)',
+            itemLabel: (props) =>
+              `${props.fields.icon.value || '🔗'} ${props.fields.title.value || 'Tombol Link'}`,
+          }
+        ),
+        footerNote: fields.text({
+          label: 'Teks Footer Bawah',
+          defaultValue: 'CUBS Kids - Bright Wear for Little Adventurers',
+        }),
+      },
+    }),
   },
 });

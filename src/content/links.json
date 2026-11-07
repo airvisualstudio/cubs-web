@@ -1,0 +1,97 @@
+{
+  "profileTitle": "CUBS Kids Official",
+  "profileTagline": "Bright Wear for Little Adventurers 🐻 • Pakaian Anak Usia 3-8 Tahun Adem, Lembut & Bebas Label Gatal",
+  "verifiedBadge": true,
+  "bentoBackgroundImage": null,
+  "bentoOverlay": "light",
+  "themeStyle": "cream",
+  "socialLinks": {
+    "whatsapp": "",
+    "instagram": "https://instagram.com/cubskids",
+    "tiktok": "https://tiktok.com/@cubskids",
+    "shopee": "https://shopee.co.id",
+    "tokopedia": "https://tokopedia.com",
+    "youtube": ""
+  },
+  "items": [
+    {
+      "title": "Klaim Promo Bundling Diskon 40%",
+      "subtitle": "Paket hemat 3 kaos katun & setelan + Garansi tukar size 7 hari",
+      "url": "/promo",
+      "icon": "🎁",
+      "badge": "PROMO SPESIAL",
+      "isHighlighted": true,
+      "buttonColor": "emerald",
+      "openInNewTab": false,
+      "isActive": true
+    },
+    {
+      "title": "Katalog Lengkap Baju Anak (Size 4, 6, 8)",
+      "subtitle": "Kaos katun combed 24s, setelan piyama bambu, dress & jaket",
+      "url": "/products",
+      "icon": "🦖",
+      "badge": "READY STOCK",
+      "isHighlighted": false,
+      "buttonColor": "white",
+      "openInNewTab": false,
+      "isActive": true
+    },
+    {
+      "title": "Konsultasi Size & Chat CS via WhatsApp",
+      "subtitle": "Bantuan pilih ukuran buah hati & tanya ketersediaan motif",
+      "url": "whatsapp",
+      "icon": "💬",
+      "badge": "FAST RESPONSE",
+      "isHighlighted": false,
+      "buttonColor": "butter",
+      "openInNewTab": true,
+      "isActive": true
+    },
+    {
+      "title": "Belanja di Official Store Shopee",
+      "subtitle": "Gratis ongkir Xtra & voucher cashback koin Shopee",
+      "url": "https://shopee.co.id",
+      "icon": "🧡",
+      "badge": "SHOPEE MALL",
+      "isHighlighted": false,
+      "buttonColor": "white",
+      "openInNewTab": true,
+      "isActive": true
+    },
+    {
+      "title": "Belanja di Official Store Tokopedia",
+      "subtitle": "Bebas ongkir ke seluruh Indonesia & promo bundling Tokopedia",
+      "url": "https://tokopedia.com",
+      "icon": "💚",
+      "badge": "OFFICIAL STORE",
+      "isHighlighted": false,
+      "buttonColor": "white",
+      "openInNewTab": true,
+      "isActive": true
+    },
+    {
+      "title": "Kenapa Baju CUBS Paling Pas untuk Si Kecil?",
+      "subtitle": "Kualitas katun teruji, sablon awet tahan cuci & leher tanpa label gatal",
+      "url": "/#why-cubs",
+      "icon": "✨",
+      "badge": "",
+      "isHighlighted": false,
+      "buttonColor": "white",
+      "openInNewTab": false,
+      "isActive": true
+    },
+    {
+      "title": "Kunjungi Website Utama CUBS Kids",
+      "subtitle": "cubskids.co.id",
+      "url": "/",
+      "icon": "🌐",
+      "badge": "",
+      "isHighlighted": false,
+      "buttonColor": "white",
+      "openInNewTab": false,
+      "isActive": true
+    }
+  ],
+  "footerNote": "CUBS Kids - Bright Wear for Little Adventurers"
+}
+
