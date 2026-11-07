@@ -1,4 +1,5 @@
 ---
+import { getContact } from "../lib/keystatic";
 import {
   Heart,
   Sparkles,
@@ -9,6 +10,8 @@ import {
   Mail,
   MapPin,
 } from "lucide-react";
+
+const contact = await getContact();
 ---
 
 <footer class="mt-20 border-t border-stone-200/60 bg-[#FDFBF7] pt-16 pb-12">
@@ -151,7 +154,7 @@ import {
         </ul>
       </div>
 
-      <!-- Contact Info -->
+      <!-- Contact Info (Dynamic from Keystatic) -->
       <div class="space-y-3">
         <h4
           class="font-bold text-stone-900 mb-4 text-sm uppercase tracking-wider"
@@ -160,21 +163,33 @@ import {
         </h4>
         <div class="flex items-start gap-2.5 text-sm text-stone-600">
           <MapPin className="size-4 text-amber-600 shrink-0 mt-0.5" />
-          <span
-            >Jl. Flamboyan Ceria No. 12, Kebayoran Baru, Jakarta Selatan</span
-          >
+          <span>{contact.address}</span>
         </div>
         <div class="flex items-center gap-2.5 text-sm text-stone-600">
           <Phone className="size-4 text-amber-600 shrink-0" />
-          <span>WhatsApp: +62 812-3456-7890</span>
+          <a
+            href={contact.whatsappUrl || `https://wa.me/${(contact.whatsapp || "").replace(/[^0-9]/g, "")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-emerald-700 transition-colors"
+          >
+            WhatsApp: {contact.whatsapp}
+          </a>
         </div>
         <div class="flex items-center gap-2.5 text-sm text-stone-600">
           <Mail className="size-4 text-amber-600 shrink-0" />
-          <span>halo@cubskids.co.id</span>
+          <a
+            href={`mailto:${contact.email}`}
+            class="hover:text-emerald-700 transition-colors"
+          >
+            {contact.email}
+          </a>
         </div>
-        <p class="text-xs text-stone-500 pt-2">
-          Jam Operasional: Senin - Sabtu (08:00 - 20:00 WIB)
-        </p>
+        {contact.operationalHours && (
+          <p class="text-xs text-stone-500 pt-2">
+            Jam Operasional: {contact.operationalHours}
+          </p>
+        )}
       </div>
     </div>
 

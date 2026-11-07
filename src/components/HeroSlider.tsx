@@ -4,6 +4,7 @@ import type { JumbotronSlideItem } from "../lib/keystatic";
 
 interface HeroSliderProps {
   initialSlides?: JumbotronSlideItem[];
+  whatsappNumber?: string;
 }
 
 const THEME_STYLES: Record<string, {
@@ -137,7 +138,7 @@ const DEFAULT_SLIDES: JumbotronSlideItem[] = [
   },
 ];
 
-export function HeroSlider({ initialSlides }: HeroSliderProps) {
+export function HeroSlider({ initialSlides, whatsappNumber }: HeroSliderProps) {
   const slides = (initialSlides && initialSlides.length > 0) ? initialSlides : DEFAULT_SLIDES;
   const [current, setCurrent] = React.useState(0);
   const [isPaused, setIsPaused] = React.useState(false);
@@ -241,17 +242,26 @@ export function HeroSlider({ initialSlides }: HeroSliderProps) {
               )}
 
               {/* Consultation Button: Solid Green (No Gradient) */}
-              {slide.secondaryBtnText && (
-                <a
-                  href={slide.secondaryBtnHref || "https://wa.me/6281234567890"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm md:text-base px-6 sm:px-7 py-3 sm:py-4 active:scale-98 transition-all"
-                >
-                  <MessageCircle className="size-4 sm:size-4.5" />
-                  <span>{slide.secondaryBtnText}</span>
-                </a>
-              )}
+              {slide.secondaryBtnText && (() => {
+                let btnHref = slide.secondaryBtnHref || "https://wa.me/6281234567890";
+                if (whatsappNumber) {
+                  const cleanPhone = whatsappNumber.replace(/[^0-9]/g, "");
+                  if (cleanPhone && btnHref.includes("wa.me/")) {
+                    btnHref = btnHref.replace(/wa\.me\/\d+/, `wa.me/${cleanPhone}`);
+                  }
+                }
+                return (
+                  <a
+                    href={btnHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm md:text-base px-6 sm:px-7 py-3 sm:py-4 active:scale-98 transition-all"
+                  >
+                    <MessageCircle className="size-4 sm:size-4.5" />
+                    <span>{slide.secondaryBtnText}</span>
+                  </a>
+                );
+              })()}
             </div>
 
             {/* Feature Pills */}

@@ -8,7 +8,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function ContactForm() {
+interface ContactFormProps {
+  whatsappNumber?: string;
+}
+
+export function ContactForm({ whatsappNumber }: ContactFormProps) {
   const [formData, setFormData] = React.useState({
     name: "",
     phone: "",
@@ -31,8 +35,10 @@ export function ContactForm() {
       `Pesan: ${formData.message || 'Mohon rekomendasi ukuran baju yang tepat untuk anak saya.'}`
     );
 
+    const waTarget = (whatsappNumber || "6281234567890").replace(/[^0-9]/g, "");
+
     // Open WhatsApp
-    window.open(`https://wa.me/6281234567890?text=${text}`, "_blank");
+    window.open(`https://wa.me/${waTarget}?text=${text}`, "_blank");
     setSubmitted(true);
   };
 

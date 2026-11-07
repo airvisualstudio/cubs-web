@@ -37,6 +37,7 @@ interface Product {
 interface ProductCatalogProps {
   initialProducts: Product[];
   initialCategory?: string;
+  whatsappNumber?: string;
 }
 
 const CATEGORIES = [
@@ -77,7 +78,8 @@ function formatRupiah(amount?: number | null) {
   }).format(amount);
 }
 
-export function ProductCatalog({ initialProducts, initialCategory }: ProductCatalogProps) {
+export function ProductCatalog({ initialProducts, initialCategory, whatsappNumber }: ProductCatalogProps) {
+  const defaultWa = (whatsappNumber || "6281234567890").replace(/[^0-9]/g, "") || "6281234567890";
   const [selectedCategory, setSelectedCategory] = React.useState<string>(initialCategory || "all");
   const [selectedAge, setSelectedAge] = React.useState<string>("all");
   const [searchQuery, setSearchQuery] = React.useState<string>("");
@@ -273,10 +275,10 @@ export function ProductCatalog({ initialProducts, initialCategory }: ProductCata
             const waMsg = encodeURIComponent(
               `Halo CUBS Kids, saya tertarik untuk memesan baju "${displayName}" seharga ${formatRupiah(entry.price)}. Untuk usia ${ageLabel}, apakah size masih tersedia?`
             );
-            let orderUrl = `https://wa.me/6281234567890?text=${waMsg}`;
+            let orderUrl = `https://wa.me/${defaultWa}?text=${waMsg}`;
             if (entry.whatsappLink && entry.whatsappLink.trim()) {
               const custom = entry.whatsappLink.trim();
-              orderUrl = custom.startsWith("http") ? custom : `https://wa.me/${custom.replace(/[^0-9]/g, "")}?text=${waMsg}`;
+              orderUrl = custom.startsWith("http") ? custom : `https://wa.me/${custom.replace(/[^0-9]/g, "") || defaultWa}?text=${waMsg}`;
             } else if (entry.showWhatsappButton === false && entry.marketplaceButtons && entry.marketplaceButtons.length > 0) {
               orderUrl = entry.marketplaceButtons[0]?.url || orderUrl;
             }

@@ -107,7 +107,7 @@ export default config({
         }),
         whatsappLink: fields.text({
           label: 'Link / Nomor WhatsApp Custom (Opsional)',
-          description: 'Kosongkan jika ingin memakai nomor CS default (+62 812-3456-7890) & pesan otomatis',
+          description: 'Kosongkan jika ingin otomatis memakai nomor CS dari Kontak & Alamat',
         }),
         marketplaceButtons: fields.array(
           fields.object({
@@ -331,6 +331,108 @@ export default config({
           {
             label: 'Daftar Poin Keunggulan (Bisa Tambah, Ubah, Hapus & Urutkan)',
             itemLabel: (props) => `${props.fields.icon.value || '✨'} ${props.fields.title.value || 'Poin Keunggulan'}`,
+          }
+        ),
+      },
+    }),
+    contact: singleton({
+      label: 'Kontak & Alamat',
+      path: 'src/content/contact',
+      format: { data: 'json' },
+      schema: {
+        address: fields.text({
+          label: 'Alamat Toko / Showroom',
+          multiline: true,
+          defaultValue: 'Jl. Flamboyan Ceria No. 12, Kebayoran Baru, Jakarta Selatan',
+        }),
+        addressCity: fields.text({
+          label: 'Kota & Kode Pos (Opsional untuk detail)',
+          defaultValue: 'DKI Jakarta 12160',
+        }),
+        whatsapp: fields.text({
+          label: 'Nomor WhatsApp Layanan Pelanggan (Sumber Utama Semua Link WhatsApp)',
+          description: 'Ubah di sini sekali, dan SEMUA link/tombol WhatsApp di seluruh web (FAB melayang, header, footer, katalog, detail produk, hero slider, & promo) otomatis mengarah ke nomor ini.',
+          defaultValue: '+62 812-3456-7890',
+        }),
+        whatsappUrl: fields.text({
+          label: 'Link WhatsApp Langsung (Opsional, kosongkan untuk auto)',
+          defaultValue: 'https://wa.me/6281234567890',
+        }),
+        email: fields.text({
+          label: 'Alamat Email Resmi',
+          defaultValue: 'halo@cubskids.co.id',
+        }),
+        operationalHours: fields.text({
+          label: 'Jam Operasional (Hari Kerja)',
+          defaultValue: 'Senin - Sabtu (08:00 - 20:00 WIB)',
+        }),
+        operationalHoursWeekend: fields.text({
+          label: 'Jam Operasional (Minggu & Hari Libur - Opsional)',
+          defaultValue: 'Minggu & Hari Libur: 09:00 - 17:00 WIB',
+        }),
+        mapsUrl: fields.text({
+          label: 'Link Google Maps Lokasi Toko (Opsional)',
+          defaultValue: 'https://maps.google.com',
+        }),
+        addressNotes: fields.text({
+          label: 'Catatan Kunjungan Toko (Opsional)',
+          defaultValue: 'Kunjungan offline dengan perjanjian H-1 melalui WhatsApp CS',
+        }),
+      },
+    }),
+    testimonials: singleton({
+      label: 'Ulasan & Testimoni',
+      path: 'src/content/testimonials',
+      format: { data: 'json' },
+      schema: {
+        title: fields.text({
+          label: 'Judul Utama Section',
+          defaultValue: 'Ulasan Bunda & Ayah Bersama CUBS',
+        }),
+        subtitle: fields.text({
+          label: 'Deskripsi / Subtitle Section',
+          multiline: true,
+          defaultValue: 'Pengalaman nyata para orang tua dengan buah hati usia 3 - 8 tahun.',
+        }),
+        items: fields.array(
+          fields.object({
+            name: fields.text({
+              label: 'Nama Orang Tua (misal: Bunda Rini)',
+              defaultValue: 'Bunda Rini',
+            }),
+            role: fields.text({
+              label: 'Keterangan Anak (misal: Ibu dari Kenzo (4 Tahun))',
+              defaultValue: 'Ibu dari Kenzo (4 Tahun)',
+            }),
+            city: fields.text({
+              label: 'Kota / Domisili (misal: Jakarta Barat)',
+              defaultValue: 'Jakarta Barat',
+            }),
+            avatar: fields.text({
+              label: 'Avatar Emoji / Inisial (misal: 👩, 👨, 👩‍🦰, 🌟)',
+              defaultValue: '👩',
+            }),
+            avatarImage: fields.image({
+              label: 'Upload Foto Avatar (Opsional, menggantikan emoji jika diisi)',
+              directory: 'public/images/testimonials',
+              publicPath: '/images/testimonials/',
+            }),
+            rating: fields.integer({
+              label: 'Rating Bintang (1 - 5)',
+              defaultValue: 5,
+              validation: { min: 1, max: 5 },
+            }),
+            text: fields.text({
+              label: 'Isi Ulasan / Testimoni',
+              multiline: true,
+              defaultValue:
+                'Kaos dino-nya beneran favorit Kenzo! Sablonnya ga retak walau udah dicuci berkali-kali di mesin cuci. Bahannya adem banget dipakai lari-larian di playground.',
+            }),
+          }),
+          {
+            label: 'Daftar Testimoni (Bisa Tambah, Edit, Hapus & Urutkan)',
+            itemLabel: (props) =>
+              `${props.fields.name.value || 'Testimoni'} (${props.fields.rating.value ?? 5}★) - ${props.fields.city.value || ''}`,
           }
         ),
       },

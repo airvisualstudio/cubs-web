@@ -1,11 +1,12 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { ProductCatalog } from "../../components/ProductCatalog";
-import { getProducts } from "../../lib/keystatic";
+import { getProducts, getContact } from "../../lib/keystatic";
 import { Sparkles } from "lucide-react";
 
-// Fetch all products from Keystatic Reader
+// Fetch all products & contact from Keystatic Reader
 const products = await getProducts();
+const contact = await getContact();
 const initialCategory = Astro.url.searchParams.get("category") || "all";
 ---
 
@@ -36,6 +37,7 @@ const initialCategory = Astro.url.searchParams.get("category") || "all";
         client:load
         initialProducts={products}
         initialCategory={initialCategory}
+        whatsappNumber={contact.whatsapp || undefined}
       />
     </div>
   </div>

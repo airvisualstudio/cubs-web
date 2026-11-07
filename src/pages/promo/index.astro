@@ -16,10 +16,16 @@ import {
   Heart,
   ChevronDown,
 } from "lucide-react";
+import { getTestimonials, getContact } from "../../lib/keystatic";
+
+const contactData = await getContact();
+const rawPhone = (contactData.whatsapp || "6281234567890").replace(/[^0-9]/g, "");
+const waBaseUrl = `https://wa.me/${rawPhone || "6281234567890"}?text=`;
+
+const testimonialsData = await getTestimonials();
+const testimonialsList = testimonialsData.items && testimonialsData.items.length > 0 ? testimonialsData.items : [];
 
 // Pre-filled WhatsApp URLs for each bundle package
-const waBaseUrl = "https://wa.me/6281234567890?text=";
-
 const waBundle1 = encodeURIComponent(
   "Halo CUBS Kids, saya mau pesan 'Paket 3 Kaos Petualang' seharga Rp 149.000 (Promo Diskon 40% Meta Ads). Untuk anak usia 3-8 tahun, mohon info motif ready ya!"
 );
@@ -433,7 +439,7 @@ const waGeneral = encodeURIComponent(
 
       <!-- SECTION: INTERACTIVE LEAD CAPTURE FORM -->
       <section class="max-w-6xl mx-auto px-4 sm:px-6">
-        <PromoLeadForm client:load />
+        <PromoLeadForm client:load whatsappNumber={contactData.whatsapp || undefined} />
       </section>
 
       <!-- SECTION: PANDUAN UKURAN (SIZE CHART) -->
@@ -512,65 +518,38 @@ const waGeneral = encodeURIComponent(
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="rounded-3xl bg-white p-6 border border-stone-200/80 shadow-xs space-y-3">
-            <div class="flex items-center gap-1 text-amber-500">
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-            </div>
-            <p class="text-xs sm:text-sm text-stone-700 leading-relaxed italic">
-              &quot;Beli paket bundling 3 kaos buat Kenzo (4 thn). Beneran adem dipakai lari-larian di playground siang-siang ga bikin punggung biang keringat. Sablon dino-nya awet banget ga ngelupas dicuci mesin!&quot;
-            </p>
-            <div class="pt-2 border-t border-stone-100 flex items-center gap-2.5">
-              <span class="text-2xl">👩</span>
-              <div>
-                <p class="text-xs font-bold text-stone-900">Bunda Rini</p>
-                <p class="text-[11px] text-stone-500">Ibu dari Kenzo (4 Tahun) • Jakarta</p>
+          {testimonialsList.map((t) => {
+            const ratingCount = Math.min(5, Math.max(1, Number(t.rating) || 5));
+            return (
+              <div class="rounded-3xl bg-white p-6 border border-stone-200/80 shadow-xs space-y-3">
+                <div class="flex items-center gap-1 text-amber-500">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      className={`size-4 ${i < ratingCount ? "fill-amber-400 stroke-amber-400" : "fill-stone-200 stroke-stone-200"}`}
+                    />
+                  ))}
+                </div>
+                <p class="text-xs sm:text-sm text-stone-700 leading-relaxed italic">
+                  &quot;{t.text}&quot;
+                </p>
+                <div class="pt-2 border-t border-stone-100 flex items-center gap-2.5">
+                  {t.avatarImage ? (
+                    <img
+                      src={t.avatarImage}
+                      alt={t.name}
+                      class="w-8 h-8 rounded-full object-cover border border-amber-200"
+                    />
+                  ) : (
+                    <span class="text-2xl">{t.avatar || "👩"}</span>
+                  )}
+                  <div>
+                    <p class="text-xs font-bold text-stone-900">{t.name}</p>
+                    <p class="text-[11px] text-stone-500">{t.role}{t.city ? ` • ${t.city}` : ""}</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div class="rounded-3xl bg-white p-6 border border-stone-200/80 shadow-xs space-y-3">
-            <div class="flex items-center gap-1 text-amber-500">
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-            </div>
-            <p class="text-xs sm:text-sm text-stone-700 leading-relaxed italic">
-              &quot;Piyama katun bambunya juara! Anakku biasanya gampang rewel bangun tengah malam karena gerah, pas pake piyama CUBS tidurnya pulas sampai pagi. Bahannya jatuh dan adem semriwing.&quot;
-            </p>
-            <div class="pt-2 border-t border-stone-100 flex items-center gap-2.5">
-              <span class="text-2xl">👩‍🦰</span>
-              <div>
-                <p class="text-xs font-bold text-stone-900">Bunda Sarah</p>
-                <p class="text-[11px] text-stone-500">Ibu dari Mikha (5 Tahun) • Surabaya</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="rounded-3xl bg-white p-6 border border-stone-200/80 shadow-xs space-y-3">
-            <div class="flex items-center gap-1 text-amber-500">
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-              <Star className="size-4 fill-amber-400 stroke-amber-400" />
-            </div>
-            <p class="text-xs sm:text-sm text-stone-700 leading-relaxed italic">
-              &quot;Pelayanannya ramah banget. Sempat salah pilih size kekecilan, terus dibantu tukar ukuran tanpa dipersulit sama CS-nya. Baju gantinya cepat sampai. Recommended seller!&quot;
-            </p>
-            <div class="pt-2 border-t border-stone-100 flex items-center gap-2.5">
-              <span class="text-2xl">👨</span>
-              <div>
-                <p class="text-xs font-bold text-stone-900">Ayah Fajar</p>
-                <p class="text-[11px] text-stone-500">Ayah dari Aluna (6 Tahun) • Bandung</p>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </section>
 

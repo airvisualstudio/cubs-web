@@ -22,7 +22,12 @@ const PACKAGES = [
   },
 ];
 
-export function PromoLeadForm() {
+interface PromoLeadFormProps {
+  whatsappNumber?: string;
+}
+
+export function PromoLeadForm({ whatsappNumber }: PromoLeadFormProps = {}) {
+  const cleanWa = (whatsappNumber || "6281234567890").replace(/[^0-9]/g, "") || "6281234567890";
   const [parentName, setParentName] = React.useState("");
   const [whatsapp, setWhatsapp] = React.useState("");
   const [childAge, setChildAge] = React.useState("5-6y");
@@ -87,7 +92,7 @@ export function PromoLeadForm() {
       `Mohon info ketersediaan motif & nomor rekening untuk pembayaran ya. Terima kasih!`
     );
 
-    const waUrl = `https://wa.me/6281234567890?text=${waText}`;
+    const waUrl = `https://wa.me/${cleanWa}?text=${waText}`;
 
     setIsSubmitted(true);
 
@@ -129,7 +134,7 @@ export function PromoLeadForm() {
           </div>
 
           <a
-            href={`https://wa.me/6281234567890`}
+            href={`https://wa.me/${cleanWa}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm py-3.5 px-8 shadow-md active:scale-98 transition-all"

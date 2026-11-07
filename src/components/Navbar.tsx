@@ -5,10 +5,12 @@ import cubsLogo from "../assets/cubs-logo.webp";
 
 interface NavbarProps {
   currentPath?: string;
+  whatsappNumber?: string;
 }
 
-export function Navbar({ currentPath = "/" }: NavbarProps) {
+export function Navbar({ currentPath = "/", whatsappNumber }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
+  const cleanWa = (whatsappNumber || "6281234567890").replace(/[^0-9]/g, "") || "6281234567890";
 
   const logoSrc =
     typeof cubsLogo === "string"
@@ -188,7 +190,7 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
 
                   <div className="pt-3 border-t border-stone-100 flex flex-col gap-2">
                     <a
-                      href="https://wa.me/6281234567890"
+                      href={`https://wa.me/${cleanWa}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm transition-colors"

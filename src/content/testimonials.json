@@ -1,0 +1,31 @@
+{
+  "title": "Ulasan Bunda & Ayah Bersama CUBS",
+  "subtitle": "Pengalaman nyata para orang tua dengan buah hati usia 3 - 8 tahun.",
+  "items": [
+    {
+      "name": "Bunda Rini",
+      "role": "Ibu dari Kenzo (4 Tahun)",
+      "city": "Jakarta Barat",
+      "avatar": "👩",
+      "rating": 5,
+      "text": "Kaos dino-nya beneran favorit Kenzo! Sablonnya ga retak walau udah dicuci berkali-kali di mesin cuci. Bahannya adem banget dipakai lari-larian di playground."
+    },
+    {
+      "name": "Ayah Fajar",
+      "role": "Ayah dari Aluna (6 Tahun)",
+      "city": "Bandung",
+      "avatar": "👨",
+      "rating": 5,
+      "text": "Dress twirl pelangi buat Aluna pas banget di badan. Bahannya jatuh dan jahitan kerahnya rapi, ga ada label gatal di leher jadi anaknya betah pakai seharian."
+    },
+    {
+      "name": "Bunda Melly",
+      "role": "Ibu dari Zidan (7 Tahun)",
+      "city": "Tangerang Selatan",
+      "avatar": "👩‍🦰",
+      "rating": 5,
+      "text": "Celana jogger sama hoodie zipper-nya bahannya tebel tapi ga gerah. Anakku yang aktif manjat-manjat ga ngeluh sesak karena karet pinggangnya elastis empuk."
+    }
+  ]
+}
+

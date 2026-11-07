@@ -6,6 +6,8 @@ import {
   CATEGORY_LABELS,
   AGE_LABELS,
   getProductImages,
+  getContact,
+  getCleanWhatsappNumber,
   type ProductItem,
 } from "../lib/keystatic";
 
@@ -16,6 +18,9 @@ interface Props {
 const { product } = Astro.props;
 const entry = product.entry;
 const slug = product.slug;
+
+const contact = await getContact();
+const defaultWa = getCleanWhatsappNumber(contact.whatsapp);
 
 const categoryName = CATEGORY_LABELS[entry.category] || entry.category;
 const ageName = AGE_LABELS[entry.ageGroup] || entry.ageGroup;
@@ -29,10 +34,10 @@ const discountPercent =
 const waMessage = encodeURIComponent(
   `Halo CUBS Kids, saya tertarik untuk memesan produk "${entry.name.replace(/-/g, " ")}" seharga ${formatRupiah(entry.price)}. Apakah stok masih tersedia?`,
 );
-let orderLink = `https://wa.me/6281234567890?text=${waMessage}`;
+let orderLink = `https://wa.me/${defaultWa}?text=${waMessage}`;
 if (entry.whatsappLink && entry.whatsappLink.trim()) {
   const custom = entry.whatsappLink.trim();
-  orderLink = custom.startsWith("http") ? custom : `https://wa.me/${custom.replace(/[^0-9]/g, "")}?text=${waMessage}`;
+  orderLink = custom.startsWith("http") ? custom : `https://wa.me/${custom.replace(/[^0-9]/g, "") || defaultWa}?text=${waMessage}`;
 } else if (entry.showWhatsappButton === false && entry.marketplaceButtons && entry.marketplaceButtons.length > 0) {
   orderLink = entry.marketplaceButtons[0].url;
 }

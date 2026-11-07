@@ -1,8 +1,13 @@
 import * as React from "react";
 import { MessageCircle, Sparkles } from "lucide-react";
 
-export function ConsultationFab() {
+interface ConsultationFabProps {
+  whatsappNumber?: string;
+}
+
+export function ConsultationFab({ whatsappNumber }: ConsultationFabProps) {
   const [showTooltip, setShowTooltip] = React.useState(false);
+  const cleanPhone = (whatsappNumber || "6281234567890").replace(/[^0-9]/g, "") || "6281234567890";
 
   // Briefly tease tooltip on mount for 4 seconds so visitors immediately notice it
   React.useEffect(() => {
@@ -21,7 +26,7 @@ export function ConsultationFab() {
   }, []);
 
   const waUrl =
-    "https://wa.me/6281234567890?text=Halo%20Admin%20CUBS,%20saya%20mau%20konsultasi%20ukuran%20dan%20model%20baju%20anak%20usia%203-8%20tahun";
+    `https://wa.me/${cleanPhone}?text=Halo%20Admin%20CUBS,%20saya%20mau%20konsultasi%20ukuran%20dan%20model%20baju%20anak%20usia%203-8%20tahun`;
 
   return (
     <div

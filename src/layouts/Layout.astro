@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { Navbar } from "../components/Navbar";
 import { ConsultationFab } from "../components/ConsultationFab";
 import Footer from "../components/Footer.astro";
+import { getContact } from "../lib/keystatic";
 
 interface Props {
   title?: string;
@@ -14,6 +15,7 @@ const {
   description = "Koleksi produk anak pilihan berbahan organik dan aman bersertifikasi. Pakaian, mainan edukasi, dan perlengkapan si kecil terlengkap.",
 } = Astro.props;
 
+const contact = await getContact();
 const currentPath = Astro.url.pathname;
 const isHome = currentPath === "/" || currentPath === "";
 ---
@@ -31,7 +33,7 @@ const isHome = currentPath === "/" || currentPath === "";
     class="bg-[#fcfaf7] text-stone-800 antialiased min-h-screen flex flex-col font-sans selection:bg-amber-200 selection:text-amber-900"
   >
     <!-- Floating Rounded Navbar -->
-    <Navbar currentPath={currentPath} client:load />
+    <Navbar currentPath={currentPath} whatsappNumber={contact.whatsapp || undefined} client:load />
 
     <!-- Main Content Area: Zero top padding on Home so full-bleed Jumbotron goes all the way to the top -->
     <main class={`flex-1 ${isHome ? "pt-0" : "pt-18 sm:pt-22"}`}>
@@ -42,6 +44,6 @@ const isHome = currentPath === "/" || currentPath === "";
     <Footer />
 
     <!-- Floating Action Button (FAB) Konsultasi Ukuran & Model -->
-    <ConsultationFab client:load />
+    <ConsultationFab whatsappNumber={contact.whatsapp || undefined} client:load />
   </body>
 </html>

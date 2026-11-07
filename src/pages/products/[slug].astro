@@ -9,6 +9,8 @@ import {
   CATEGORY_LABELS,
   AGE_LABELS,
   getProductImages,
+  getContact,
+  getCleanWhatsappNumber,
 } from "../../lib/keystatic";
 import {
   Star,
@@ -44,11 +46,14 @@ const discountPercent =
     ? Math.round(((entry.originalPrice - entry.price) / entry.originalPrice) * 100)
     : null;
 
+const contact = await getContact();
+const defaultWa = getCleanWhatsappNumber(contact.whatsapp);
+
 const waMessage = encodeURIComponent(
   `Halo CUBS Kids, saya mau pesan produk:\n- Nama: ${displayName}\n- Harga: ${formatRupiah(entry.price)}\n- Link: https://cubskids.co.id/products/${slug}\nMohon info ketersediaan stok & nomor rekening untuk pembayaran.`
 );
 
-let finalWaLink = `https://wa.me/6281234567890?text=${waMessage}`;
+let finalWaLink = `https://wa.me/${defaultWa}?text=${waMessage}`;
 if (entry.whatsappLink && entry.whatsappLink.trim()) {
   const custom = entry.whatsappLink.trim();
   if (custom.startsWith("http://") || custom.startsWith("https://")) {

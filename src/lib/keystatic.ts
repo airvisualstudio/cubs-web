@@ -197,6 +197,109 @@ export async function getWhyCubs(): Promise<WhyCubsData> {
   };
 }
 
+export interface ContactData {
+  address?: string | null;
+  addressCity?: string | null;
+  whatsapp?: string | null;
+  whatsappUrl?: string | null;
+  email?: string | null;
+  operationalHours?: string | null;
+  operationalHoursWeekend?: string | null;
+  mapsUrl?: string | null;
+  addressNotes?: string | null;
+}
+
+export async function getContact(): Promise<ContactData> {
+  try {
+    const data = await reader.singletons.contact.read();
+    if (data) {
+      return data as ContactData;
+    }
+  } catch (err) {
+    console.error('Error fetching Contact from Keystatic:', err);
+  }
+  return {
+    address: 'Jl. Flamboyan Ceria No. 12, Kebayoran Baru, Jakarta Selatan',
+    addressCity: 'DKI Jakarta 12160',
+    whatsapp: '+62 812-3456-7890',
+    whatsappUrl: 'https://wa.me/6281234567890',
+    email: 'halo@cubskids.co.id',
+    operationalHours: 'Senin - Sabtu (08:00 - 20:00 WIB)',
+    operationalHoursWeekend: 'Minggu & Hari Libur: 09:00 - 17:00 WIB',
+    mapsUrl: 'https://maps.google.com',
+    addressNotes: 'Kunjungan offline dengan perjanjian H-1 melalui WhatsApp CS',
+  };
+}
+
+export interface TestimonialItem {
+  name: string;
+  role: string;
+  city: string;
+  avatar?: string | null;
+  avatarImage?: string | null;
+  rating: number;
+  text: string;
+}
+
+export interface TestimonialsData {
+  title?: string | null;
+  subtitle?: string | null;
+  items?: readonly TestimonialItem[] | TestimonialItem[] | null;
+}
+
+export async function getTestimonials(): Promise<TestimonialsData> {
+  try {
+    const data = await reader.singletons.testimonials.read();
+    if (data) {
+      return data as TestimonialsData;
+    }
+  } catch (err) {
+    console.error('Error fetching Testimonials from Keystatic:', err);
+  }
+  return {
+    title: 'Ulasan Bunda & Ayah Bersama CUBS',
+    subtitle: 'Pengalaman nyata para orang tua dengan buah hati usia 3 - 8 tahun.',
+    items: [
+      {
+        name: 'Bunda Rini',
+        role: 'Ibu dari Kenzo (4 Tahun)',
+        city: 'Jakarta Barat',
+        avatar: '👩',
+        rating: 5,
+        text: 'Kaos dino-nya beneran favorit Kenzo! Sablonnya ga retak walau udah dicuci berkali-kali di mesin cuci. Bahannya adem banget dipakai lari-larian di playground.',
+      },
+      {
+        name: 'Ayah Fajar',
+        role: 'Ayah dari Aluna (6 Tahun)',
+        city: 'Bandung',
+        avatar: '👨',
+        rating: 5,
+        text: 'Dress twirl pelangi buat Aluna pas banget di badan. Bahannya jatuh dan jahitan kerahnya rapi, ga ada label gatal di leher jadi anaknya betah pakai seharian.',
+      },
+      {
+        name: 'Bunda Melly',
+        role: 'Ibu dari Zidan (7 Tahun)',
+        city: 'Tangerang Selatan',
+        avatar: '👩‍🦰',
+        rating: 5,
+        text: 'Celana jogger sama hoodie zipper-nya bahannya tebel tapi ga gerah. Anakku yang aktif manjat-manjat ga ngeluh sesak karena karet pinggangnya elastis empuk.',
+      },
+    ],
+  };
+}
+
+export function getCleanWhatsappNumber(phone?: string | null): string {
+  if (!phone) return '6281234567890';
+  const digits = phone.replace(/[^0-9]/g, '');
+  return digits.length > 0 ? digits : '6281234567890';
+}
+
+export function buildWhatsappUrl(phone?: string | null, text?: string): string {
+  const number = getCleanWhatsappNumber(phone);
+  if (!text) return `https://wa.me/${number}`;
+  return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+}
+
 export function formatRupiah(amount?: number | null): string {
   if (amount == null) return 'Rp 0';
   return new Intl.NumberFormat('id-ID', {
