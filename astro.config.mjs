@@ -8,5 +8,15 @@ export default defineConfig({
   output: "server",
   adapter: node({ mode: "standalone" }),
   integrations: [react(), keystatic()],
-  vite: { plugins: [tailwindcss()] },
+  vite: {
+    plugins: [tailwindcss()],
+    server: {
+      allowedHosts: [
+        "noncooperative-proprietorial-maris.ngrok-free.dev",
+        ".ngrok-free.dev",
+        ".ngrok.io",
+        ".ngrok-free.app",
+      ],
+    },
+  },
 });
