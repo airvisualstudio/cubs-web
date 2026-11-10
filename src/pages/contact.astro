@@ -3,7 +3,14 @@ import Layout from "../layouts/Layout.astro";
 import { ContactForm } from "../components/ContactForm";
 import { FaqSection } from "../components/FaqSection";
 import { getFaq, getContact } from "../lib/keystatic";
-import { Phone, Mail, MapPin, Clock, MessageSquare, Sparkles, Instagram } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  MessageSquare,
+  Sparkles,
+} from "lucide-react";
 
 const faqData = await getFaq();
 const contact = await getContact();
@@ -17,15 +24,20 @@ const contact = await getContact();
     <div class="mx-auto max-w-6xl space-y-16">
       <!-- Page Header -->
       <div class="text-center max-w-2xl mx-auto space-y-3">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold">
+        <div
+          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold"
+        >
           <MessageSquare className="size-3.5" />
           <span>Kami Siap Membantu</span>
         </div>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight">
+        <h1
+          class="text-3xl sm:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight"
+        >
           Ada yang Bisa Kami Bantu untuk Si Kecil?
         </h1>
         <p class="text-sm sm:text-base text-stone-600">
-          Konsultasi ukuran baju, rekomendasi mainan sesuai tahapan usia anak, maupun custom hampers kado lahiran.
+          Konsultasi ukuran baju, rekomendasi mainan sesuai tahapan usia anak,
+          maupun custom hampers kado lahiran.
         </p>
       </div>
 
@@ -33,104 +45,150 @@ const contact = await getContact();
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
         <!-- Left: Contact Information Cards -->
         <div class="lg:col-span-5 space-y-5">
-          <div class="rounded-3xl bg-emerald-600 text-white p-6 sm:p-8 shadow-sm space-y-6">
+          <div
+            class="rounded-3xl bg-emerald-600 text-white p-6 sm:p-8 shadow-sm space-y-6"
+          >
             <div class="space-y-2">
               <span class="text-2xl">🧸</span>
               <h2 class="text-2xl font-bold">Layanan Pelanggan Ramah</h2>
               <p class="text-xs sm:text-sm text-amber-50 leading-relaxed">
-                Tim kami siap mendampingi Bunda dan Ayah dalam memilih produk yang paling tepat dan nyaman untuk si buah hati.
+                Tim kami siap mendampingi Bunda dan Ayah dalam memilih produk
+                yang paling tepat dan nyaman untuk si buah hati.
               </p>
             </div>
 
             <div class="space-y-4 pt-2 border-t border-amber-400/40">
               <div class="flex items-start gap-3.5">
-                <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+                <div
+                  class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center shrink-0"
+                >
                   <Phone className="size-5" />
                 </div>
                 <div>
-                  <p class="text-[11px] uppercase tracking-wider text-amber-100 font-semibold">WhatsApp Fast Response</p>
+                  <p
+                    class="text-[11px] uppercase tracking-wider text-amber-100 font-semibold"
+                  >
+                    WhatsApp Fast Response
+                  </p>
                   <a
-                    href={contact.whatsappUrl || `https://wa.me/${(contact.whatsapp || '').replace(/[^0-9]/g, '')}`}
+                    href={contact.whatsappUrl ||
+                      `https://wa.me/${(contact.whatsapp || "").replace(/[^0-9]/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     class="font-bold text-base hover:underline"
                   >
                     {contact.whatsapp}
                   </a>
-                  <p class="text-[10px] text-amber-100">Respon dalam &lt; 15 menit</p>
+                  <p class="text-[10px] text-amber-100">
+                    Respon dalam &lt; 15 menit
+                  </p>
                 </div>
               </div>
 
               <div class="flex items-start gap-3.5">
-                <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+                <div
+                  class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center shrink-0"
+                >
                   <Mail className="size-5" />
                 </div>
                 <div>
-                  <p class="text-[11px] uppercase tracking-wider text-amber-100 font-semibold">Email Resmi</p>
+                  <p
+                    class="text-[11px] uppercase tracking-wider text-amber-100 font-semibold"
+                  >
+                    Email Resmi
+                  </p>
                   <a
                     href={`mailto:${contact.email}`}
                     class="font-bold text-base hover:underline"
                   >
                     {contact.email}
                   </a>
-                  <p class="text-[10px] text-amber-100">Untuk hampers & kemitraan</p>
+                  <p class="text-[10px] text-amber-100">
+                    Untuk hampers & kemitraan
+                  </p>
                 </div>
               </div>
 
               <div class="flex items-start gap-3.5">
-                <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+                <div
+                  class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center shrink-0"
+                >
                   <Clock className="size-5" />
                 </div>
                 <div>
-                  <p class="text-[11px] uppercase tracking-wider text-amber-100 font-semibold">Jam Operasional CS</p>
+                  <p
+                    class="text-[11px] uppercase tracking-wider text-amber-100 font-semibold"
+                  >
+                    Jam Operasional CS
+                  </p>
                   <p class="font-bold text-sm">{contact.operationalHours}</p>
-                  {contact.operationalHoursWeekend && (
-                    <p class="text-[10px] text-amber-100">{contact.operationalHoursWeekend}</p>
-                  )}
+                  {
+                    contact.operationalHoursWeekend && (
+                      <p class="text-[10px] text-amber-100">
+                        {contact.operationalHoursWeekend}
+                      </p>
+                    )
+                  }
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Store Location Card (Dynamic from Keystatic) -->
-          <div class="rounded-3xl bg-white p-6 border border-stone-200/80 shadow-xs space-y-3">
-            <div class="flex items-center gap-2 text-stone-900 font-bold text-sm">
+          <div
+            class="rounded-3xl bg-white p-6 border border-stone-200/80 shadow-xs space-y-3"
+          >
+            <div
+              class="flex items-center gap-2 text-stone-900 font-bold text-sm"
+            >
               <MapPin className="size-4 text-emerald-600" />
               <span>Gudang & Showroom Utama</span>
             </div>
             <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
-              {contact.address}{contact.addressCity ? `, ${contact.addressCity}` : ''}
+              {contact.address}{
+                contact.addressCity ? `, ${contact.addressCity}` : ""
+              }
             </p>
-            {contact.addressNotes && (
-              <p class="text-[11px] text-stone-400 italic">
-                ℹ️ {contact.addressNotes}
-              </p>
-            )}
-            {contact.mapsUrl && (
-              <div class="pt-2">
-                <a
-                  href={contact.mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline"
-                >
-                  <span>Buka di Google Maps →</span>
-                </a>
-              </div>
-            )}
+            {
+              contact.addressNotes && (
+                <p class="text-[11px] text-stone-400 italic">
+                  ℹ️ {contact.addressNotes}
+                </p>
+              )
+            }
+            {
+              contact.mapsUrl && (
+                <div class="pt-2">
+                  <a
+                    href={contact.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline"
+                  >
+                    <span>Buka di Google Maps →</span>
+                  </a>
+                </div>
+              )
+            }
           </div>
         </div>
 
         <!-- Right: Interactive Contact Form -->
         <div class="lg:col-span-7 space-y-4">
           <div class="space-y-1 mb-2">
-            <h3 class="text-xl font-bold text-stone-900">Kirim Pesan / Konsultasi Cepat</h3>
+            <h3 class="text-xl font-bold text-stone-900">
+              Kirim Pesan / Konsultasi Cepat
+            </h3>
             <p class="text-xs sm:text-sm text-stone-500">
-              Isi data di bawah ini, kami akan langsung meneruskan pesan Bunda/Ayah ke WhatsApp CS resmi.
+              Isi data di bawah ini, kami akan langsung meneruskan pesan
+              Bunda/Ayah ke WhatsApp CS resmi.
             </p>
           </div>
 
-          <ContactForm client:load whatsappNumber={contact.whatsapp || undefined} />
+          <ContactForm
+            client:load
+            whatsappNumber={contact.whatsapp || undefined}
+          />
         </div>
       </div>
 
@@ -147,4 +205,3 @@ const contact = await getContact();
     </div>
   </div>
 </Layout>
-
